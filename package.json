@@ -1,0 +1,15 @@
+{
+  "name": "ecosystem-central-command",
+  "version": "1.0.0",
+  "description": "Central command dashboard for development ecosystem",
+  "scripts": {
+    "generate-portfolio": "node automation/portfolio-generator.js",
+    "collect-metrics": "node automation/metrics-collector.js",
+    "update-ecosystem": "npm run collect-metrics && npm run generate-portfolio"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": ["ecosystem", "portfolio", "automation", "analytics"],
+  "author": "Dev Ecosystem",
+  "license": "MIT"
+}
