@@ -736,7 +736,7 @@ Language statistics not available for ${orgName}.`;
       const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
       const icon = this.getLanguageIcon(lang.language);
       
-      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)\n`;
+      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
     });
 
     // Add trends if available
@@ -745,7 +745,7 @@ Language statistics not available for ${orgName}.`;
       
       Object.entries(this.languageStats.trends.languages).slice(0, 5).forEach(([language, trend]) => {
         if (languages.some(l => l.language === language)) {
-          statsSection += `- **${language}**: ${trend.trend_icon} ${trend.percentage_change}% ${trend.trend}\n`;
+          statsSection += `- **${language}**: ${trend.trend_icon} ${trend.percentage_change}% ${trend.trend}  \n`;
         }
       });
     }
@@ -780,8 +780,8 @@ Ecosystem-wide statistics not available.`;
         lang.organizations.slice(0, 3).map(org => org.name.replace('Dev', '')).join(', ') : 
         'Multiple';
       
-      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)\n`;
-      statsSection += `  *Primary use: ${orgList}*\n`;
+      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
+      statsSection += `  *Primary use: ${orgList}*  \n`;
     });
 
     // Add organization breakdown
@@ -792,7 +792,7 @@ Ecosystem-wide statistics not available.`;
       const repoCount = orgData.totals.accessible_repositories;
       const percentage = orgData.totals.languages?.[0]?.percentage || '0';
       
-      statsSection += `- **${orgName}**: ${primaryLang} specialist (${percentage}% usage, ${repoCount} repos)\n`;
+      statsSection += `- **${orgName}**: ${primaryLang} specialist (${percentage}% usage, ${repoCount} repos)  \n`;
     });
 
     return statsSection;
