@@ -76,7 +76,7 @@
 **Total Code**: 48,214 lines across 12 repositories in 4 organizations
 
 ### 📊 Cross-Organization Language Distribution
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟩🟩🟩🟪🟪🟧🟧🟫⚪
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
 
 🟨 **JavaScript** 37.4% (18,040 lines) • *Ecosystem, PersonalHub, BusinessHub*  
 🔵 **TypeScript** 21.8% (10,527 lines) • *PersonalHub, Ecosystem, BusinessHub*  

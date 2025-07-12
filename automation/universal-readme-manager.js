@@ -774,7 +774,7 @@ Ecosystem-wide statistics not available.`;
 `;
 
     // Create colored progress bar for ecosystem
-    const coloredBar = this.generateColoredProgressBar(languages, 35);
+    const coloredBar = this.generateColoredProgressBar(languages, 25);
     statsSection += `${coloredBar}\n\n`;
 
     // Add language list below the bar
