@@ -732,7 +732,7 @@ Language statistics not available for ${orgName}.`;
 `;
 
     // Create colored progress bar
-    const coloredBar = this.generateColoredProgressBar(languages, 30);
+    const coloredBar = this.generateColoredProgressBar(languages, 25);
     statsSection += `${coloredBar}\n\n`;
 
     // Add language list below the bar
@@ -774,7 +774,7 @@ Ecosystem-wide statistics not available.`;
 `;
 
     // Create colored progress bar for ecosystem
-    const coloredBar = this.generateColoredProgressBar(languages, 40);
+    const coloredBar = this.generateColoredProgressBar(languages, 35);
     statsSection += `${coloredBar}\n\n`;
 
     // Add language list below the bar
@@ -842,11 +842,11 @@ Ecosystem-wide statistics not available.`;
   /**
    * Generate colored progress bar segments
    */
-  generateColoredProgressBar(languages, totalWidth = 30) {
+  generateColoredProgressBar(languages, totalWidth = 25) {
     let coloredBar = '';
     
     languages.forEach(lang => {
-      const segmentLength = Math.round((parseFloat(lang.percentage) / 100) * totalWidth);
+      const segmentLength = Math.max(1, Math.round((parseFloat(lang.percentage) / 100) * totalWidth));
       const color = this.getLanguageColor(lang.language);
       
       // Use different Unicode block characters for color simulation
@@ -859,7 +859,7 @@ Ecosystem-wide statistics not available.`;
         'HTML': '🟫', // Brown
         'C++': '🟥', // Red
         'C': '⬛', // Black
-        'JSON': '⬜', // White
+        'JSON': '⚪', // White circle
         'Shell': '🟩', // Green
         'Markdown': '⬛', // Black
         'SCSS': '🟪', // Purple

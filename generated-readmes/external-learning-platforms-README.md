@@ -17,7 +17,7 @@ This repository consolidates my comprehensive learning journey across multiple e
 **Total Code**: 14,264 lines across 4 repositories
 
 ### Language Distribution
-🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟩🟪🟪🟫
+🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟪🟪🟫🟪
 
 🔵 **TypeScript** 38.1% (5,440 lines)  
 🟨 **JavaScript** 32.7% (4,663 lines)  
