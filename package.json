@@ -1,38 +1,20 @@
 {
   "name": "ecosystem-central-command",
-  "version": "2.0.0",
-  "description": "Complete automation system for development ecosystem management",
+  "version": "1.0.0",
+  "description": "infrastructure repository for DevEcosystem",
+  "main": "index.js",
   "scripts": {
-    "ecosystem:discover": "node automation/ecosystem-auto-discovery.js",
-    "ecosystem:stats": "node automation/github-stats-collector.js",
-    "ecosystem:readme": "node automation/universal-readme-manager.js",
-    "ecosystem:sync": "node automation/ecosystem-auto-sync.js",
-    "ecosystem:webhook": "node automation/ecosystem-webhook-handler.js",
-    "ecosystem:webhook-setup": "node automation/webhook-auto-setup.js",
-    "ecosystem:webhook-setup-auto": "node automation/webhook-auto-setup.js --auto",
-    "ecosystem:full": "npm run ecosystem:discover && npm run ecosystem:stats && npm run ecosystem:readme",
-    "dev:webhook": "WEBHOOK_PORT=3000 npm run ecosystem:webhook",
-    "test:automation": "npm run ecosystem:discover && npm run ecosystem:stats",
-    "generate-portfolio": "node automation/portfolio-generator.js",
-    "collect-metrics": "node automation/metrics-collector.js",
-    "update-external": "node automation/github-api-integration.js",
-    "update-readmes": "node automation/universal-readme-manager.js",
-    "update-ecosystem": "npm run collect-metrics && npm run update-external && npm run generate-portfolio && npm run update-readmes",
-    "health-check": "npm run ecosystem:sync"
-  },
-  "dependencies": {
-    "@octokit/rest": "^20.0.2",
-    "express": "^4.18.2"
-  },
-  "devDependencies": {},
-  "keywords": ["ecosystem", "automation", "github", "repository-management", "analytics", "ci-cd"],
-  "author": "Dev Ecosystem",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "echo \"Add your linting command here\"",
+    "format": "echo \"Add your formatting command here\"",
+    "dev": "echo \"Add your development server command here\"",
+    "build": "echo \"Add your build command here\"",
+    "start": "echo \"Add your start command here\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevEcosystem/ecosystem-central-command.git"
-  }
+  },
+  "author": "Solo Entrepreneur",
+  "license": "MIT"
 }
