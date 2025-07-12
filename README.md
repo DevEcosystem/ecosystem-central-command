@@ -73,7 +73,7 @@
 
 ## 🌍 Ecosystem Technology Overview
 
-**Total Code**: 65,000+ lines across 13 repositories in 4 organizations
+**Total Code**: 0 lines across 13 repositories in 4 organizations
 
 ### 📊 Cross-Organization Language Distribution
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
@@ -82,7 +82,7 @@
 ### 🏢 Organization Breakdown
 
 #### Business Hub
-**15,000+ lines** • **5 repositories** • **Primary**: JavaScript
+**0 lines** • **5 repositories** • **Primary**: Unknown
 
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟪🟪🟪🟫🟩
 
