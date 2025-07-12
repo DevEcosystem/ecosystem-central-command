@@ -8,6 +8,8 @@
     "ecosystem:readme": "node automation/universal-readme-manager.js",
     "ecosystem:sync": "node automation/ecosystem-auto-sync.js",
     "ecosystem:webhook": "node automation/ecosystem-webhook-handler.js",
+    "ecosystem:webhook-setup": "node automation/webhook-auto-setup.js",
+    "ecosystem:webhook-setup-auto": "node automation/webhook-auto-setup.js --auto",
     "ecosystem:full": "npm run ecosystem:discover && npm run ecosystem:stats && npm run ecosystem:readme",
     "dev:webhook": "WEBHOOK_PORT=3000 npm run ecosystem:webhook",
     "test:automation": "npm run ecosystem:discover && npm run ecosystem:stats",

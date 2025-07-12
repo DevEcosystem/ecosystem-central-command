@@ -1,0 +1,27 @@
+{
+  "generated_at": "2025-07-12T17:28:32.015Z",
+  "webhook_secret": "175886b8c979e885047f9c0d290679afe3b18116ef5de02f80fd28dc4e14f9e6",
+  "organizations": {},
+  "setup_results": {
+    "success": [],
+    "failed": [],
+    "skipped": [
+      {
+        "org": "DevBusinessHub",
+        "reason": "No admin access"
+      },
+      {
+        "org": "DevPersonalHub",
+        "reason": "No admin access"
+      },
+      {
+        "org": "DevAcademicHub",
+        "reason": "No admin access"
+      },
+      {
+        "org": "DevEcosystem",
+        "reason": "No admin access"
+      }
+    ]
+  }
+}

@@ -12,6 +12,7 @@ The Ecosystem Complete Automation System provides **full end-to-end automation**
 
 - ✅ **Auto-Discovery**: Automatically finds new repositories across all organizations
 - ✅ **Real-time Integration**: Webhook-based instant integration of new repositories
+- ✅ **Continuous Monitoring**: 15-minute polling for repository changes
 - ✅ **Statistics Collection**: Automated GitHub language statistics and metrics
 - ✅ **README Generation**: Dynamic README files for all repositories
 - ✅ **Git Automation**: Automatic commits and pushes of updates
@@ -205,22 +206,28 @@ npm run collect-metrics     # Legacy metrics collection
 
 ## 🔄 Automation Triggers
 
-### 1. Scheduled Automation (GitHub Actions)
+### 1. Continuous Monitoring (GitHub Actions) - NEW!
+- **Frequency**: Every 15 minutes
+- **Purpose**: Detect new repository changes automatically
+- **Method**: API polling and repository count comparison
+- **Response**: Immediate full ecosystem sync when changes detected
+
+### 2. Scheduled Automation (GitHub Actions)
 - **Frequency**: Daily at 6:00 AM UTC
-- **Purpose**: Regular ecosystem sync
+- **Purpose**: Regular ecosystem sync and maintenance
 - **Includes**: Full discovery, stats, README, git operations
 
-### 2. Real-time Automation (Webhooks)
+### 3. Real-time Automation (Webhooks) - Optional
 - **Trigger**: Repository events (create, delete, push)
 - **Response**: Immediate ecosystem integration
-- **Scope**: Affected repositories and ecosystem overview
+- **Setup**: Requires organization admin access for webhook configuration
 
-### 3. Manual Automation
+### 4. Manual Automation
 - **CLI**: `npm run ecosystem:sync`
 - **GitHub Actions**: Manual workflow dispatch
 - **API**: POST to webhook endpoint
 
-### 4. Configuration-driven Automation
+### 5. Configuration-driven Automation
 - **Trigger**: Changes to automation files
 - **Purpose**: Keep automation up-to-date
 - **Includes**: System reconfiguration
