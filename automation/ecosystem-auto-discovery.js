@@ -150,6 +150,20 @@ class EcosystemAutoDiscovery {
           topics: ['education', 'language-learning'],
           archived: false,
           disabled: false
+        },
+        {
+          name: 'client-investigation',
+          full_name: 'DevBusinessHub/client-investigation',
+          private: true,
+          language: 'TypeScript',
+          description: 'Investigation and research project',
+          updated_at: new Date().toISOString(),
+          size: 3500,
+          stargazers_count: 0,
+          forks_count: 0,
+          topics: ['research', 'investigation'],
+          archived: false,
+          disabled: false
         }
       ],
       'DevPersonalHub': [

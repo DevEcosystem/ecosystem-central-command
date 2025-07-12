@@ -1,20 +1,22 @@
 {
-  "last_discovery": "2025-07-12T17:17:17.900Z",
+  "last_discovery": "2025-07-12T17:18:47.968Z",
   "discovery_mode": "mock",
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
-      "total_repositories": 3,
-      "active_repositories": 3,
+      "total_repositories": 4,
+      "active_repositories": 4,
       "repositories": [
         "business-portfolio",
         "business-management",
-        "client-language-platform"
+        "client-language-platform",
+        "client-investigation"
       ],
       "active_repository_names": [
         "business-portfolio",
         "business-management",
-        "client-language-platform"
+        "client-language-platform",
+        "client-investigation"
       ],
       "primary_languages": [
         {
@@ -23,10 +25,10 @@
         },
         {
           "language": "TypeScript",
-          "count": 1
+          "count": 2
         }
       ],
-      "last_updated": "2025-07-12T17:17:17.900Z"
+      "last_updated": "2025-07-12T17:18:47.968Z"
     },
     "DevPersonalHub": {
       "name": "DevPersonalHub",
@@ -54,7 +56,7 @@
           "count": 2
         }
       ],
-      "last_updated": "2025-07-12T17:17:17.900Z"
+      "last_updated": "2025-07-12T17:18:47.968Z"
     },
     "DevAcademicHub": {
       "name": "DevAcademicHub",
@@ -76,7 +78,7 @@
           "count": 3
         }
       ],
-      "last_updated": "2025-07-12T17:17:17.900Z"
+      "last_updated": "2025-07-12T17:18:47.968Z"
     },
     "DevEcosystem": {
       "name": "DevEcosystem",
@@ -102,12 +104,12 @@
           "count": 1
         }
       ],
-      "last_updated": "2025-07-12T17:17:17.900Z"
+      "last_updated": "2025-07-12T17:18:47.968Z"
     }
   },
   "totals": {
     "total_organizations": 4,
-    "total_repositories": 13,
-    "total_active_repositories": 13
+    "total_repositories": 14,
+    "total_active_repositories": 14
   }
 }

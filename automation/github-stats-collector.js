@@ -16,11 +16,12 @@ class GitHubStatsCollector {
     this.cacheDir = path.join(this.baseDir, '.github-stats-cache');
     
     // Organization and repository configuration
-                    this.organizations =     {
+                        this.organizations =     {
           "DevBusinessHub": [
                 "business-portfolio",
                 "business-management",
-                "client-language-platform"
+                "client-language-platform",
+                "client-investigation"
           ],
           "DevPersonalHub": [
                 "external-learning-platforms",
@@ -155,6 +156,9 @@ class GitHubStatsCollector {
         },
         'client-language-platform': {
           'JavaScript': 2890, 'TypeScript': 1560, 'CSS': 780, 'HTML': 445, 'Python': 340
+        },
+        'client-investigation': {
+          'TypeScript': 2450, 'JavaScript': 680, 'CSS': 250, 'HTML': 120
         }
       },
       'DevPersonalHub': {
