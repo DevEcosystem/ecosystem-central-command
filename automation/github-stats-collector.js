@@ -19,7 +19,8 @@ class GitHubStatsCollector {
     this.organizations = {
       'DevBusinessHub': [
         'business-portfolio',
-        'business-management'
+        'business-management',
+        'client-language-platform'
       ],
       'DevPersonalHub': [
         'external-learning-platforms',
