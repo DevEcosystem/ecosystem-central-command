@@ -16,11 +16,29 @@ class GitHubStatsCollector {
     this.cacheDir = path.join(this.baseDir, '.github-stats-cache');
     
     // Organization and repository configuration (auto-updated by ecosystem-auto-discovery)
-    this.organizations = {
-      "DevEcosystem": ["ecosystem-automation-tools", "ecosystem-central-command"],
-      "DevPersonalHub": ["learning-projects", "technical-showcase", "portfolio-website", "external-learning-platforms"],
-      "DevAcademicHub": ["academic-portfolio", "collaborative-projects"],
-      "DevBusinessHub": ["automation-tools", "business-management", "Test", "client-investigation", "client-language-platform"]
+        this.organizations =     {
+          "DevBusinessHub": [
+                "business-portfolio",
+                "business-management",
+                "client-language-platform",
+                "client-investigation"
+          ],
+          "DevPersonalHub": [
+                "external-learning-platforms",
+                "personal-innovation-lab",
+                "portfolio-website",
+                "technical-showcase"
+          ],
+          "DevAcademicHub": [
+                "computer-science-degree",
+                "university-coursework",
+                "academic-portfolio"
+          ],
+          "DevEcosystem": [
+                "ecosystem-central-command",
+                "development-portfolio",
+                "unified-development-hub"
+          ]
     };
     
     this.stats = {
