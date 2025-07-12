@@ -107,9 +107,9 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 🔗 Quick Navigation
 
 ### 📋 Ecosystem Components
-- [🏢 Business Hub](https://github.com/BusinessHub) - Professional client work + strategy
-- [👤 Personal Lab](https://github.com/PersonalLab) - Innovation + personal development  
-- [🎓 Academic Hub](https://github.com/AcademicHub) - Education + research activities
+- [🏢 Business Hub](https://github.com/DevBusinessHub) - Professional client work + strategy
+- [👤 Personal Lab](https://github.com/DevPersonalHub) - Innovation + personal development  
+- [🎓 Academic Hub](https://github.com/DevAcademicHub) - Education + research activities
 
 ### 📈 Analytics & Insights  
 - [Skill Growth Tracker](analytics/skill-growth-metrics.json)
@@ -121,7 +121,7 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 📧 Professional Contact
 
 **For Business Inquiries**: taiu.engineer@gmail.com  
-**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@PersonalLab](https://github.com/PersonalLab) | [@AcademicHub](https://github.com/AcademicHub)  
+**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@DevPersonalHub](https://github.com/DevPersonalHub) | [@DevAcademicHub](https://github.com/DevAcademicHub)  
 **Portfolio Website**: [Auto-generated from ecosystem data]
 
 ---
