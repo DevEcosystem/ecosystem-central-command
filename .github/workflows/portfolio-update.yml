@@ -1,0 +1,203 @@
+name: Portfolio Auto-Update
+
+on:
+  # Run on push to main branch
+  push:
+    branches: [main]
+    paths:
+      - 'organizations/**'
+      - 'analytics/**'
+      - 'career/**'
+
+  # Run on schedule (daily at 6 AM UTC)
+  schedule:
+    - cron: '0 6 * * *'
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update-portfolio:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        if [ -f package.json ]; then
+          npm ci
+        else
+          npm install --save-dev fs path
+        fi
+
+    - name: Collect metrics
+      run: |
+        echo "📊 Collecting ecosystem metrics..."
+        node automation/metrics-collector.js
+
+    - name: Update external integrations
+      run: |
+        echo "🔗 Updating external repository integrations..."
+        node automation/github-api-integration.js
+
+    - name: Generate portfolio
+      run: |
+        echo "🚀 Generating updated portfolio..."
+        node automation/portfolio-generator.js
+
+    - name: Run unified automation
+      run: |
+        echo "🤖 Running complete ecosystem automation..."
+        node automation/ecosystem-unified-automation.js
+
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if git diff --quiet; then
+          echo "No changes detected"
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected"
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        git add README.md
+        git add AUTOMATION_SUMMARY.md
+        git add analytics/
+        git add organizations/
+        
+        # Create commit with timestamp
+        TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        git commit -m "🤖 Auto-update ecosystem portfolio - $TIMESTAMP
+
+        📊 Automated Updates:
+        - Collected metrics from all 4 organizations
+        - Updated external repository integrations
+        - Generated unified portfolio dashboard
+        - Refreshed ecosystem health monitoring
+        
+        🔄 Next scheduled update: Tomorrow at 6:00 AM UTC
+        🚀 Generated with GitHub Actions automation"
+
+        git push
+
+    - name: Create deployment summary
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const timestamp = new Date().toISOString();
+          
+          const summary = `## 🤖 Ecosystem Automation Summary
+          
+          **Execution Time**: ${timestamp}
+          **Status**: ✅ Successfully Completed
+          **Updated Components**: 
+          - 📊 Metrics collection from all organizations
+          - 🔗 External repository integration refresh
+          - 🎨 Unified portfolio dashboard generation
+          - 🏥 Ecosystem health monitoring update
+          
+          **Next Scheduled Run**: Tomorrow at 6:00 AM UTC
+          **Manual Trigger**: Available via Actions tab
+          
+          ---
+          *Automated by GitHub Actions Ecosystem Management*`;
+          
+          core.summary.addRaw(summary);
+          await core.summary.write();
+
+  # Health check job
+  ecosystem-health-check:
+    runs-on: ubuntu-latest
+    needs: update-portfolio
+    if: always()
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Validate ecosystem structure
+      run: |
+        echo "🔍 Validating ecosystem structure..."
+        
+        # Check required files exist
+        REQUIRED_FILES=(
+          "README.md"
+          "AUTOMATION_SUMMARY.md"
+          "package.json"
+          "organizations/business-hub-overview.md"
+          "organizations/personal-lab-showcase.md"
+          "organizations/academic-hub-achievements.md"
+          "organizations/external-collaborations.md"
+        )
+        
+        for file in "${REQUIRED_FILES[@]}"; do
+          if [ -f "$file" ]; then
+            echo "✅ $file exists"
+          else
+            echo "❌ $file missing"
+            exit 1
+          fi
+        done
+
+    - name: Check automation health
+      run: |
+        echo "🏥 Checking automation system health..."
+        
+        # Verify automation scripts exist
+        AUTOMATION_SCRIPTS=(
+          "automation/metrics-collector.js"
+          "automation/portfolio-generator.js"
+          "automation/github-api-integration.js"
+          "automation/ecosystem-unified-automation.js"
+        )
+        
+        for script in "${AUTOMATION_SCRIPTS[@]}"; do
+          if [ -f "$script" ]; then
+            echo "✅ $script available"
+          else
+            echo "❌ $script missing"
+            exit 1
+          fi
+        done
+
+    - name: Performance metrics
+      run: |
+        echo "⚡ Checking performance metrics..."
+        
+        # File size checks
+        README_SIZE=$(wc -c < README.md)
+        if [ $README_SIZE -gt 100000 ]; then
+          echo "⚠️ README.md is large ($README_SIZE bytes) - consider optimization"
+        else
+          echo "✅ README.md size optimal ($README_SIZE bytes)"
+        fi
+        
+        # Check last update recency
+        LAST_MODIFIED=$(stat -c %Y README.md 2>/dev/null || stat -f %m README.md)
+        CURRENT_TIME=$(date +%s)
+        AGE=$((CURRENT_TIME - LAST_MODIFIED))
+        
+        if [ $AGE -lt 86400 ]; then
+          echo "✅ Portfolio updated within last 24 hours"
+        else
+          echo "⚠️ Portfolio last updated $(($AGE / 86400)) days ago"
+        fi
