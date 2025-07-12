@@ -78,6 +78,12 @@
 ### 📊 Cross-Organization Language Distribution
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
 
+🟨 **JavaScript** 45.2% (Cross-platform development)  
+🟦 **TypeScript** 28.1% (Enterprise applications)  
+🟩 **Python** 12.8% (Data analysis & automation)  
+🟪 **CSS** 8.4% (User interface styling)  
+🟧 **HTML** 4.2% (Web structure)  
+🟫 **SCSS** 1.3% (Advanced styling)
 
 ### 🏢 Organization Breakdown
 
