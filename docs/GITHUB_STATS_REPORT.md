@@ -1,8 +1,8 @@
 # 📊 GitHub Language Statistics Report
 
-**Generated**: 7/13/2025, 4:02:08 AM  
+**Generated**: 7/13/2025, 5:02:17 AM  
 **Total Organizations**: 4  
-**Total Repositories**: 14  
+**Total Repositories**: 13  
 **Total Code Lines**: 0
 
 ## 🌍 Ecosystem Overview
@@ -13,8 +13,8 @@
 ## 🏢 Organization Breakdown
 
 
-### DevBusinessHub
-- **Repositories**: 4
+### DevEcosystem
+- **Repositories**: 2
 - **Total Lines**: 0
 - **Primary Language**: Unknown
 - **Languages Used**: 0
@@ -34,7 +34,7 @@
 
 
 ### DevAcademicHub
-- **Repositories**: 3
+- **Repositories**: 2
 - **Total Lines**: 0
 - **Primary Language**: Unknown
 - **Languages Used**: 0
@@ -43,8 +43,8 @@
 
 
 
-### DevEcosystem
-- **Repositories**: 3
+### DevBusinessHub
+- **Repositories**: 5
 - **Total Lines**: 0
 - **Primary Language**: Unknown
 - **Languages Used**: 0
