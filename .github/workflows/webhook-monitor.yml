@@ -3,7 +3,7 @@ name: 🔍 Repository Monitor
 on:
   # Monitor all organization events via GitHub API polling
   schedule:
-    - cron: '*/15 * * * *'  # Every 15 minutes
+    - cron: '*/5 * * * *'  # Every 5 minutes - faster detection
   
   # Manual trigger for immediate check
   workflow_dispatch:
