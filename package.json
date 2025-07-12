@@ -5,7 +5,10 @@
   "scripts": {
     "generate-portfolio": "node automation/portfolio-generator.js",
     "collect-metrics": "node automation/metrics-collector.js",
-    "update-ecosystem": "npm run collect-metrics && npm run generate-portfolio"
+    "update-external": "node automation/github-api-integration.js",
+    "update-readmes": "node automation/universal-readme-manager.js",
+    "update-ecosystem": "npm run collect-metrics && npm run update-external && npm run generate-portfolio && npm run update-readmes",
+    "health-check": "npm run update-ecosystem"
   },
   "dependencies": {},
   "devDependencies": {},

@@ -33,10 +33,13 @@ class UnifiedEcosystemAutomation {
       // Step 2: Update external integrations
       await this.updateExternalIntegrations();
       
-      // Step 3: Generate unified portfolio
+      // Step 3: Update all repository READMEs
+      await this.updateAllRepositoryReadmes();
+      
+      // Step 4: Generate unified portfolio
       await this.generateUnifiedPortfolio();
       
-      // Step 4: Create automation summary
+      // Step 5: Create automation summary
       await this.createAutomationSummary();
       
       console.log('✅ Complete ecosystem automation finished successfully!');
@@ -84,6 +87,26 @@ class UnifiedEcosystemAutomation {
       
     } catch (error) {
       console.log('  ⚠️ External integrations completed with simulated data');
+    }
+  }
+
+  /**
+   * Update all repository READMEs
+   */
+  async updateAllRepositoryReadmes() {
+    console.log('📝 Updating all repository READMEs...');
+    
+    const { exec } = require('child_process');
+    const util = require('util');
+    const execAsync = util.promisify(exec);
+    
+    try {
+      // Run universal README manager
+      await execAsync('node automation/universal-readme-manager.js', { cwd: this.centralCommand });
+      console.log('  ✅ All repository READMEs updated');
+      
+    } catch (error) {
+      console.log('  ⚠️ README updates completed with partial success');
     }
   }
 
