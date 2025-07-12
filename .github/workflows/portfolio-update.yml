@@ -16,6 +16,10 @@ on:
   # Allow manual trigger
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   update-portfolio:
     runs-on: ubuntu-latest
