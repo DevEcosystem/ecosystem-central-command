@@ -50,13 +50,23 @@ main (stable) ← 安定版
 main (published) ← 公開版
 ├── develop/machine-learning ← ML研究開発
 ├── develop/data-analysis ← データ分析開発
+├── develop/computer-science-101 ← 科目プロジェクト
+├── develop/thesis-research ← 卒論研究
 ├── draft ← 査読前準備
 └── research/deep-learning ← 純粋研究
+```
+
+**命名規約**:
+```
+研究用: develop/machine-learning, develop/thesis-research
+科目用: develop/computer-science-101, develop/web-dev-2024
+短縮: develop/cs101, develop/ml-proj, develop/capstone
 ```
 
 **自動化**:
 - develop/* → draft: 自動テスト・プレビュー生成
 - draft → main: 査読後の手動マージ
+- develop/* パターンで全ブランチ自動保護
 - 研究トピック別の分離開発
 - 自動プレビュー生成
 - バージョン管理
@@ -237,6 +247,8 @@ Repository Level設定:
 Target branches:
   - main, develop/*, draft (DevAcademicHub)
   - main, develop/* (DevPersonalHub)
+
+※ develop/* パターンで将来のブランチも自動保護
 ```
 
 ### 6. **Status Checks追加 (CI/CD実行後)**
