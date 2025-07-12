@@ -78,16 +78,16 @@
 ### 📊 Cross-Organization Language Distribution
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
 
-🟨 **JavaScript** 37.4% (18,040 lines) • *Ecosystem, PersonalHub, BusinessHub*  
-🔵 **TypeScript** 21.8% (10,527 lines) • *PersonalHub, Ecosystem, BusinessHub*  
-🐍 **Python** 21.6% (10,401 lines) • *AcademicHub, PersonalHub*  
-🟣 **CSS** 6.1% (2,939 lines) • *PersonalHub, BusinessHub, Ecosystem*  
-🟠 **Java** 4.9% (2,346 lines) • *AcademicHub*  
-🟤 **HTML** 3.6% (1,723 lines) • *PersonalHub, BusinessHub, Ecosystem*  
-⚪ **JSON** 1.8% (890 lines) • *Ecosystem*  
-🔴 **C++** 0.9% (456 lines) • *AcademicHub*  
-⚫ **Markdown** 0.7% (345 lines) • *Ecosystem*  
-⚫ **C** 0.5% (234 lines) • *AcademicHub*  
+🟨 **JavaScript** 38.6% (20,930 lines) • *BusinessHub, Ecosystem, PersonalHub*  
+🔵 **TypeScript** 22.3% (12,087 lines) • *PersonalHub, BusinessHub, Ecosystem*  
+🐍 **Python** 19.8% (10,741 lines) • *AcademicHub, PersonalHub, BusinessHub*  
+🟣 **CSS** 6.9% (3,719 lines) • *BusinessHub, PersonalHub, Ecosystem*  
+🟠 **Java** 4.3% (2,346 lines) • *AcademicHub*  
+🟤 **HTML** 4.0% (2,168 lines) • *BusinessHub, PersonalHub, Ecosystem*  
+⚪ **JSON** 1.6% (890 lines) • *Ecosystem*  
+🔴 **C++** 0.8% (456 lines) • *AcademicHub*  
+⚫ **Markdown** 0.6% (345 lines) • *Ecosystem*  
+⚫ **C** 0.4% (234 lines) • *AcademicHub*  
 
 ### 🏢 Organization Breakdown
 

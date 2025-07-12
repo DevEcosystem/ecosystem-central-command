@@ -1,18 +1,36 @@
 {
   "name": "ecosystem-central-command",
-  "version": "1.0.0",
-  "description": "Central command dashboard for development ecosystem",
+  "version": "2.0.0",
+  "description": "Complete automation system for development ecosystem management",
   "scripts": {
+    "ecosystem:discover": "node automation/ecosystem-auto-discovery.js",
+    "ecosystem:stats": "node automation/github-stats-collector.js",
+    "ecosystem:readme": "node automation/universal-readme-manager.js",
+    "ecosystem:sync": "node automation/ecosystem-auto-sync.js",
+    "ecosystem:webhook": "node automation/ecosystem-webhook-handler.js",
+    "ecosystem:full": "npm run ecosystem:discover && npm run ecosystem:stats && npm run ecosystem:readme",
+    "dev:webhook": "WEBHOOK_PORT=3000 npm run ecosystem:webhook",
+    "test:automation": "npm run ecosystem:discover && npm run ecosystem:stats",
     "generate-portfolio": "node automation/portfolio-generator.js",
     "collect-metrics": "node automation/metrics-collector.js",
     "update-external": "node automation/github-api-integration.js",
     "update-readmes": "node automation/universal-readme-manager.js",
     "update-ecosystem": "npm run collect-metrics && npm run update-external && npm run generate-portfolio && npm run update-readmes",
-    "health-check": "npm run update-ecosystem"
+    "health-check": "npm run ecosystem:sync"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@octokit/rest": "^20.0.2",
+    "express": "^4.18.2"
+  },
   "devDependencies": {},
-  "keywords": ["ecosystem", "portfolio", "automation", "analytics"],
+  "keywords": ["ecosystem", "automation", "github", "repository-management", "analytics", "ci-cd"],
   "author": "Dev Ecosystem",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevEcosystem/ecosystem-central-command.git"
+  }
 }
