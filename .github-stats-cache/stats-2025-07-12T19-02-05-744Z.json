@@ -1,5 +1,5 @@
 {
-  "collected_at": "2025-07-12T19:02:05.773Z",
+  "collected_at": "2025-07-12T19:02:01.662Z",
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
@@ -10,7 +10,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:05.773Z",
+            "last_updated": "2025-07-12T19:02:02.919Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -23,7 +23,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:05.974Z",
+            "last_updated": "2025-07-12T19:02:03.120Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -36,7 +36,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:06.176Z",
+            "last_updated": "2025-07-12T19:02:03.321Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -49,7 +49,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:06.377Z",
+            "last_updated": "2025-07-12T19:02:03.523Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -67,7 +67,7 @@
       },
       "metadata": {
         "total_repositories": 4,
-        "last_updated": "2025-07-12T19:02:05.773Z"
+        "last_updated": "2025-07-12T19:02:02.919Z"
       }
     },
     "DevPersonalHub": {
@@ -79,7 +79,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:06.578Z",
+            "last_updated": "2025-07-12T19:02:03.723Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -92,7 +92,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:06.780Z",
+            "last_updated": "2025-07-12T19:02:03.925Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -105,7 +105,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:06.982Z",
+            "last_updated": "2025-07-12T19:02:04.127Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -118,7 +118,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:07.183Z",
+            "last_updated": "2025-07-12T19:02:04.329Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -136,7 +136,7 @@
       },
       "metadata": {
         "total_repositories": 4,
-        "last_updated": "2025-07-12T19:02:06.578Z"
+        "last_updated": "2025-07-12T19:02:03.723Z"
       }
     },
     "DevAcademicHub": {
@@ -148,7 +148,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:07.385Z",
+            "last_updated": "2025-07-12T19:02:04.529Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -161,7 +161,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:07.585Z",
+            "last_updated": "2025-07-12T19:02:04.733Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -174,7 +174,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:07.786Z",
+            "last_updated": "2025-07-12T19:02:04.934Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -192,7 +192,7 @@
       },
       "metadata": {
         "total_repositories": 3,
-        "last_updated": "2025-07-12T19:02:07.384Z"
+        "last_updated": "2025-07-12T19:02:04.529Z"
       }
     },
     "DevEcosystem": {
@@ -204,7 +204,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:07.987Z",
+            "last_updated": "2025-07-12T19:02:05.136Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -217,7 +217,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:08.189Z",
+            "last_updated": "2025-07-12T19:02:05.337Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -230,7 +230,7 @@
           "metadata": {
             "total_lines": 0,
             "primary_language": "",
-            "last_updated": "2025-07-12T19:02:08.390Z",
+            "last_updated": "2025-07-12T19:02:05.538Z",
             "stars": 0,
             "forks": 0,
             "accessible": true,
@@ -248,7 +248,7 @@
       },
       "metadata": {
         "total_repositories": 3,
-        "last_updated": "2025-07-12T19:02:07.987Z"
+        "last_updated": "2025-07-12T19:02:05.136Z"
       }
     }
   },

@@ -1,115 +1,47 @@
 {
-  "last_discovery": "2025-07-12T17:18:47.968Z",
+  "last_discovery": "2025-07-12T19:02:02.917Z",
   "discovery_mode": "real",
   "organizations": {
-    "DevBusinessHub": {
-      "name": "DevBusinessHub",
-      "total_repositories": 4,
-      "active_repositories": 4,
-      "repositories": [
-        "business-portfolio",
-        "business-management",
-        "client-language-platform",
-        "client-investigation"
-      ],
-      "active_repository_names": [
-        "business-portfolio",
-        "business-management",
-        "client-language-platform",
-        "client-investigation"
-      ],
-      "primary_languages": [
-        {
-          "language": "JavaScript",
-          "count": 2
-        },
-        {
-          "language": "TypeScript",
-          "count": 2
-        }
-      ],
-      "last_updated": "2025-07-12T17:18:47.968Z"
+    "DevEcosystem": {
+      "name": "DevEcosystem",
+      "total_repositories": 0,
+      "active_repositories": 0,
+      "repositories": [],
+      "active_repository_names": [],
+      "primary_languages": [],
+      "last_updated": "2025-07-12T19:02:02.917Z"
     },
     "DevPersonalHub": {
       "name": "DevPersonalHub",
-      "total_repositories": 4,
-      "active_repositories": 4,
-      "repositories": [
-        "external-learning-platforms",
-        "personal-innovation-lab",
-        "portfolio-website",
-        "technical-showcase"
-      ],
-      "active_repository_names": [
-        "external-learning-platforms",
-        "personal-innovation-lab",
-        "portfolio-website",
-        "technical-showcase"
-      ],
-      "primary_languages": [
-        {
-          "language": "JavaScript",
-          "count": 2
-        },
-        {
-          "language": "TypeScript",
-          "count": 2
-        }
-      ],
-      "last_updated": "2025-07-12T17:18:47.968Z"
+      "total_repositories": 0,
+      "active_repositories": 0,
+      "repositories": [],
+      "active_repository_names": [],
+      "primary_languages": [],
+      "last_updated": "2025-07-12T19:02:02.917Z"
     },
     "DevAcademicHub": {
       "name": "DevAcademicHub",
-      "total_repositories": 3,
-      "active_repositories": 3,
-      "repositories": [
-        "computer-science-degree",
-        "university-coursework",
-        "academic-portfolio"
-      ],
-      "active_repository_names": [
-        "computer-science-degree",
-        "university-coursework",
-        "academic-portfolio"
-      ],
-      "primary_languages": [
-        {
-          "language": "Python",
-          "count": 3
-        }
-      ],
-      "last_updated": "2025-07-12T17:18:47.968Z"
+      "total_repositories": 0,
+      "active_repositories": 0,
+      "repositories": [],
+      "active_repository_names": [],
+      "primary_languages": [],
+      "last_updated": "2025-07-12T19:02:02.917Z"
     },
-    "DevEcosystem": {
-      "name": "DevEcosystem",
-      "total_repositories": 3,
-      "active_repositories": 3,
-      "repositories": [
-        "ecosystem-central-command",
-        "development-portfolio",
-        "unified-development-hub"
-      ],
-      "active_repository_names": [
-        "ecosystem-central-command",
-        "development-portfolio",
-        "unified-development-hub"
-      ],
-      "primary_languages": [
-        {
-          "language": "JavaScript",
-          "count": 2
-        },
-        {
-          "language": "TypeScript",
-          "count": 1
-        }
-      ],
-      "last_updated": "2025-07-12T17:18:47.968Z"
+    "DevBusinessHub": {
+      "name": "DevBusinessHub",
+      "total_repositories": 0,
+      "active_repositories": 0,
+      "repositories": [],
+      "active_repository_names": [],
+      "primary_languages": [],
+      "last_updated": "2025-07-12T19:02:02.917Z"
     }
   },
   "totals": {
     "total_organizations": 4,
-    "total_repositories": 14,
-    "total_active_repositories": 14
+    "total_repositories": 0,
+    "total_active_repositories": 0
   }
 }

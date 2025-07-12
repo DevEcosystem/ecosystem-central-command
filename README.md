@@ -73,26 +73,16 @@
 
 ## 🌍 Ecosystem Technology Overview
 
-**Total Code**: 57,729 lines across 14 repositories in 4 organizations
+**Total Code**: 0 lines across 14 repositories in 4 organizations
 
 ### 📊 Cross-Organization Language Distribution
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
 
-🟨 **JavaScript** 37.4% (21,610 lines) • *BusinessHub, Ecosystem, PersonalHub*  
-🔵 **TypeScript** 25.2% (14,537 lines) • *BusinessHub, PersonalHub, Ecosystem*  
-🐍 **Python** 18.6% (10,741 lines) • *AcademicHub, PersonalHub, BusinessHub*  
-🟣 **CSS** 6.9% (3,969 lines) • *BusinessHub, PersonalHub, Ecosystem*  
-🟠 **Java** 4.1% (2,346 lines) • *AcademicHub*  
-🟤 **HTML** 4.0% (2,288 lines) • *BusinessHub, PersonalHub, Ecosystem*  
-⚪ **JSON** 1.5% (890 lines) • *Ecosystem*  
-🔴 **C++** 0.8% (456 lines) • *AcademicHub*  
-⚫ **Markdown** 0.6% (345 lines) • *Ecosystem*  
-⚫ **C** 0.4% (234 lines) • *AcademicHub*  
 
 ### 🏢 Organization Breakdown
 
 #### Business Hub
-**17,146 lines** • **4 repositories** • **Primary**: JavaScript
+**0 lines** • **4 repositories** • **Primary**: JavaScript
 
 🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟪🟪🟪🟫🟩
 
