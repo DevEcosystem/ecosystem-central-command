@@ -728,15 +728,27 @@ Language statistics not available for ${orgName}.`;
     let statsSection = `## Technology Stack
 **Total Code**: ${totalLines.toLocaleString()} lines across ${orgData.totals.accessible_repositories} repositories
 
-### Language Distribution\n`;
+### Language Distribution
+`;
 
-    // Add language bars
+    // Create unified progress bar
+    let combinedBar = '';
     languages.forEach(lang => {
-      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 20);
-      const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 30); // 30 character total width
+      combinedBar += '█'.repeat(barLength);
+    });
+    
+    // Pad to full width if needed
+    if (combinedBar.length < 30) {
+      combinedBar += '░'.repeat(30 - combinedBar.length);
+    }
+    
+    statsSection += `\`\`\`\n${combinedBar}\n\`\`\`\n\n`;
+
+    // Add language list below the bar
+    languages.forEach(lang => {
       const icon = this.getLanguageIcon(lang.language);
-      
-      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
+      statsSection += `${icon} **${lang.language}** ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
     });
 
     // Add trends if available
@@ -768,20 +780,32 @@ Ecosystem-wide statistics not available.`;
     let statsSection = `## Ecosystem Technology Overview
 **Total Code**: ${ecosystemData.total_lines.toLocaleString()} lines across ${ecosystemData.total_repositories} repositories in ${ecosystemData.total_organizations} organizations
 
-### Cross-Organization Language Distribution\n`;
+### Cross-Organization Language Distribution
+`;
 
-    // Add language statistics with organization info
+    // Create unified progress bar for ecosystem
+    let combinedBar = '';
     languages.forEach(lang => {
-      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 20);
-      const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 40); // 40 character total width for ecosystem
+      combinedBar += '█'.repeat(barLength);
+    });
+    
+    // Pad to full width if needed
+    if (combinedBar.length < 40) {
+      combinedBar += '░'.repeat(40 - combinedBar.length);
+    }
+    
+    statsSection += `\`\`\`\n${combinedBar}\n\`\`\`\n\n`;
+
+    // Add language list below the bar
+    languages.forEach(lang => {
       const icon = this.getLanguageIcon(lang.language);
       
       const orgList = lang.organizations ? 
         lang.organizations.slice(0, 3).map(org => org.name.replace('Dev', '')).join(', ') : 
         'Multiple';
       
-      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
-      statsSection += `  *Primary use: ${orgList}*  \n`;
+      statsSection += `${icon} **${lang.language}** ${lang.percentage}% (${lang.lines.toLocaleString()} lines) • *${orgList}*  \n`;
     });
 
     // Add organization breakdown
