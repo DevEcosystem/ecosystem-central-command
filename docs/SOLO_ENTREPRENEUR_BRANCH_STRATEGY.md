@@ -162,6 +162,7 @@ cd my-new-saas
 1. GitHub → **Repository** Settings → Rulesets
 2. **New ruleset** → **New branch ruleset**
 3. Ruleset name: Organization別推奨名
+4. Enforcement status: **Enabled** (有効化)
 
 #### 2. **推奨Ruleset名（Repository Level）**
 ```
@@ -175,11 +176,18 @@ cd my-new-saas
 
 #### 3. **Targets設定** ⚠️重要
 ```
-Target type: Branch
-Include: main, staging, develop
+Branch targeting criteria:
+1. 個別に指定（推奨）:
+   - main
+   - staging  
+   - develop
+
+❌ 避けるべき設定:
+   - "All branches" → 不要なブランチも保護される
 ```
-※ 複数ブランチを一つのRulesetで管理（効率的）
+※ 必要なブランチのみ個別指定（効率的）
 ※ これを設定しないとルールが適用されません
+※ feature/* や test/* は保護対象外にする
 
 #### 4. **Repository Level vs Organization Level**
 ```
@@ -295,6 +303,12 @@ A: 初期はStatus checksを無効にして、CI/CD実行後に追加
 **Q: "This ruleset does not target any resources"警告**
 ```
 A: Targetsセクションでブランチ名（main）を必ず設定
+```
+
+**Q: "All branches"を選択すると問題ある？**
+```
+A: 削除済みブランチや一時的なブランチも保護対象になる
+   必要なブランチのみ個別指定を推奨
 ```
 
 **Q: 一人なのにApproval必要？**
