@@ -250,6 +250,22 @@ class EnterpriseMonitoringDashboard {
   }
 
   /**
+   * Get actual repository count from ecosystem config
+   */
+  async getEcosystemRepositoryCount() {
+    try {
+      const configPath = path.join(__dirname, '..', 'docs', 'ecosystem-config.json');
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        return config.totals?.total_repositories || 8;
+      }
+    } catch (error) {
+      console.warn('Could not read ecosystem config:', error.message);
+    }
+    return Object.keys(this.metrics.repositories).length || 8;
+  }
+
+  /**
    * Generate real-time dashboard data
    */
   async generateDashboardData() {
@@ -258,7 +274,7 @@ class EnterpriseMonitoringDashboard {
     const dashboardData = {
       timestamp: new Date().toISOString(),
       summary: {
-        totalRepositories: Object.keys(this.metrics.repositories).length || 8,
+        totalRepositories: await this.getEcosystemRepositoryCount(),
         activeMonitoring: true,
         overallHealth: this.calculateOverallHealth(),
         lastDeployment: this.metrics.deployments.lastRun,

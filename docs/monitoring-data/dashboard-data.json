@@ -1,14 +1,14 @@
 {
-  "timestamp": "2025-07-12T17:37:37.760Z",
+  "timestamp": "2025-07-12T17:42:12.504Z",
   "summary": {
-    "totalRepositories": 8,
+    "totalRepositories": 14,
     "activeMonitoring": true,
     "overallHealth": {
-      "score": 50,
-      "status": "fair",
-      "color": "orange"
+      "score": 41,
+      "status": "poor",
+      "color": "red"
     },
-    "lastDeployment": "2025-07-12T11:52:58.420Z",
+    "lastDeployment": "2025-07-12T13:32:01.767Z",
     "systemStatus": {
       "status": "attention_needed",
       "issues": [
@@ -18,127 +18,127 @@
     }
   },
   "deployments": {
-    "totalRuns": 1,
+    "totalRuns": 2,
     "successfulDeployments": 0,
     "failedDeployments": 0,
-    "skippedDeployments": 8,
-    "lastRun": "2025-07-12T11:52:58.420Z",
+    "skippedDeployments": 16,
+    "lastRun": "2025-07-12T13:32:01.767Z",
     "successRate": 0,
     "averageSkipRate": 100
   },
   "repositories": {
     "DevPersonalHub/external-learning-platforms": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevPersonalHub/portfolio-website": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevPersonalHub/technical-showcase": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevPersonalHub/learning-projects": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevAcademicHub/academic-portfolio": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevBusinessHub/business-management": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevBusinessHub/automation-tools": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     },
     "DevEcosystem/ecosystem-automation-tools": {
-      "totalDeployments": 1,
+      "totalDeployments": 2,
       "successful": 0,
       "failed": 0,
-      "skipped": 1,
+      "skipped": 2,
       "successRate": 0,
       "skipRate": 100,
-      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "lastDeployment": "2025-07-12T13:32:01.767Z",
       "reliability": 50,
-      "trends": "insufficient_data"
+      "trends": "stable"
     }
   },
   "system": {
-    "timestamp": "2025-07-12T17:37:37.608Z",
-    "uptime": 17378.035689042,
+    "timestamp": "2025-07-12T17:42:12.349Z",
+    "uptime": 0.017461333,
     "memory": {
-      "rss": 15220736,
-      "heapTotal": 5963776,
-      "heapUsed": 5132632,
-      "external": 1850292,
-      "arrayBuffers": 53106
+      "rss": 35962880,
+      "heapTotal": 4390912,
+      "heapUsed": 3750360,
+      "external": 1649698,
+      "arrayBuffers": 10519
     },
     "cpu": {
-      "user": 754054,
-      "system": 1206991
+      "user": 37408,
+      "system": 4667
     },
     "platform": "darwin",
     "nodeVersion": "v21.2.0",
     "githubAPI": {
       "status": "healthy",
-      "responseTime": 100,
+      "responseTime": 102,
       "rateLimit": {
         "remaining": 4900,
         "limit": 5000,
-        "reset": 1752345457709
+        "reset": 1752345732452
       }
     },
     "diskSpace": {
