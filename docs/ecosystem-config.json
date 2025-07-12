@@ -1,6 +1,6 @@
 {
   "last_discovery": "2025-07-12T17:18:47.968Z",
-  "discovery_mode": "mock",
+  "discovery_mode": "real",
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
