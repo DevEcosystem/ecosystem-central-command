@@ -76,21 +76,18 @@
 **Total Code**: 48,214 lines across 12 repositories in 4 organizations
 
 ### 📊 Cross-Organization Language Distribution
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟩🟩🟩🟩🟪🟪🟧🟧🟫⬜
 
-```
-███████████████████████████████████████
-```
-
-▪ **JavaScript** 37.4% (18,040 lines) • *Ecosystem, Personal, Business*  
-▪ **TypeScript** 21.8% (10,527 lines) • *Personal, Ecosystem, Business*  
-▪ **Python** 21.6% (10,401 lines) • *Academic, Personal*  
-▪ **CSS** 6.1% (2,939 lines) • *Personal, Business, Ecosystem*  
-▪ **Java** 4.9% (2,346 lines) • *Academic*  
-▪ **HTML** 3.6% (1,723 lines) • *Personal, Business, Ecosystem*  
-▪ **JSON** 1.8% (890 lines) • *Ecosystem*  
-▪ **C++** 0.9% (456 lines) • *Academic*  
-▪ **Markdown** 0.7% (345 lines) • *Ecosystem*  
-▪ **C** 0.5% (234 lines) • *Academic*  
+🟨 **JavaScript** 37.4% (18,040 lines) • *Ecosystem, PersonalHub, BusinessHub*  
+🔵 **TypeScript** 21.8% (10,527 lines) • *PersonalHub, Ecosystem, BusinessHub*  
+🐍 **Python** 21.6% (10,401 lines) • *AcademicHub, PersonalHub*  
+🟣 **CSS** 6.1% (2,939 lines) • *PersonalHub, BusinessHub, Ecosystem*  
+🟠 **Java** 4.9% (2,346 lines) • *AcademicHub*  
+🟤 **HTML** 3.6% (1,723 lines) • *PersonalHub, BusinessHub, Ecosystem*  
+⚪ **JSON** 1.8% (890 lines) • *Ecosystem*  
+🔴 **C++** 0.9% (456 lines) • *AcademicHub*  
+⚫ **Markdown** 0.7% (345 lines) • *Ecosystem*  
+⚫ **C** 0.5% (234 lines) • *AcademicHub*  
 
 ### 🏢 Organization Breakdown
 

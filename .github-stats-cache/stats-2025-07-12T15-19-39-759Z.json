@@ -1,5 +1,5 @@
 {
-  "collected_at": "2025-07-12T15:19:56.534Z",
+  "collected_at": "2025-07-12T15:19:39.756Z",
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
@@ -15,9 +15,9 @@
           "metadata": {
             "total_lines": 4470,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 31,
-            "forks": 13,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 26,
+            "forks": 10,
             "accessible": true,
             "data_source": "mock"
           }
@@ -33,9 +33,9 @@
           "metadata": {
             "total_lines": 3161,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 35,
-            "forks": 17,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 102,
+            "forks": 20,
             "accessible": true,
             "data_source": "mock"
           }
@@ -82,7 +82,7 @@
       },
       "metadata": {
         "total_repositories": 2,
-        "last_updated": "2025-07-12T15:19:56.537Z",
+        "last_updated": "2025-07-12T15:19:39.757Z",
         "data_source": "mock"
       }
     },
@@ -100,9 +100,9 @@
           "metadata": {
             "total_lines": 4231,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 17,
-            "forks": 4,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 19,
+            "forks": 16,
             "accessible": true,
             "data_source": "mock"
           }
@@ -118,9 +118,9 @@
           "metadata": {
             "total_lines": 4839,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 55,
-            "forks": 15,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 69,
+            "forks": 3,
             "accessible": true,
             "data_source": "mock"
           }
@@ -136,9 +136,9 @@
           "metadata": {
             "total_lines": 2814,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 97,
-            "forks": 13,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 50,
+            "forks": 4,
             "accessible": true,
             "data_source": "mock"
           }
@@ -154,9 +154,9 @@
           "metadata": {
             "total_lines": 2380,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 51,
-            "forks": 15,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 71,
+            "forks": 2,
             "accessible": true,
             "data_source": "mock"
           }
@@ -209,7 +209,7 @@
       },
       "metadata": {
         "total_repositories": 4,
-        "last_updated": "2025-07-12T15:19:56.537Z",
+        "last_updated": "2025-07-12T15:19:39.757Z",
         "data_source": "mock"
       }
     },
@@ -227,9 +227,9 @@
           "metadata": {
             "total_lines": 6572,
             "primary_language": "Python",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 37,
-            "forks": 5,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 86,
+            "forks": 7,
             "accessible": true,
             "data_source": "mock"
           }
@@ -245,9 +245,9 @@
           "metadata": {
             "total_lines": 4597,
             "primary_language": "Python",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 50,
-            "forks": 9,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 11,
+            "forks": 1,
             "accessible": true,
             "data_source": "mock"
           }
@@ -263,9 +263,9 @@
           "metadata": {
             "total_lines": 2814,
             "primary_language": "Python",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 109,
-            "forks": 9,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 27,
+            "forks": 10,
             "accessible": true,
             "data_source": "mock"
           }
@@ -324,7 +324,7 @@
       },
       "metadata": {
         "total_repositories": 3,
-        "last_updated": "2025-07-12T15:19:56.537Z",
+        "last_updated": "2025-07-12T15:19:39.757Z",
         "data_source": "mock"
       }
     },
@@ -342,9 +342,9 @@
           "metadata": {
             "total_lines": 5925,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 104,
-            "forks": 18,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 71,
+            "forks": 20,
             "accessible": true,
             "data_source": "mock"
           }
@@ -360,9 +360,9 @@
           "metadata": {
             "total_lines": 3597,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 16,
-            "forks": 14,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 62,
+            "forks": 19,
             "accessible": true,
             "data_source": "mock"
           }
@@ -378,9 +378,9 @@
           "metadata": {
             "total_lines": 2814,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-12T15:19:56.537Z",
-            "stars": 60,
-            "forks": 8,
+            "last_updated": "2025-07-12T15:19:39.757Z",
+            "stars": 20,
+            "forks": 4,
             "accessible": true,
             "data_source": "mock"
           }
@@ -439,7 +439,7 @@
       },
       "metadata": {
         "total_repositories": 3,
-        "last_updated": "2025-07-12T15:19:56.537Z",
+        "last_updated": "2025-07-12T15:19:39.757Z",
         "data_source": "mock"
       }
     }

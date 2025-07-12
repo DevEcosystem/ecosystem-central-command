@@ -731,19 +731,9 @@ Language statistics not available for ${orgName}.`;
 ### Language Distribution
 `;
 
-    // Create unified progress bar
-    let combinedBar = '';
-    languages.forEach(lang => {
-      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 30); // 30 character total width
-      combinedBar += '█'.repeat(barLength);
-    });
-    
-    // Pad to full width if needed
-    if (combinedBar.length < 30) {
-      combinedBar += '░'.repeat(30 - combinedBar.length);
-    }
-    
-    statsSection += `\`\`\`\n${combinedBar}\n\`\`\`\n\n`;
+    // Create colored progress bar
+    const coloredBar = this.generateColoredProgressBar(languages, 30);
+    statsSection += `${coloredBar}\n\n`;
 
     // Add language list below the bar
     languages.forEach(lang => {
@@ -783,19 +773,9 @@ Ecosystem-wide statistics not available.`;
 ### Cross-Organization Language Distribution
 `;
 
-    // Create unified progress bar for ecosystem
-    let combinedBar = '';
-    languages.forEach(lang => {
-      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 40); // 40 character total width for ecosystem
-      combinedBar += '█'.repeat(barLength);
-    });
-    
-    // Pad to full width if needed
-    if (combinedBar.length < 40) {
-      combinedBar += '░'.repeat(40 - combinedBar.length);
-    }
-    
-    statsSection += `\`\`\`\n${combinedBar}\n\`\`\`\n\n`;
+    // Create colored progress bar for ecosystem
+    const coloredBar = this.generateColoredProgressBar(languages, 40);
+    statsSection += `${coloredBar}\n\n`;
 
     // Add language list below the bar
     languages.forEach(lang => {
@@ -823,11 +803,73 @@ Ecosystem-wide statistics not available.`;
   }
 
   /**
+   * Get color indicator for programming language (GitHub style)
+   */
+  getLanguageColor(language) {
+    const colors = {
+      'JavaScript': '🟨', // Yellow
+      'TypeScript': '🔵', // Blue
+      'Python': '🐍', // Snake (green-ish)
+      'Java': '🟠', // Orange
+      'CSS': '🟣', // Purple
+      'HTML': '🟤', // Brown
+      'C++': '🔴', // Red
+      'C': '⚫', // Black
+      'JSON': '⚪', // White/Light
+      'Shell': '🟢', // Green
+      'Markdown': '⚫', // Black
+      'SCSS': '🟣', // Purple (like CSS)
+      'PHP': '🟡', // Yellow
+      'Go': '🩵', // Light blue
+      'Rust': '🟫', // Brown/Rust
+      'Ruby': '🔴', // Red
+      'Swift': '🟠', // Orange
+      'Kotlin': '🟪', // Purple
+      'Dart': '🔵', // Blue
+      'Vue': '🟢' // Green
+    };
+    return colors[language] || '⚪'; // Default to white circle
+  }
+
+  /**
    * Get professional indicator for programming language
    */
   getLanguageIcon(language) {
-    // Professional approach: use simple bullet points or return empty string
-    return '▪'; // Simple, professional bullet point for all languages
+    // Use color indicators for visual distinction
+    return this.getLanguageColor(language);
+  }
+
+  /**
+   * Generate colored progress bar segments
+   */
+  generateColoredProgressBar(languages, totalWidth = 30) {
+    let coloredBar = '';
+    
+    languages.forEach(lang => {
+      const segmentLength = Math.round((parseFloat(lang.percentage) / 100) * totalWidth);
+      const color = this.getLanguageColor(lang.language);
+      
+      // Use different Unicode block characters for color simulation
+      const segments = {
+        'JavaScript': '🟨', // Yellow
+        'TypeScript': '🟦', // Blue
+        'Python': '🟩', // Green  
+        'Java': '🟧', // Orange
+        'CSS': '🟪', // Purple
+        'HTML': '🟫', // Brown
+        'C++': '🟥', // Red
+        'C': '⬛', // Black
+        'JSON': '⬜', // White
+        'Shell': '🟩', // Green
+        'Markdown': '⬛', // Black
+        'SCSS': '🟪', // Purple
+      };
+      
+      const segment = segments[lang.language] || '⬜';
+      coloredBar += segment.repeat(segmentLength);
+    });
+    
+    return coloredBar;
   }
 }
 
