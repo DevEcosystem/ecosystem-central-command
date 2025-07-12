@@ -17,7 +17,7 @@
 | **Technology Stack** | 10+ frameworks | 🔧 Advanced |
 | **Delivery Rate** | 95%+ on-time | ✅ Reliable |
 
-**[View Detailed Business Activities →](organizations/business-hub-overview.md)**
+**[View Detailed Business Activities →](docs/organizations/business-hub-overview.md)**
 
 ---
 
@@ -31,7 +31,7 @@
 | **Learning Velocity** | 2-3 new tech/quarter | 🚀 Accelerating |
 | **Creative Projects** | Monthly innovations | 🎨 Consistent |
 
-**[Explore Technical Showcase →](organizations/personal-lab-showcase.md)**
+**[Explore Technical Showcase →](docs/organizations/personal-lab-showcase.md)**
 
 ---
 
@@ -45,7 +45,7 @@
 | **Specialization** | CS + Design Integration | 🎯 Interdisciplinary |
 | **Graduate Plans** | MS/PhD Computer Science | 🚀 Top-Tier Universities |
 
-**[View Academic Portfolio →](organizations/academic-hub-achievements.md)**
+**[View Academic Portfolio →](docs/organizations/academic-hub-achievements.md)**
 
 ---
 
@@ -121,7 +121,7 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 📧 Professional Contact
 
 **For Business Inquiries**: taiu.engineer@gmail.com  
-**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@PersonalLab](https://github.com/PersonalLab) | [@AcademicHub](https://github.com/AcademicHub)  
+**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@DevPersonalHub](https://github.com/DevPersonalHub) | [@DevAcademicHub](https://github.com/DevAcademicHub) | [@DevBusinessHub](https://github.com/DevBusinessHub)  
 **Portfolio Website**: [Auto-generated from ecosystem data]
 
 ---
