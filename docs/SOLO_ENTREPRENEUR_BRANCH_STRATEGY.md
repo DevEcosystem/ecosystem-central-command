@@ -156,29 +156,150 @@ cd my-new-saas
 
 ## 🛡️ ブランチ保護設定
 
-### Production Level
+### GitHub UIでの手動設定手順
+
+#### 1. **基本手順**
+1. GitHub → **Repository** Settings → Rulesets
+2. **New ruleset** → **New branch ruleset**
+3. Ruleset name: Organization別推奨名
+
+#### 2. **推奨Ruleset名（Repository Level）**
+```
+• DevBusinessHub: "Production-Grade Protection"
+• DevEcosystem: "Infrastructure Protection"
+• DevPersonalHub: "Individual Development Protection"  
+• DevAcademicHub: "Individual Development Protection"
+
+※ 全てRepository Level設定（無料アカウント対応）
+```
+
+#### 3. **Targets設定** ⚠️重要
+```
+Target type: Branch
+Include: main, staging, develop
+```
+※ 複数ブランチを一つのRulesetで管理（効率的）
+※ これを設定しないとルールが適用されません
+
+#### 4. **Repository Level vs Organization Level**
+```
+⚠️ 重要: Organization Level Rulesetsの制限
+
+Organization Level Rulesetsは有料プラン(GitHub Team)が必要です。
+無料アカウントでは利用できません。
+
+現在の設定方針:
+✅ 全Organization: Repository Level設定
+  - 各リポジトリで個別にRuleset設定
+  - 無料で利用可能
+  - リポジトリ固有のカスタマイズ可能
+```
+
+#### 5. **Rules設定**
+
+##### **Production Level (DevBusinessHub, DevEcosystem)**
+```
+✅ Require a pull request before merging
+  - Required approvals: 1
+  - Dismiss stale reviews: Yes
+
+❌ Require status checks to pass (初期は無効)
+  - 後でCI/CD実行後に quality-check を追加
+
+✅ Block force pushes
+✅ Restrict deletions
+```
+
+##### **Individual Development Level (DevPersonalHub, DevAcademicHub)**
+```
+Repository Level設定:
+
+✅ Require a pull request before merging
+  - Required approvals: 0 (効率重視)
+  - DevAcademicHub: 査読が必要な場合のみ1に変更
+
+❌ Require status checks to pass (初期は無効)
+  - 後でCI/CD実行後に追加:
+    • DevPersonalHub: quick-check
+    • DevAcademicHub: quick-check
+
+✅ Block force pushes
+✅ Restrict deletions
+
+Target branches:
+  - main, develop/*, draft (DevAcademicHub)
+  - main, develop/* (DevPersonalHub)
+```
+
+### 6. **Status Checks追加 (CI/CD実行後)**
+
+ワークフローが一度実行された後に追加：
 ```json
 {
-  "main": {
-    "required_status_checks": ["quality-check"],
-    "required_reviews": 1,
-    "dismiss_stale_reviews": true,
-    "enforce_admins": false
-  },
-  "staging": {
-    "required_status_checks": ["quality-check"]
-  }
+  "DevBusinessHub": ["quality-check"],
+  "DevEcosystem": ["quality-check"], 
+  "DevPersonalHub": ["quick-check"],
+  "DevAcademicHub": ["quick-check"]
 }
 ```
 
-### Rapid Development Level
-```json
-{
-  "main": {
-    "required_status_checks": ["quick-check"],
-    "enforce_admins": false
-  }
-}
+### 7. **段階的展開戦略**
+
+#### **Phase 1: Repository Level統一 (無料アカウント対応)**
+```
+全Organization: Repository Level設定
+• DevBusinessHub各リポジトリ → "Production-Grade Protection"
+• DevEcosystem各リポジトリ → "Infrastructure Protection"
+• DevPersonalHub各リポジトリ → "Individual Development Protection"
+• DevAcademicHub各リポジトリ → "Individual Development Protection"
+```
+
+#### **Phase 2: 標準化**
+```
+成功パターンの横展開:
+• 同一Organization内での設定統一
+• 新規リポジトリの自動適用
+• テンプレート化とドキュメント整備
+```
+
+#### **Phase 3: 最適化 (将来)**
+```
+運用データに基づく改善:
+• 保護レベルの調整
+• ワークフロー効率化
+• チーム拡大時の組織再編対応
+```
+
+### 8. **一人チームでの推奨設定**
+
+#### **最小限（効率重視）**
+- ✅ Pull request required
+- ❌ Required approvals: 0
+- ✅ Force push禁止
+- ✅ Delete禁止
+
+#### **企業レベル（将来性重視）**
+- ✅ Pull request required
+- ✅ Required approvals: 1（自己レビュー習慣化）
+- ✅ Status checks (CI/CD通過必須)
+- ✅ Force push禁止
+- ✅ Delete禁止
+
+### ⚠️ よくある問題と解決法
+
+**Q: "Required status checks cannot be empty"エラー**
+```
+A: 初期はStatus checksを無効にして、CI/CD実行後に追加
+```
+
+**Q: "This ruleset does not target any resources"警告**
+```
+A: Targetsセクションでブランチ名（main）を必ず設定
+```
+
+**Q: 一人なのにApproval必要？**
+```
+A: 自己レビュー習慣化のため推奨。効率重視なら0でもOK
 ```
 
 ## 🚀 自動化レベル

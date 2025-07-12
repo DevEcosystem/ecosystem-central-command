@@ -55,7 +55,7 @@ setup_git_config() {
     print_status "Configuring Git settings..."
     
     git config user.name "Solo Entrepreneur"
-    git config user.email "entrepreneur@${ORG_NAME,,}.com"
+    git config user.email "entrepreneur@$(echo ${ORG_NAME} | tr '[:upper:]' '[:lower:]').com"
     git config init.defaultBranch main
     git config core.autocrlf input
     git config pull.rebase false
