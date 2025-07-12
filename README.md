@@ -169,9 +169,9 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 🔗 Quick Navigation
 
 ### 📋 Ecosystem Components
-- [🏢 Business Hub](https://github.com/BusinessHub) - Professional client work + strategy
-- [👤 Personal Lab](https://github.com/PersonalLab) - Innovation + personal development  
-- [🎓 Academic Hub](https://github.com/AcademicHub) - Education + research activities
+- [🏢 Business Hub](https://github.com/DevBusinessHub) - Professional client work + strategy
+- [👤 Personal Lab](https://github.com/DevPersonalHub) - Innovation + personal development  
+- [🎓 Academic Hub](https://github.com/DevAcademicHub) - Education + research activities
 
 ### 📈 Analytics & Insights  
 - [Skill Growth Tracker](docs/analytics/skill-growth-metrics.json)
@@ -183,7 +183,7 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 📧 Professional Contact
 
 **For Business Inquiries**: taiu.engineer@gmail.com  
-**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@PersonalLab](https://github.com/PersonalLab) | [@AcademicHub](https://github.com/AcademicHub)  
+**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@DevPersonalHub](https://github.com/DevPersonalHub) | [@DevAcademicHub](https://github.com/DevAcademicHub) | [@DevBusinessHub](https://github.com/DevBusinessHub)  
 **Portfolio Website**: [Auto-generated from ecosystem data]
 
 ---
@@ -202,4 +202,4 @@ This portfolio is automatically generated from the following sources:
 - Growth metrics: `docs/analytics/skill-growth-metrics.json`
 
 **Generation Script**: `automation/portfolio-generator.js`  
-**Last Run**: 2025-07-12T23:49:51.736Z
+**Last Run**: 2025-07-12T23:53:12.708Z
