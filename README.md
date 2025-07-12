@@ -112,9 +112,9 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 - [🎓 Academic Hub](https://github.com/AcademicHub) - Education + research activities
 
 ### 📈 Analytics & Insights  
-- [Skill Growth Tracker](analytics/skill-growth-metrics.json)
-- [Project Impact Analysis](analytics/project-impact-analysis.md)
-- [Career Milestone Timeline](analytics/career-milestone-timeline.md)
+- [Skill Growth Tracker](docs/analytics/skill-growth-metrics.json)
+- [Project Impact Analysis](docs/analytics/project-impact-analysis.md)
+- [Career Milestone Timeline](docs/analytics/career-milestone-timeline.md)
 
 ---
 
@@ -134,10 +134,10 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 🤖 Automation Details
 
 This portfolio is automatically generated from the following sources:
-- Business activities: `organizations/business-hub-overview.md`
-- Personal projects: `organizations/personal-lab-showcase.md`
-- Academic achievements: `organizations/academic-hub-achievements.md`
-- Growth metrics: `analytics/skill-growth-metrics.json`
+- Business activities: `docs/organizations/business-hub-overview.md`
+- Personal projects: `docs/organizations/personal-lab-showcase.md`
+- Academic achievements: `docs/organizations/academic-hub-achievements.md`
+- Growth metrics: `docs/analytics/skill-growth-metrics.json`
 
 **Generation Script**: `automation/portfolio-generator.js`  
-**Last Run**: 2025-07-12T12:33:09.630Z
+**Last Run**: 2025-07-12T12:46:31.924Z

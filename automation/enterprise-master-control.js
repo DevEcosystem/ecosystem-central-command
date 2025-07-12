@@ -358,7 +358,7 @@ class EnterpriseMasterControl {
    * Save execution results
    */
   async saveExecutionResults(results) {
-    const resultsDir = path.join(this.baseDir, 'execution-results');
+    const resultsDir = path.join(this.baseDir, 'docs', 'execution-results');
     if (!fs.existsSync(resultsDir)) {
       fs.mkdirSync(resultsDir, { recursive: true });
     }

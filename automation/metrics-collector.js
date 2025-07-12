@@ -18,7 +18,7 @@ class MetricsCollector {
       technical: {},
       summary: {}
     };
-    this.outputPath = path.join(__dirname, '../analytics/skill-growth-metrics.json');
+    this.outputPath = path.join(__dirname, '../docs/analytics/skill-growth-metrics.json');
   }
 
   /**

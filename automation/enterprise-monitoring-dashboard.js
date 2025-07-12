@@ -12,7 +12,7 @@ const http = require('http');
 class EnterpriseMonitoringDashboard {
   constructor() {
     this.baseDir = path.dirname(__dirname);
-    this.dataDir = path.join(this.baseDir, 'monitoring-data');
+    this.dataDir = path.join(this.baseDir, 'docs', 'monitoring-data');
     this.cacheDir = path.join(this.baseDir, '.deployment-cache');
     this.port = process.env.DASHBOARD_PORT || 3000;
     

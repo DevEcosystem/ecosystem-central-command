@@ -11,7 +11,7 @@ const path = require('path');
 class EnterpriseAnalyticsEngine {
   constructor() {
     this.baseDir = path.dirname(__dirname);
-    this.analyticsDir = path.join(this.baseDir, 'analytics');
+    this.analyticsDir = path.join(this.baseDir, 'docs', 'analytics');
     this.cacheDir = path.join(this.baseDir, '.deployment-cache');
     this.modelsDir = path.join(this.analyticsDir, 'models');
     
