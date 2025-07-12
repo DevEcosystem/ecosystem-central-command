@@ -16,6 +16,10 @@ on:
   # Allow manual trigger
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   update-portfolio:
     runs-on: ubuntu-latest
@@ -26,6 +30,7 @@ jobs:
       with:
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
+        persist-credentials: true
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -75,28 +80,17 @@ jobs:
     - name: Commit and push changes
       if: steps.verify-changed-files.outputs.changed == 'true'
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-        git add README.md
-        git add AUTOMATION_SUMMARY.md
-        git add analytics/
-        git add organizations/
-        
-        # Create commit with timestamp
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+  
+        git add README.md || true
+        git add AUTOMATION_SUMMARY.md || true
+        git add analytics/ || true
+        git add organizations/ || true
+  
         TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-        git commit -m "🤖 Auto-update ecosystem portfolio - $TIMESTAMP
-
-        📊 Automated Updates:
-        - Collected metrics from all 4 organizations
-        - Updated external repository integrations
-        - Generated unified portfolio dashboard
-        - Refreshed ecosystem health monitoring
-        
-        🔄 Next scheduled update: Tomorrow at 6:00 AM UTC
-        🚀 Generated with GitHub Actions automation"
-
-        git push
+        git commit -m "🤖 Auto-update ecosystem portfolio - $TIMESTAMP" || exit 0
+        git push origin HEAD:main
 
     - name: Create deployment summary
       if: steps.verify-changed-files.outputs.changed == 'true'
