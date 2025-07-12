@@ -105,7 +105,7 @@ jobs:
         
         echo "🎯 Starting deployment process..."
     
-    - name: 🎯 Deploy Based on Input
+    - name: 🎯 Deploy READMEs to Repositories
       run: |
         echo "🎯 Deployment phase: ${{ github.event.inputs.target_phase || 'all' }}"
         echo "📋 Generated READMEs verification:"
@@ -113,28 +113,15 @@ jobs:
         echo "🔑 GitHub Token verification:"
         echo "GITHUB_TOKEN set: $([ -n \"$GITHUB_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")"
         
-        case "${{ github.event.inputs.target_phase || 'all' }}" in
-          "pilot-only")
-            echo "🚀 Deploying to pilot repository only..."
-            bash scripts/deploy-curl.sh
-            ;;
-          "personal-hub")
-            echo "🚀 Deploying to Personal Hub repositories..."
-            bash scripts/deploy-phase-2a.sh
-            ;;
-          "cross-org")
-            echo "🚀 Deploying to Cross-Organizational repositories..."
-            bash scripts/deploy-phase-2b.sh
-            ;;
-          "all"|*)
-            echo "🚀 Full ecosystem deployment..."
-            echo "Phase 1: Personal Hub deployment"
-            bash scripts/deploy-phase-2a.sh
-            
-            echo "Phase 2: Cross-Organizational deployment"
-            bash scripts/deploy-phase-2b.sh
-            ;;
-        esac
+        echo "🚀 Deploying READMEs using new deployment system..."
+        node automation/repository-readme-deployer.js
+        
+        if [ $? -eq 0 ]; then
+          echo "✅ README deployment completed successfully"
+        else
+          echo "❌ README deployment failed"
+          exit 1
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}
     
