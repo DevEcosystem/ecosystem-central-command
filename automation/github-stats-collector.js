@@ -15,30 +15,8 @@ class GitHubStatsCollector {
     this.outputDir = path.join(this.baseDir, 'docs', 'analytics');
     this.cacheDir = path.join(this.baseDir, '.github-stats-cache');
     
-    // Organization and repository configuration
-    this.organizations = {
-      "DevEcosystem": [
-        "ecosystem-automation-tools",
-        "ecosystem-central-command"
-      ],
-      "DevPersonalHub": [
-        "learning-projects",
-        "technical-showcase", 
-        "portfolio-website",
-        "external-learning-platforms"
-      ],
-      "DevAcademicHub": [
-        "academic-portfolio",
-        "collaborative-projects"
-      ],
-      "DevBusinessHub": [
-        "automation-tools",
-        "business-management",
-        "Test",
-        "client-investigation",
-        "client-language-platform"
-      ]
-    };
+    // Organization and repository configuration (auto-updated by ecosystem-auto-discovery)
+    this.organizations = {}
     
     this.stats = {
       collected_at: new Date().toISOString(),
