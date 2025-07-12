@@ -86,7 +86,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}
     
-    - name: 🎨 Generate Universal READMEs
+    - name: 🎨 Generate Universal READMEs and Deploy
       run: |
         echo "🚀 Starting Universal README generation..."
         
@@ -102,6 +102,8 @@ jobs:
           echo "❌ README generation failed"
           exit 1
         fi
+        
+        echo "🎯 Starting deployment process..."
     
     - name: 🎯 Deploy Based on Input
       run: |
