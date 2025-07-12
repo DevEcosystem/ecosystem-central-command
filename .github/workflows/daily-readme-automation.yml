@@ -108,6 +108,10 @@ jobs:
     - name: 🎯 Deploy Based on Input
       run: |
         echo "🎯 Deployment phase: ${{ github.event.inputs.target_phase || 'all' }}"
+        echo "📋 Generated READMEs verification:"
+        ls -la generated-readmes/ || echo "❌ generated-readmes not found"
+        echo "🔑 GitHub Token verification:"
+        echo "GITHUB_TOKEN set: $([ -n \"$GITHUB_TOKEN\" ] && echo \"✅ Yes\" || echo \"❌ No\")"
         
         case "${{ github.event.inputs.target_phase || 'all' }}" in
           "pilot-only")
