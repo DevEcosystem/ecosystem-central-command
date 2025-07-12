@@ -1,0 +1,133 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-07-12T13:30:00.000Z",
+  "description": "Optimized deployment thresholds for better success/skip rate balance",
+  
+  "globalDefaults": {
+    "changeThreshold": "medium",
+    "skipThreshold": 80,
+    "successTarget": 70,
+    "deploymentStrategy": "intelligent"
+  },
+  
+  "repositorySpecific": {
+    "DevBusinessHub/business-portfolio": {
+      "changeThreshold": "low",
+      "skipThreshold": 75,
+      "reason": "High activity repository - more frequent updates needed",
+      "sensitivity": "high"
+    },
+    "DevPersonalHub/personal-innovation-lab": {
+      "changeThreshold": "medium",
+      "skipThreshold": 80,
+      "reason": "Balanced approach for personal projects",
+      "sensitivity": "medium"
+    },
+    "DevPersonalHub/external-learning-platforms": {
+      "changeThreshold": "low",
+      "skipThreshold": 70,
+      "reason": "Educational content changes frequently",
+      "sensitivity": "high"
+    },
+    "DevAcademicHub/computer-science-degree": {
+      "changeThreshold": "medium",
+      "skipThreshold": 85,
+      "reason": "Academic content changes less frequently",
+      "sensitivity": "low"
+    },
+    "DevAcademicHub/university-coursework": {
+      "changeThreshold": "medium", 
+      "skipThreshold": 85,
+      "reason": "Academic coursework has scheduled updates",
+      "sensitivity": "low"
+    },
+    "DevEcosystem/ecosystem-central-command": {
+      "changeThreshold": "low",
+      "skipThreshold": 60,
+      "reason": "Central system - needs frequent updates for accuracy",
+      "sensitivity": "very_high"
+    },
+    "DevEcosystem/development-portfolio": {
+      "changeThreshold": "medium",
+      "skipThreshold": 75,
+      "reason": "Portfolio showcases active development",
+      "sensitivity": "medium"
+    },
+    "DevEcosystem/unified-development-hub": {
+      "changeThreshold": "medium",
+      "skipThreshold": 80,
+      "reason": "Hub repository with moderate update frequency",
+      "sensitivity": "medium"
+    }
+  },
+  
+  "thresholdLevels": {
+    "very_low": {
+      "fileChanges": 1,
+      "contentChanges": 50,
+      "structureChanges": 1,
+      "description": "Deploy on minimal changes"
+    },
+    "low": {
+      "fileChanges": 2,
+      "contentChanges": 100,
+      "structureChanges": 1,
+      "description": "Deploy on small changes"
+    },
+    "medium": {
+      "fileChanges": 3,
+      "contentChanges": 200,
+      "structureChanges": 2,
+      "description": "Deploy on moderate changes"
+    },
+    "high": {
+      "fileChanges": 5,
+      "contentChanges": 500,
+      "structureChanges": 3,
+      "description": "Deploy only on significant changes"
+    },
+    "very_high": {
+      "fileChanges": 10,
+      "contentChanges": 1000,
+      "structureChanges": 5,
+      "description": "Deploy only on major changes"
+    }
+  },
+  
+  "optimizationTargets": {
+    "successRate": {
+      "target": "75%",
+      "minimum": "65%",
+      "description": "Target success rate for deployments"
+    },
+    "skipRate": {
+      "target": "80%",
+      "maximum": "90%",
+      "description": "Optimal skip rate for efficiency"
+    },
+    "efficiency": {
+      "target": "high",
+      "timePerRepo": "< 2 minutes",
+      "resourceUsage": "optimized"
+    }
+  },
+  
+  "adaptiveSettings": {
+    "enabled": true,
+    "learningPeriod": "30 days",
+    "adjustmentFactor": 0.1,
+    "description": "Automatically adjust thresholds based on deployment patterns"
+  },
+  
+  "emergencyOverrides": {
+    "forceDeployment": {
+      "trigger": "manual_override",
+      "description": "Force deployment regardless of thresholds"
+    },
+    "pauseDeployment": {
+      "trigger": "error_rate > 50%",
+      "duration": "24 hours",
+      "description": "Pause deployments if error rate is too high"
+    }
+  }
+}

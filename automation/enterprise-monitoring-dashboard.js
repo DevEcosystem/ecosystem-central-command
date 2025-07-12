@@ -279,18 +279,130 @@ class EnterpriseMonitoringDashboard {
   }
 
   /**
-   * Calculate overall health score
+   * Calculate optimized overall health score
    */
   calculateOverallHealth() {
-    const deploymentHealth = this.metrics.deployments.successRate || 0;
-    const systemHealth = this.metrics.system.githubAPI?.status === 'healthy' ? 100 : 0;
+    const config = this.loadMonitoringConfig();
     
-    const overallScore = (deploymentHealth + systemHealth) / 2;
+    // Enhanced health calculation with optimized weightings
+    const deploymentHealth = this.calculateDeploymentHealth();
+    const systemHealth = this.calculateSystemHealth();
+    const efficiencyHealth = this.calculateEfficiencyHealth();
     
-    if (overallScore >= 90) return { score: overallScore, status: 'excellent', color: 'green' };
-    if (overallScore >= 70) return { score: overallScore, status: 'good', color: 'yellow' };
-    if (overallScore >= 50) return { score: overallScore, status: 'fair', color: 'orange' };
-    return { score: overallScore, status: 'poor', color: 'red' };
+    // Weighted scoring: 40% deployment, 30% system, 30% efficiency
+    const overallScore = Math.round(
+      (deploymentHealth * 0.4) + 
+      (systemHealth * 0.3) + 
+      (efficiencyHealth * 0.3)
+    );
+    
+    // Apply optimized thresholds from config
+    const thresholds = config.alertThresholds.systemHealth;
+    
+    if (overallScore >= thresholds.excellent.min) {
+      return { score: overallScore, status: 'excellent', color: 'green' };
+    } else if (overallScore >= thresholds.good.min) {
+      return { score: overallScore, status: 'good', color: 'blue' };
+    } else if (overallScore >= thresholds.fair.min) {
+      return { score: overallScore, status: 'fair', color: 'orange' };
+    } else if (overallScore >= thresholds.poor.min) {
+      return { score: overallScore, status: 'poor', color: 'red' };
+    } else {
+      return { score: overallScore, status: 'critical', color: 'darkred' };
+    }
+  }
+
+  /**
+   * Calculate deployment health with optimized criteria
+   */
+  calculateDeploymentHealth() {
+    const successRate = this.metrics.deployments.successRate || 0;
+    const totalRuns = this.metrics.deployments.totalRuns || 0;
+    
+    let health = successRate;
+    
+    // Bonus for deployment history
+    if (totalRuns >= 5) health += 5;
+    else if (totalRuns < 2) health -= 10;
+    
+    // Recent deployment bonus
+    if (this.metrics.deployments.lastRun) {
+      const daysSinceLastRun = (Date.now() - new Date(this.metrics.deployments.lastRun)) / (1000 * 60 * 60 * 24);
+      if (daysSinceLastRun <= 1) health += 5;
+      else if (daysSinceLastRun > 2) health -= 10;
+    }
+    
+    return Math.max(0, Math.min(100, health));
+  }
+
+  /**
+   * Calculate system health
+   */
+  calculateSystemHealth() {
+    let health = 100;
+    
+    // GitHub API health
+    if (this.metrics.system.githubAPI?.status !== 'healthy') health -= 30;
+    
+    // API rate limit health
+    const rateLimit = this.metrics.system.githubAPI?.rateLimit;
+    if (rateLimit) {
+      if (rateLimit.remaining < 100) health -= 20;
+      else if (rateLimit.remaining < 1000) health -= 10;
+    }
+    
+    // System resource health (if available)
+    const memory = this.metrics.system.memory;
+    if (memory && memory.heapUsed / memory.heapTotal > 0.8) health -= 15;
+    
+    return Math.max(0, health);
+  }
+
+  /**
+   * Calculate efficiency health
+   */
+  calculateEfficiencyHealth() {
+    const skipRate = this.metrics.deployments.averageSkipRate || 0;
+    let health = 70; // Base efficiency score
+    
+    // Optimal skip rate (75-85%) gets bonus
+    if (skipRate >= 75 && skipRate <= 85) {
+      health += 30; // Excellent efficiency
+    } else if (skipRate >= 60 && skipRate <= 90) {
+      health += 15; // Good efficiency
+    } else if (skipRate < 40) {
+      health -= 20; // Too many unnecessary deployments
+    } else if (skipRate > 95) {
+      health -= 25; // Too conservative, might miss important updates
+    }
+    
+    return Math.max(0, Math.min(100, health));
+  }
+
+  /**
+   * Load monitoring optimization configuration
+   */
+  loadMonitoringConfig() {
+    try {
+      const configPath = path.join(__dirname, '../docs/config/monitoring-optimization.json');
+      if (fs.existsSync(configPath)) {
+        return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+      }
+    } catch (error) {
+      console.log('⚠️ Using default monitoring configuration');
+    }
+    
+    return {
+      alertThresholds: {
+        systemHealth: {
+          excellent: { min: 90 },
+          good: { min: 70 },
+          fair: { min: 50 },
+          poor: { min: 30 },
+          critical: { max: 29 }
+        }
+      }
+    };
   }
 
   /**

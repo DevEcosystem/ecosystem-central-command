@@ -1,9 +1,15 @@
 {
-  "lastRun": "2025-07-12T11:52:58.420Z",
+  "lastRun": "2025-07-12T13:32:01.767Z",
   "deployments": {
     "DevPersonalHub/external-learning-platforms": [
       {
         "timestamp": "2025-07-12T11:52:58.420Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
@@ -15,11 +21,23 @@
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
       }
     ],
     "DevPersonalHub/technical-showcase": [
       {
         "timestamp": "2025-07-12T11:52:58.420Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
@@ -31,11 +49,23 @@
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
       }
     ],
     "DevAcademicHub/academic-portfolio": [
       {
         "timestamp": "2025-07-12T11:52:58.420Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
@@ -47,11 +77,23 @@
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
       }
     ],
     "DevBusinessHub/automation-tools": [
       {
         "timestamp": "2025-07-12T11:52:58.420Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
@@ -63,13 +105,19 @@
         "status": "skipped",
         "changes": [],
         "reason": "Analysis failed"
+      },
+      {
+        "timestamp": "2025-07-12T13:32:01.767Z",
+        "status": "skipped",
+        "changes": [],
+        "reason": "Analysis failed"
       }
     ]
   },
   "statistics": {
-    "totalRuns": 1,
+    "totalRuns": 2,
     "successfulDeployments": 0,
-    "skippedDeployments": 8,
+    "skippedDeployments": 16,
     "failedDeployments": 0
   }
 }

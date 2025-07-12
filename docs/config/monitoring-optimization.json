@@ -1,0 +1,285 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-07-12T13:30:00.000Z",
+  "description": "Optimized monitoring system configuration for enhanced performance and accuracy",
+  
+  "alertThresholds": {
+    "systemHealth": {
+      "excellent": {
+        "min": 90,
+        "color": "green",
+        "action": "none",
+        "notification": false
+      },
+      "good": {
+        "min": 70,
+        "max": 89,
+        "color": "blue", 
+        "action": "monitor",
+        "notification": false
+      },
+      "fair": {
+        "min": 50,
+        "max": 69,
+        "color": "orange",
+        "action": "investigate",
+        "notification": true,
+        "frequency": "daily"
+      },
+      "poor": {
+        "min": 30,
+        "max": 49,
+        "color": "red",
+        "action": "immediate_attention",
+        "notification": true,
+        "frequency": "immediate"
+      },
+      "critical": {
+        "max": 29,
+        "color": "darkred",
+        "action": "emergency_response",
+        "notification": true,
+        "frequency": "immediate"
+      }
+    },
+    
+    "deploymentMetrics": {
+      "successRate": {
+        "excellent": "> 90%",
+        "good": "75-90%",
+        "fair": "60-74%",
+        "poor": "40-59%",
+        "critical": "< 40%"
+      },
+      "skipRate": {
+        "optimal": "75-85%",
+        "acceptable": "60-90%",
+        "suboptimal": "40-95%",
+        "problematic": "< 40% or > 95%"
+      },
+      "errorRate": {
+        "excellent": "< 5%",
+        "acceptable": "5-10%",
+        "concerning": "10-20%",
+        "critical": "> 20%"
+      }
+    },
+    
+    "systemResources": {
+      "memory": {
+        "normal": "< 70%",
+        "warning": "70-85%",
+        "critical": "> 85%"
+      },
+      "cpu": {
+        "normal": "< 60%",
+        "warning": "60-80%",
+        "critical": "> 80%"
+      },
+      "diskSpace": {
+        "normal": "< 70%",
+        "warning": "70-85%",
+        "critical": "> 85%"
+      },
+      "apiRateLimit": {
+        "healthy": "> 1000 remaining",
+        "warning": "100-1000 remaining",
+        "critical": "< 100 remaining"
+      }
+    }
+  },
+  
+  "notificationSettings": {
+    "frequency": {
+      "immediate": ["critical", "emergency"],
+      "hourly": ["high_priority_errors"],
+      "daily": ["fair_health", "optimization_suggestions"],
+      "weekly": ["performance_summary", "trend_analysis"],
+      "monthly": ["comprehensive_report"]
+    },
+    
+    "channels": {
+      "github": {
+        "enabled": true,
+        "priority": "high",
+        "events": ["deployment_failure", "system_critical", "security_alerts"]
+      },
+      "email": {
+        "enabled": false,
+        "priority": "medium",
+        "events": ["daily_summary", "weekly_report"]
+      },
+      "slack": {
+        "enabled": false,
+        "priority": "medium", 
+        "events": ["deployment_success", "optimization_alerts"]
+      },
+      "dashboard": {
+        "enabled": true,
+        "priority": "low",
+        "events": ["all_events"],
+        "realtime": true
+      }
+    },
+    
+    "suppressionRules": {
+      "duplicateAlerts": {
+        "enabled": true,
+        "timeWindow": "30 minutes",
+        "description": "Prevent duplicate alerts within time window"
+      },
+      "maintenanceMode": {
+        "enabled": true,
+        "duration": "configurable",
+        "description": "Suppress non-critical alerts during maintenance"
+      },
+      "cascadingFailures": {
+        "enabled": true,
+        "maxAlerts": 3,
+        "description": "Limit cascading failure notifications"
+      }
+    }
+  },
+  
+  "performanceOptimization": {
+    "dataRetention": {
+      "realtime": "24 hours",
+      "hourly": "7 days", 
+      "daily": "30 days",
+      "weekly": "6 months",
+      "monthly": "2 years"
+    },
+    
+    "cachingStrategy": {
+      "dashboardData": {
+        "ttl": "5 minutes",
+        "enabled": true
+      },
+      "analyticsResults": {
+        "ttl": "1 hour",
+        "enabled": true
+      },
+      "systemMetrics": {
+        "ttl": "1 minute",
+        "enabled": true
+      }
+    },
+    
+    "updateIntervals": {
+      "systemMetrics": "30 seconds",
+      "deploymentStatus": "1 minute",
+      "repositoryHealth": "5 minutes",
+      "analyticsData": "15 minutes",
+      "trendAnalysis": "1 hour"
+    },
+    
+    "resourceLimits": {
+      "maxMemoryUsage": "256MB",
+      "maxCpuUsage": "20%",
+      "maxConcurrentRequests": 50,
+      "maxLogFileSize": "100MB"
+    }
+  },
+  
+  "adaptiveMonitoring": {
+    "enabled": true,
+    "intelligentThresholds": {
+      "enabled": true,
+      "learningPeriod": "7 days",
+      "adjustmentFactor": 0.05,
+      "description": "Automatically adjust thresholds based on historical patterns"
+    },
+    
+    "predictiveAlerts": {
+      "enabled": true,
+      "predictionWindow": "24 hours",
+      "confidenceThreshold": 0.8,
+      "description": "Predict potential issues before they occur"
+    },
+    
+    "anomalyDetection": {
+      "enabled": true,
+      "sensitivity": "medium",
+      "baselinePeriod": "14 days",
+      "description": "Detect unusual patterns in system behavior"
+    }
+  },
+  
+  "dashboardConfiguration": {
+    "refreshRate": "30 seconds",
+    "theme": "auto",
+    "language": "ja",
+    "timezone": "Asia/Tokyo",
+    
+    "widgets": {
+      "systemOverview": {
+        "enabled": true,
+        "position": 1,
+        "size": "large"
+      },
+      "deploymentStatus": {
+        "enabled": true,
+        "position": 2,
+        "size": "medium"
+      },
+      "performanceMetrics": {
+        "enabled": true,
+        "position": 3,
+        "size": "medium"
+      },
+      "recentAlerts": {
+        "enabled": true,
+        "position": 4,
+        "size": "small"
+      },
+      "trendCharts": {
+        "enabled": true,
+        "position": 5,
+        "size": "large"
+      }
+    },
+    
+    "customization": {
+      "allowUserPreferences": true,
+      "saveLayoutChanges": true,
+      "exportCapability": true
+    }
+  },
+  
+  "reportGeneration": {
+    "automated": {
+      "daily": {
+        "enabled": true,
+        "time": "09:00 JST",
+        "recipients": ["github_notifications"]
+      },
+      "weekly": {
+        "enabled": true,
+        "day": "monday",
+        "time": "09:00 JST",
+        "recipients": ["github_notifications"]
+      },
+      "monthly": {
+        "enabled": true,
+        "date": 1,
+        "time": "09:00 JST",
+        "recipients": ["github_notifications"]
+      }
+    },
+    
+    "templates": {
+      "executive_summary": {
+        "sections": ["overview", "key_metrics", "recommendations"],
+        "format": "markdown"
+      },
+      "technical_report": {
+        "sections": ["detailed_metrics", "performance_analysis", "technical_recommendations"],
+        "format": "json"
+      },
+      "trend_analysis": {
+        "sections": ["historical_data", "trend_patterns", "predictions"],
+        "format": "markdown"
+      }
+    }
+  }
+}

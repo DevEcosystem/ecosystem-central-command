@@ -381,19 +381,22 @@ class IntelligentDeploymentManager {
       };
     }
     
-    // Smart deployment based on repository configuration
-    const thresholds = {
-      low: 5,    // Deploy if >5% change
-      medium: 10, // Deploy if >10% change  
-      high: 20   // Deploy if >20% change
-    };
+    // Smart deployment based on optimized repository configuration
+    const thresholds = this.getOptimizedThresholds();
+    const repoKey = `${repo.org}/${repo.name}`;
     
-    const threshold = thresholds[repo.changeThreshold] || 10;
+    // Apply repository-specific thresholds from config
+    let thresholdLevel = repo.changeThreshold || 'medium';
+    if (this.hasRepositorySpecificConfig(repoKey)) {
+      thresholdLevel = this.getRepositoryThreshold(repoKey);
+    }
+    
+    const threshold = thresholds[thresholdLevel] || thresholds.medium;
     
     if (changeMetrics.changePercentage >= threshold) {
       return {
         deploy: true,
-        reason: `Significant changes (${changeMetrics.changePercentage}% > ${threshold}% threshold)`
+        reason: `Optimized deployment: ${changeMetrics.changePercentage}% change exceeds ${thresholdLevel} threshold (${threshold}%)`
       };
     }
     
@@ -412,8 +415,70 @@ class IntelligentDeploymentManager {
     
     return {
       deploy: false,
-      reason: `Changes below threshold (${changeMetrics.changePercentage}% < ${threshold}%)`
+      reason: `Optimized skip: ${changeMetrics.changePercentage}% change below ${thresholdLevel} threshold (${threshold}%)`
     };
+  }
+
+  /**
+   * Get optimized threshold settings
+   */
+  getOptimizedThresholds() {
+    try {
+      const configPath = path.join(__dirname, '../docs/config/deployment-thresholds.json');
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        
+        // Convert threshold levels to percentage values
+        return {
+          very_low: 2,   // Deploy if >2% change
+          low: 5,        // Deploy if >5% change  
+          medium: 10,    // Deploy if >10% change
+          high: 15,      // Deploy if >15% change
+          very_high: 25  // Deploy if >25% change
+        };
+      }
+    } catch (error) {
+      console.log('⚠️ Using default optimized thresholds');
+    }
+    
+    // Fallback to optimized defaults  
+    return {
+      low: 5,       // More sensitive for important repos
+      medium: 10,   // Balanced approach
+      high: 20      // Conservative for stable repos
+    };
+  }
+
+  /**
+   * Check if repository has specific configuration
+   */
+  hasRepositorySpecificConfig(repoKey) {
+    try {
+      const configPath = path.join(__dirname, '../docs/config/deployment-thresholds.json');
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        return config.repositorySpecific && config.repositorySpecific[repoKey];
+      }
+    } catch (error) {
+      return false;
+    }
+    return false;
+  }
+
+  /**
+   * Get repository-specific threshold
+   */
+  getRepositoryThreshold(repoKey) {
+    try {
+      const configPath = path.join(__dirname, '../docs/config/deployment-thresholds.json');
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        return config.repositorySpecific[repoKey]?.changeThreshold || 'medium';
+      }
+    } catch (error) {
+      return 'medium';
+    }
+    return 'medium';
   }
 
   /**
