@@ -152,6 +152,9 @@ class GitHubStatsCollector {
         },
         'business-management': {
           'TypeScript': 2060, 'JavaScript': 890, 'CSS': 144, 'SCSS': 67
+        },
+        'client-language-platform': {
+          'JavaScript': 2890, 'TypeScript': 1560, 'CSS': 780, 'HTML': 445, 'Python': 340
         }
       },
       'DevPersonalHub': {

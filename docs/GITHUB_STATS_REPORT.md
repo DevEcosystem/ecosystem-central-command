@@ -1,39 +1,39 @@
 # 📊 GitHub Language Statistics Report
 
-**Generated**: 7/13/2025, 1:40:25 AM  
+**Generated**: 7/13/2025, 1:44:45 AM  
 **Total Organizations**: 4  
-**Total Repositories**: 12  
-**Total Code Lines**: 48,214
+**Total Repositories**: 13  
+**Total Code Lines**: 54,229
 
 ## 🌍 Ecosystem Overview
 
 ### Top Languages Across All Organizations
-1. **JavaScript**: 37.4% (18,040 lines)
-2. **TypeScript**: 21.8% (10,527 lines)
-3. **Python**: 21.6% (10,401 lines)
-4. **CSS**: 6.1% (2,939 lines)
-5. **Java**: 4.9% (2,346 lines)
-6. **HTML**: 3.6% (1,723 lines)
-7. **JSON**: 1.8% (890 lines)
-8. **C++**: 0.9% (456 lines)
-9. **Markdown**: 0.7% (345 lines)
-10. **C**: 0.5% (234 lines)
+1. **JavaScript**: 38.6% (20,930 lines)
+2. **TypeScript**: 22.3% (12,087 lines)
+3. **Python**: 19.8% (10,741 lines)
+4. **CSS**: 6.9% (3,719 lines)
+5. **Java**: 4.3% (2,346 lines)
+6. **HTML**: 4.0% (2,168 lines)
+7. **JSON**: 1.6% (890 lines)
+8. **C++**: 0.8% (456 lines)
+9. **Markdown**: 0.6% (345 lines)
+10. **C**: 0.4% (234 lines)
 
 ## 🏢 Organization Breakdown
 
 
 ### DevBusinessHub
-- **Repositories**: 2
-- **Total Lines**: 7,631
+- **Repositories**: 3
+- **Total Lines**: 13,646
 - **Primary Language**: JavaScript
-- **Languages Used**: 5
+- **Languages Used**: 6
 
 #### Top Languages
-- **JavaScript**: 54.1% (4,130 lines)
-- **TypeScript**: 28.6% (2,180 lines)
-- **CSS**: 10.8% (824 lines)
-- **HTML**: 5.6% (430 lines)
-- **SCSS**: 0.9% (67 lines)
+- **JavaScript**: 51.4% (7,020 lines)
+- **TypeScript**: 27.4% (3,740 lines)
+- **CSS**: 11.8% (1,604 lines)
+- **HTML**: 6.4% (875 lines)
+- **Python**: 2.5% (340 lines)
 
 
 ### DevPersonalHub
