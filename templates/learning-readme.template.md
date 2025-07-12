@@ -13,6 +13,8 @@ This repository consolidates my comprehensive learning journey across multiple e
 - **🎓 Meta Professional Certificates**: Industry-standard curriculum developed by Meta (Facebook) engineers, covering both frontend and backend specializations
 - **🎨 Udacity Nanodegree**: Cutting-edge frontend development program with mentor guidance and career services
 
+{{LANGUAGE_STATS}}
+
 ## 🏗️ Learning Architecture
 
 ### 🔥 Recursion CS Program

@@ -7,11 +7,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const GitHubStatsCollector = require('./github-stats-collector');
 
 class UniversalReadmeManager {
   constructor() {
     this.baseDir = path.dirname(__dirname);
     this.templatesDir = path.join(this.baseDir, 'templates');
+    this.languageStats = null; // Will be populated during stats collection
     
     // All ecosystem repositories configuration
     this.repositories = [
@@ -76,19 +78,27 @@ class UniversalReadmeManager {
       // Step 1: Ensure templates directory exists
       await this.ensureTemplatesDirectory();
       
-      // Step 2: Generate templates for all repositories
+      // Step 2: Collect GitHub language statistics
+      console.log('📊 Collecting GitHub language statistics...');
+      const statsCollector = new GitHubStatsCollector();
+      const languageStats = await statsCollector.collectAllStats();
+      this.languageStats = languageStats;
+      console.log(`  ✓ Collected stats: ${languageStats.ecosystem_totals.total_lines.toLocaleString()} lines across ${languageStats.ecosystem_totals.total_repositories} repositories`);
+      
+      // Step 3: Generate templates for all repositories (now with stats)
       await this.generateAllTemplates();
       
-      // Step 3: Scan and analyze all repositories
+      // Step 4: Scan and analyze all repositories
       const repoAnalysis = await this.analyzeAllRepositories();
       
-      // Step 4: Generate updated READMEs
+      // Step 5: Generate updated READMEs
       await this.generateUpdatedReadmes(repoAnalysis);
       
-      // Step 5: Create update summary
+      // Step 6: Create update summary
       await this.createUpdateSummary(repoAnalysis);
       
       console.log('✅ Universal README Management completed successfully!');
+      console.log(`🔍 GitHub Stats Integration: ${Object.keys(languageStats.organizations).length} organizations analyzed`);
       
     } catch (error) {
       console.error('❌ Universal README Management failed:', error.message);
@@ -318,6 +328,9 @@ class UniversalReadmeManager {
     
     let template = fs.readFileSync(templatePath, 'utf8');
     
+    // Generate organization-specific language statistics
+    const languageStatsSection = this.generateLanguageStatsSection(data.org);
+    
     // Replace template variables
     template = template
       .replace(/\{\{REPO_NAME\}\}/g, data.name)
@@ -327,7 +340,8 @@ class UniversalReadmeManager {
       .replace(/\{\{LAST_UPDATE\}\}/g, new Date(data.lastUpdate).toLocaleDateString())
       .replace(/\{\{TECHNOLOGIES\}\}/g, data.technologies.join(', '))
       .replace(/\{\{STATUS\}\}/g, data.status)
-      .replace(/\{\{STRUCTURE\}\}/g, data.structure);
+      .replace(/\{\{STRUCTURE\}\}/g, data.structure)
+      .replace(/\{\{LANGUAGE_STATS\}\}/g, languageStatsSection);
     
     return template;
   }
@@ -401,6 +415,8 @@ This repository consolidates my comprehensive learning journey across multiple e
 - **🔥 Recursion CS Program**: Intensive computer science education through challenging projects that mirror real industry scenarios
 - **🎓 Meta Professional Certificates**: Industry-standard curriculum developed by Meta (Facebook) engineers, covering both frontend and backend specializations
 - **🎨 Udacity Nanodegree**: Cutting-edge frontend development program with mentor guidance and career services
+
+{{LANGUAGE_STATS}}
 
 ## 🏗️ Learning Architecture
 
@@ -678,6 +694,116 @@ The systems in this repository directly support:
       repositoryTypes: [...new Set(this.repositories.map(r => r.type))].length,
       automationStatus: 'Fully Operational'
     };
+  }
+
+  /**
+   * Generate language statistics section for README
+   */
+  generateLanguageStatsSection(orgName = null) {
+    if (!this.languageStats) {
+      return `## Technology Stack
+Dynamic language statistics integration in progress.`;
+    }
+
+    if (orgName && this.languageStats.organizations[orgName]) {
+      return this.generateOrganizationLanguageStats(orgName);
+    } else {
+      return this.generateEcosystemLanguageStats();
+    }
+  }
+
+  /**
+   * Generate organization-specific language statistics
+   */
+  generateOrganizationLanguageStats(orgName) {
+    const orgData = this.languageStats.organizations[orgName];
+    if (!orgData || !orgData.totals.languages) {
+      return `## Technology Stack
+Language statistics not available for ${orgName}.`;
+    }
+
+    const languages = orgData.totals.languages.slice(0, 8); // Top 8 languages
+    const totalLines = orgData.totals.total_lines;
+
+    let statsSection = `## Technology Stack
+**Total Code**: ${totalLines.toLocaleString()} lines across ${orgData.totals.accessible_repositories} repositories
+
+### Language Distribution\n`;
+
+    // Add language bars
+    languages.forEach(lang => {
+      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 20);
+      const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+      const icon = this.getLanguageIcon(lang.language);
+      
+      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)\n`;
+    });
+
+    // Add trends if available
+    if (this.languageStats.trends.available) {
+      statsSection += `\n### Growth Trends\n`;
+      
+      Object.entries(this.languageStats.trends.languages).slice(0, 5).forEach(([language, trend]) => {
+        if (languages.some(l => l.language === language)) {
+          statsSection += `- **${language}**: ${trend.trend_icon} ${trend.percentage_change}% ${trend.trend}\n`;
+        }
+      });
+    }
+
+    return statsSection;
+  }
+
+  /**
+   * Generate ecosystem-wide language statistics
+   */
+  generateEcosystemLanguageStats() {
+    const ecosystemData = this.languageStats.ecosystem_totals;
+    if (!ecosystemData.languages) {
+      return `## Ecosystem Technology Stack
+Ecosystem-wide statistics not available.`;
+    }
+
+    const languages = ecosystemData.languages.slice(0, 10); // Top 10 languages
+    
+    let statsSection = `## Ecosystem Technology Overview
+**Total Code**: ${ecosystemData.total_lines.toLocaleString()} lines across ${ecosystemData.total_repositories} repositories in ${ecosystemData.total_organizations} organizations
+
+### Cross-Organization Language Distribution\n`;
+
+    // Add language statistics with organization info
+    languages.forEach(lang => {
+      const barLength = Math.round((parseFloat(lang.percentage) / 100) * 20);
+      const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+      const icon = this.getLanguageIcon(lang.language);
+      
+      const orgList = lang.organizations ? 
+        lang.organizations.slice(0, 3).map(org => org.name.replace('Dev', '')).join(', ') : 
+        'Multiple';
+      
+      statsSection += `${icon} **${lang.language}**: ${bar} ${lang.percentage}% (${lang.lines.toLocaleString()} lines)\n`;
+      statsSection += `  *Primary use: ${orgList}*\n`;
+    });
+
+    // Add organization breakdown
+    statsSection += `\n### Organization Specializations\n`;
+    
+    Object.entries(this.languageStats.organizations).forEach(([orgName, orgData]) => {
+      const primaryLang = orgData.totals.primary_language;
+      const repoCount = orgData.totals.accessible_repositories;
+      const percentage = orgData.totals.languages?.[0]?.percentage || '0';
+      
+      statsSection += `- **${orgName}**: ${primaryLang} specialist (${percentage}% usage, ${repoCount} repos)\n`;
+    });
+
+    return statsSection;
+  }
+
+  /**
+   * Get professional indicator for programming language
+   */
+  getLanguageIcon(language) {
+    // Professional approach: use simple bullet points or return empty string
+    return '▪'; // Simple, professional bullet point for all languages
   }
 }
 

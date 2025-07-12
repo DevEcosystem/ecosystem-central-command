@@ -1,0 +1,684 @@
+{
+  "collected_at": "2025-07-12T14:01:45.183Z",
+  "organizations": {
+    "DevBusinessHub": {
+      "name": "DevBusinessHub",
+      "repositories": {
+        "business-portfolio": {
+          "name": "business-portfolio",
+          "languages": {
+            "JavaScript": 3240,
+            "CSS": 680,
+            "HTML": 430,
+            "TypeScript": 120
+          },
+          "metadata": {
+            "total_lines": 4470,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 45,
+            "forks": 14,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "business-management": {
+          "name": "business-management",
+          "languages": {
+            "TypeScript": 2060,
+            "JavaScript": 890,
+            "CSS": 144,
+            "SCSS": 67
+          },
+          "metadata": {
+            "total_lines": 3161,
+            "primary_language": "TypeScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 64,
+            "forks": 5,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        }
+      },
+      "totals": {
+        "total_lines": 7631,
+        "total_repositories": 2,
+        "accessible_repositories": 2,
+        "languages": [
+          {
+            "language": "JavaScript",
+            "lines": 4130,
+            "percentage": "54.1",
+            "rank": 1
+          },
+          {
+            "language": "TypeScript",
+            "lines": 2180,
+            "percentage": "28.6",
+            "rank": 2
+          },
+          {
+            "language": "CSS",
+            "lines": 824,
+            "percentage": "10.8",
+            "rank": 3
+          },
+          {
+            "language": "HTML",
+            "lines": 430,
+            "percentage": "5.6",
+            "rank": 4
+          },
+          {
+            "language": "SCSS",
+            "lines": 67,
+            "percentage": "0.9",
+            "rank": 5
+          }
+        ],
+        "primary_language": "JavaScript",
+        "language_diversity": 5
+      },
+      "metadata": {
+        "total_repositories": 2,
+        "last_updated": "2025-07-12T14:01:45.191Z",
+        "data_source": "mock"
+      }
+    },
+    "DevPersonalHub": {
+      "name": "DevPersonalHub",
+      "repositories": {
+        "external-learning-platforms": {
+          "name": "external-learning-platforms",
+          "languages": {
+            "JavaScript": 2762,
+            "Python": 890,
+            "HTML": 345,
+            "CSS": 234
+          },
+          "metadata": {
+            "total_lines": 4231,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 64,
+            "forks": 6,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "personal-innovation-lab": {
+          "name": "personal-innovation-lab",
+          "languages": {
+            "TypeScript": 3550,
+            "Python": 688,
+            "JavaScript": 445,
+            "CSS": 156
+          },
+          "metadata": {
+            "total_lines": 4839,
+            "primary_language": "TypeScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 37,
+            "forks": 7,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "portfolio-website": {
+          "name": "portfolio-website",
+          "languages": {
+            "TypeScript": 1890,
+            "CSS": 567,
+            "HTML": 234,
+            "SCSS": 123
+          },
+          "metadata": {
+            "total_lines": 2814,
+            "primary_language": "TypeScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 12,
+            "forks": 18,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "technical-showcase": {
+          "name": "technical-showcase",
+          "languages": {
+            "JavaScript": 1456,
+            "Python": 567,
+            "CSS": 234,
+            "HTML": 123
+          },
+          "metadata": {
+            "total_lines": 2380,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 80,
+            "forks": 20,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        }
+      },
+      "totals": {
+        "total_lines": 14264,
+        "total_repositories": 4,
+        "accessible_repositories": 4,
+        "languages": [
+          {
+            "language": "TypeScript",
+            "lines": 5440,
+            "percentage": "38.1",
+            "rank": 1
+          },
+          {
+            "language": "JavaScript",
+            "lines": 4663,
+            "percentage": "32.7",
+            "rank": 2
+          },
+          {
+            "language": "Python",
+            "lines": 2145,
+            "percentage": "15.0",
+            "rank": 3
+          },
+          {
+            "language": "CSS",
+            "lines": 1191,
+            "percentage": "8.3",
+            "rank": 4
+          },
+          {
+            "language": "HTML",
+            "lines": 702,
+            "percentage": "4.9",
+            "rank": 5
+          },
+          {
+            "language": "SCSS",
+            "lines": 123,
+            "percentage": "0.9",
+            "rank": 6
+          }
+        ],
+        "primary_language": "TypeScript",
+        "language_diversity": 6
+      },
+      "metadata": {
+        "total_repositories": 4,
+        "last_updated": "2025-07-12T14:01:45.191Z",
+        "data_source": "mock"
+      }
+    },
+    "DevAcademicHub": {
+      "name": "DevAcademicHub",
+      "repositories": {
+        "computer-science-degree": {
+          "name": "computer-science-degree",
+          "languages": {
+            "Python": 4026,
+            "JavaScript": 1200,
+            "Java": 890,
+            "C++": 456
+          },
+          "metadata": {
+            "total_lines": 6572,
+            "primary_language": "Python",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 43,
+            "forks": 5,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "university-coursework": {
+          "name": "university-coursework",
+          "languages": {
+            "Python": 2340,
+            "Java": 1456,
+            "JavaScript": 567,
+            "C": 234
+          },
+          "metadata": {
+            "total_lines": 4597,
+            "primary_language": "Python",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 52,
+            "forks": 9,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "academic-portfolio": {
+          "name": "academic-portfolio",
+          "languages": {
+            "Python": 1890,
+            "JavaScript": 567,
+            "HTML": 234,
+            "CSS": 123
+          },
+          "metadata": {
+            "total_lines": 2814,
+            "primary_language": "Python",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 11,
+            "forks": 16,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        }
+      },
+      "totals": {
+        "total_lines": 13983,
+        "total_repositories": 3,
+        "accessible_repositories": 3,
+        "languages": [
+          {
+            "language": "Python",
+            "lines": 8256,
+            "percentage": "59.0",
+            "rank": 1
+          },
+          {
+            "language": "Java",
+            "lines": 2346,
+            "percentage": "16.8",
+            "rank": 2
+          },
+          {
+            "language": "JavaScript",
+            "lines": 2334,
+            "percentage": "16.7",
+            "rank": 3
+          },
+          {
+            "language": "C++",
+            "lines": 456,
+            "percentage": "3.3",
+            "rank": 4
+          },
+          {
+            "language": "C",
+            "lines": 234,
+            "percentage": "1.7",
+            "rank": 5
+          },
+          {
+            "language": "HTML",
+            "lines": 234,
+            "percentage": "1.7",
+            "rank": 6
+          },
+          {
+            "language": "CSS",
+            "lines": 123,
+            "percentage": "0.9",
+            "rank": 7
+          }
+        ],
+        "primary_language": "Python",
+        "language_diversity": 7
+      },
+      "metadata": {
+        "total_repositories": 3,
+        "last_updated": "2025-07-12T14:01:45.191Z",
+        "data_source": "mock"
+      }
+    },
+    "DevEcosystem": {
+      "name": "DevEcosystem",
+      "repositories": {
+        "ecosystem-central-command": {
+          "name": "ecosystem-central-command",
+          "languages": {
+            "JavaScript": 4567,
+            "JSON": 890,
+            "Markdown": 345,
+            "Shell": 123
+          },
+          "metadata": {
+            "total_lines": 5925,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 14,
+            "forks": 2,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "development-portfolio": {
+          "name": "development-portfolio",
+          "languages": {
+            "TypeScript": 2340,
+            "CSS": 567,
+            "HTML": 234,
+            "JavaScript": 456
+          },
+          "metadata": {
+            "total_lines": 3597,
+            "primary_language": "TypeScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 92,
+            "forks": 8,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "unified-development-hub": {
+          "name": "unified-development-hub",
+          "languages": {
+            "JavaScript": 1890,
+            "TypeScript": 567,
+            "CSS": 234,
+            "HTML": 123
+          },
+          "metadata": {
+            "total_lines": 2814,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-12T14:01:45.191Z",
+            "stars": 106,
+            "forks": 16,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        }
+      },
+      "totals": {
+        "total_lines": 12336,
+        "total_repositories": 3,
+        "accessible_repositories": 3,
+        "languages": [
+          {
+            "language": "JavaScript",
+            "lines": 6913,
+            "percentage": "56.0",
+            "rank": 1
+          },
+          {
+            "language": "TypeScript",
+            "lines": 2907,
+            "percentage": "23.6",
+            "rank": 2
+          },
+          {
+            "language": "JSON",
+            "lines": 890,
+            "percentage": "7.2",
+            "rank": 3
+          },
+          {
+            "language": "CSS",
+            "lines": 801,
+            "percentage": "6.5",
+            "rank": 4
+          },
+          {
+            "language": "HTML",
+            "lines": 357,
+            "percentage": "2.9",
+            "rank": 5
+          },
+          {
+            "language": "Markdown",
+            "lines": 345,
+            "percentage": "2.8",
+            "rank": 6
+          },
+          {
+            "language": "Shell",
+            "lines": 123,
+            "percentage": "1.0",
+            "rank": 7
+          }
+        ],
+        "primary_language": "JavaScript",
+        "language_diversity": 7
+      },
+      "metadata": {
+        "total_repositories": 3,
+        "last_updated": "2025-07-12T14:01:45.191Z",
+        "data_source": "mock"
+      }
+    }
+  },
+  "ecosystem_totals": {
+    "total_lines": 48214,
+    "total_repositories": 12,
+    "total_organizations": 4,
+    "languages": [
+      {
+        "language": "JavaScript",
+        "lines": 18040,
+        "percentage": "37.4",
+        "organizations": [
+          {
+            "name": "DevEcosystem",
+            "lines": 6913,
+            "percentage": "56.0"
+          },
+          {
+            "name": "DevPersonalHub",
+            "lines": 4663,
+            "percentage": "32.7"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 4130,
+            "percentage": "54.1"
+          },
+          {
+            "name": "DevAcademicHub",
+            "lines": 2334,
+            "percentage": "16.7"
+          }
+        ],
+        "rank": 1
+      },
+      {
+        "language": "TypeScript",
+        "lines": 10527,
+        "percentage": "21.8",
+        "organizations": [
+          {
+            "name": "DevPersonalHub",
+            "lines": 5440,
+            "percentage": "38.1"
+          },
+          {
+            "name": "DevEcosystem",
+            "lines": 2907,
+            "percentage": "23.6"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 2180,
+            "percentage": "28.6"
+          }
+        ],
+        "rank": 2
+      },
+      {
+        "language": "Python",
+        "lines": 10401,
+        "percentage": "21.6",
+        "organizations": [
+          {
+            "name": "DevAcademicHub",
+            "lines": 8256,
+            "percentage": "59.0"
+          },
+          {
+            "name": "DevPersonalHub",
+            "lines": 2145,
+            "percentage": "15.0"
+          }
+        ],
+        "rank": 3
+      },
+      {
+        "language": "CSS",
+        "lines": 2939,
+        "percentage": "6.1",
+        "organizations": [
+          {
+            "name": "DevPersonalHub",
+            "lines": 1191,
+            "percentage": "8.3"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 824,
+            "percentage": "10.8"
+          },
+          {
+            "name": "DevEcosystem",
+            "lines": 801,
+            "percentage": "6.5"
+          },
+          {
+            "name": "DevAcademicHub",
+            "lines": 123,
+            "percentage": "0.9"
+          }
+        ],
+        "rank": 4
+      },
+      {
+        "language": "Java",
+        "lines": 2346,
+        "percentage": "4.9",
+        "organizations": [
+          {
+            "name": "DevAcademicHub",
+            "lines": 2346,
+            "percentage": "16.8"
+          }
+        ],
+        "rank": 5
+      },
+      {
+        "language": "HTML",
+        "lines": 1723,
+        "percentage": "3.6",
+        "organizations": [
+          {
+            "name": "DevPersonalHub",
+            "lines": 702,
+            "percentage": "4.9"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 430,
+            "percentage": "5.6"
+          },
+          {
+            "name": "DevEcosystem",
+            "lines": 357,
+            "percentage": "2.9"
+          },
+          {
+            "name": "DevAcademicHub",
+            "lines": 234,
+            "percentage": "1.7"
+          }
+        ],
+        "rank": 6
+      },
+      {
+        "language": "JSON",
+        "lines": 890,
+        "percentage": "1.8",
+        "organizations": [
+          {
+            "name": "DevEcosystem",
+            "lines": 890,
+            "percentage": "7.2"
+          }
+        ],
+        "rank": 7
+      },
+      {
+        "language": "C++",
+        "lines": 456,
+        "percentage": "0.9",
+        "organizations": [
+          {
+            "name": "DevAcademicHub",
+            "lines": 456,
+            "percentage": "3.3"
+          }
+        ],
+        "rank": 8
+      },
+      {
+        "language": "Markdown",
+        "lines": 345,
+        "percentage": "0.7",
+        "organizations": [
+          {
+            "name": "DevEcosystem",
+            "lines": 345,
+            "percentage": "2.8"
+          }
+        ],
+        "rank": 9
+      },
+      {
+        "language": "C",
+        "lines": 234,
+        "percentage": "0.5",
+        "organizations": [
+          {
+            "name": "DevAcademicHub",
+            "lines": 234,
+            "percentage": "1.7"
+          }
+        ],
+        "rank": 10
+      },
+      {
+        "language": "SCSS",
+        "lines": 190,
+        "percentage": "0.4",
+        "organizations": [
+          {
+            "name": "DevPersonalHub",
+            "lines": 123,
+            "percentage": "0.9"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 67,
+            "percentage": "0.9"
+          }
+        ],
+        "rank": 11
+      },
+      {
+        "language": "Shell",
+        "lines": 123,
+        "percentage": "0.3",
+        "organizations": [
+          {
+            "name": "DevEcosystem",
+            "lines": 123,
+            "percentage": "1.0"
+          }
+        ],
+        "rank": 12
+      }
+    ],
+    "primary_language": "JavaScript",
+    "language_diversity": 12
+  },
+  "trends": {
+    "available": false,
+    "reason": "Insufficient historical data",
+    "snapshots_needed": 2,
+    "snapshots_available": 1
+  },
+  "metadata": {}
+}
