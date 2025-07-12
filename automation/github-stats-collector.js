@@ -16,7 +16,7 @@ class GitHubStatsCollector {
     this.cacheDir = path.join(this.baseDir, '.github-stats-cache');
     
     // Organization and repository configuration
-            this.organizations =     {
+                this.organizations =     {
           "DevBusinessHub": [
                 "business-portfolio",
                 "business-management",
