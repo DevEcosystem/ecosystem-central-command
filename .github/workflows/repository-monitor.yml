@@ -1,4 +1,4 @@
-name: Repository Monitor
+name: 🔍 Repository Monitor
 
 on:
   # Monitor all organization events via GitHub API polling
