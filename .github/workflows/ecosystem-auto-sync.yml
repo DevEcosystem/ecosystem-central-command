@@ -47,7 +47,7 @@ jobs:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: 🔧 Setup Node.js
@@ -61,9 +61,14 @@ jobs:
           npm ci --only=production
           npm install @octokit/rest
 
+      - name: 🔧 Configure Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
       - name: 🔍 Repository Auto-Discovery
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
           echo "🔍 Starting repository auto-discovery..."
           node automation/ecosystem-auto-discovery.js
@@ -71,7 +76,7 @@ jobs:
 
       - name: 📊 GitHub Stats Collection
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
           echo "📊 Collecting GitHub language statistics..."
           node automation/github-stats-collector.js
@@ -79,7 +84,7 @@ jobs:
 
       - name: 📝 README Generation
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
         run: |
           echo "📝 Generating all README files..."
           node automation/universal-readme-manager.js
@@ -88,7 +93,7 @@ jobs:
       - name: 🔄 Complete Auto-Sync
         id: sync
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           AUTO_COMMIT: ${{ github.event.inputs.skip_push != 'true' }}
           AUTO_PUSH: ${{ github.event.inputs.skip_push != 'true' }}
           FORCE_SYNC: ${{ github.event.inputs.force_sync }}

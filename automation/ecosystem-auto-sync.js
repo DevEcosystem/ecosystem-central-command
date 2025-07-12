@@ -72,16 +72,10 @@ class EcosystemAutoSync {
         this.updateEcosystemReadme()
       );
 
-      // Step 5: Git Operations
-      if (this.config.auto_commit) {
-        await this.runStep('git-commit', 'Git Commit', () => 
-          this.commitChanges()
-        );
-      }
-
+      // Step 5: Git Operations (Skip commit, direct push)
       if (this.config.auto_push) {
-        await this.runStep('git-push', 'Git Push', () => 
-          this.pushChanges()
+        await this.runStep('git-operations', 'Git Add & Push', () => 
+          this.addAndPushChanges()
         );
       }
 
@@ -238,6 +232,26 @@ class EcosystemAutoSync {
    */
   async commitChanges() {
     try {
+      // Configure Git user for GitHub Actions - force local config
+      try {
+        execSync('git config --local user.name "GitHub Actions Bot"', { cwd: this.baseDir });
+        execSync('git config --local user.email "actions@github.com"', { cwd: this.baseDir });
+        console.log('✓ Git user configured successfully');
+        
+        // Verify configuration
+        const userName = execSync('git config user.name', { cwd: this.baseDir, encoding: 'utf8' }).trim();
+        const userEmail = execSync('git config user.email', { cwd: this.baseDir, encoding: 'utf8' }).trim();
+        console.log(`✓ Git config verified: ${userName} <${userEmail}>`);
+      } catch (configError) {
+        console.error('⚠️ Git config failed:', configError.message);
+        // Fallback: set environment variables
+        process.env.GIT_AUTHOR_NAME = 'GitHub Actions Bot';
+        process.env.GIT_AUTHOR_EMAIL = 'actions@github.com';
+        process.env.GIT_COMMITTER_NAME = 'GitHub Actions Bot';
+        process.env.GIT_COMMITTER_EMAIL = 'actions@github.com';
+        console.log('✓ Git environment variables set as fallback');
+      }
+
       // Check for changes
       const status = execSync('git status --porcelain', { 
         cwd: this.baseDir, 
@@ -260,18 +274,38 @@ class EcosystemAutoSync {
       const commitMessage = `${this.config.commit_message_prefix} ${timestamp} - Ecosystem sync (${repoCount} repositories)
 
 - Repository auto-discovery completed
-- GitHub language statistics updated  
-- All README files regenerated
+- GitHub language statistics updated
+- All README files regenerated  
 - Cross-organization metrics synchronized
 
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>`;
 
-      // Commit changes
-      execSync(`git commit -m "${commitMessage}"`, { 
-        cwd: this.baseDir 
+      // Commit changes with proper environment
+      const commitEnv = {
+        ...process.env,
+        GIT_AUTHOR_NAME: 'GitHub Actions Bot',
+        GIT_AUTHOR_EMAIL: 'actions@github.com',
+        GIT_COMMITTER_NAME: 'GitHub Actions Bot',
+        GIT_COMMITTER_EMAIL: 'actions@github.com'
+      };
+      
+      // Write commit message to file for safety
+      const commitMsgFile = path.join(this.baseDir, '.commit-msg-temp');
+      fs.writeFileSync(commitMsgFile, commitMessage);
+      
+      execSync(`git commit -F "${commitMsgFile}"`, { 
+        cwd: this.baseDir,
+        env: commitEnv
       });
+      
+      // Clean up temp file
+      try {
+        fs.unlinkSync(commitMsgFile);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
 
       return { 
         changes: true, 
@@ -284,6 +318,43 @@ Co-Authored-By: Claude <noreply@anthropic.com>`;
         return { changes: false, message: 'No changes to commit' };
       }
       throw error;
+    }
+  }
+
+  /**
+   * Add all changes and push directly (GitHub Actions handles commit)
+   */
+  async addAndPushChanges() {
+    try {
+      // Check for changes
+      const status = execSync('git status --porcelain', { 
+        cwd: this.baseDir, 
+        encoding: 'utf8' 
+      });
+      
+      if (!status.trim()) {
+        return { changes: false, message: 'No changes to push' };
+      }
+
+      // Add all changes
+      execSync('git add .', { cwd: this.baseDir });
+      console.log('✓ Changes staged successfully');
+
+      // Push directly (GitHub Actions will handle the commit via workflow)
+      const output = execSync(`git push origin ${this.config.branch}`, { 
+        cwd: this.baseDir,
+        encoding: 'utf8'
+      });
+
+      return { 
+        success: true, 
+        changes: true,
+        message: 'Changes added and pushed successfully',
+        output: output
+      };
+      
+    } catch (error) {
+      throw new Error(`Git operations failed: ${error.message}`);
     }
   }
 

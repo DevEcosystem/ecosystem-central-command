@@ -1,7 +1,7 @@
 {
-  "timestamp": "2025-07-12T18:57:59.899Z",
+  "timestamp": "2025-07-12T19:28:05.243Z",
   "summary": {
-    "totalRepositories": 14,
+    "totalRepositories": 8,
     "activeMonitoring": true,
     "overallHealth": {
       "score": 41,
@@ -117,18 +117,18 @@
     }
   },
   "system": {
-    "timestamp": "2025-07-12T18:57:59.745Z",
-    "uptime": 4131.553526,
+    "timestamp": "2025-07-12T19:28:05.091Z",
+    "uptime": 5937.018761333,
     "memory": {
-      "rss": 19726336,
+      "rss": 19709952,
       "heapTotal": 5701632,
-      "heapUsed": 4894776,
-      "external": 1834948,
-      "arrayBuffers": 36668
+      "heapUsed": 4854888,
+      "external": 1834942,
+      "arrayBuffers": 36662
     },
     "cpu": {
-      "user": 152606,
-      "system": 213325
+      "user": 172566,
+      "system": 285862
     },
     "platform": "darwin",
     "nodeVersion": "v21.2.0",
@@ -138,7 +138,7 @@
       "rateLimit": {
         "remaining": 4900,
         "limit": 5000,
-        "reset": 1752350279847
+        "reset": 1752352085193
       }
     },
     "diskSpace": {
@@ -148,7 +148,7 @@
       "usage": 50
     },
     "networkLatency": {
-      "latency": 52,
+      "latency": 50,
       "status": "good"
     }
   },
