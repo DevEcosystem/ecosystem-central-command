@@ -21,7 +21,7 @@ on:
 
   # Repository webhook events
   repository_dispatch:
-    types: [ecosystem-sync]
+    types: [ecosystem-sync, repository-created, repository-deleted]
 
   # Push to main (for configuration changes)
   push:
