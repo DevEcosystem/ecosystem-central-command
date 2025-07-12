@@ -39,7 +39,7 @@ for repo_entry in "${repositories[@]}"; do
     echo "================================================"
     
     # Check if generated README exists
-    readme_file="/Users/Mea/code/github-ecosystem/ecosystem-central-command/generated-readmes/${repo_name}-README.md"
+    readme_file="generated-readmes/${repo_name}-README.md"
     
     if [ ! -f "$readme_file" ]; then
         echo "❌ Generated README not found: $readme_file"
