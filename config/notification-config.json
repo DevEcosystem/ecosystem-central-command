@@ -1,0 +1,77 @@
+{
+  "channels": {
+    "slack": {
+      "enabled": false,
+      "webhook": "",
+      "channel": "#ecosystem-automation",
+      "username": "Ecosystem Bot",
+      "icon_emoji": ":robot_face:"
+    },
+    "discord": {
+      "enabled": false,
+      "webhook": "",
+      "username": "Ecosystem Automation",
+      "avatar_url": "https://github.com/github.png"
+    },
+    "email": {
+      "enabled": false,
+      "smtp": {
+        "host": "",
+        "port": 587,
+        "secure": false,
+        "auth": {
+          "user": "",
+          "pass": ""
+        }
+      },
+      "from": "noreply@ecosystem.dev",
+      "to": ""
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer "
+      }
+    }
+  },
+  "notifications": {
+    "deployment_success": {
+      "enabled": true,
+      "channels": ["slack", "discord"],
+      "priority": "normal",
+      "template": "deployment_success"
+    },
+    "deployment_failure": {
+      "enabled": true,
+      "channels": ["slack", "discord", "email"],
+      "priority": "high",
+      "template": "deployment_failure"
+    },
+    "intelligent_skip": {
+      "enabled": false,
+      "channels": ["slack"],
+      "priority": "low",
+      "template": "intelligent_skip"
+    },
+    "daily_summary": {
+      "enabled": true,
+      "channels": ["slack", "email"],
+      "priority": "normal",
+      "template": "daily_summary",
+      "schedule": "0 18 * * *"
+    },
+    "system_health": {
+      "enabled": true,
+      "channels": ["slack", "discord"],
+      "priority": "high",
+      "template": "system_health"
+    }
+  },
+  "thresholds": {
+    "failure_rate": 20,
+    "skip_rate": 80,
+    "response_time": 300
+  }
+}

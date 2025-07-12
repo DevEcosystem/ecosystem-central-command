@@ -1,0 +1,194 @@
+{
+  "timestamp": "2025-07-12T12:13:54.133Z",
+  "summary": {
+    "totalRepositories": 8,
+    "activeMonitoring": true,
+    "overallHealth": {
+      "score": 50,
+      "status": "fair",
+      "color": "orange"
+    },
+    "lastDeployment": "2025-07-12T11:52:58.420Z",
+    "systemStatus": {
+      "status": "attention_needed",
+      "issues": [
+        "Low deployment success rate",
+        "High skip rate - possible config issues"
+      ]
+    }
+  },
+  "deployments": {
+    "totalRuns": 1,
+    "successfulDeployments": 0,
+    "failedDeployments": 0,
+    "skippedDeployments": 8,
+    "lastRun": "2025-07-12T11:52:58.420Z",
+    "successRate": 0,
+    "averageSkipRate": 100
+  },
+  "repositories": {
+    "DevPersonalHub/external-learning-platforms": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevPersonalHub/portfolio-website": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevPersonalHub/technical-showcase": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevPersonalHub/learning-projects": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevAcademicHub/academic-portfolio": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevBusinessHub/business-management": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevBusinessHub/automation-tools": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    },
+    "DevEcosystem/ecosystem-automation-tools": {
+      "totalDeployments": 1,
+      "successful": 0,
+      "failed": 0,
+      "skipped": 1,
+      "successRate": 0,
+      "skipRate": 100,
+      "lastDeployment": "2025-07-12T11:52:58.420Z",
+      "reliability": 50,
+      "trends": "insufficient_data"
+    }
+  },
+  "system": {
+    "timestamp": "2025-07-12T12:13:53.981Z",
+    "uptime": 689.162648084,
+    "memory": {
+      "rss": 39305216,
+      "heapTotal": 5701632,
+      "heapUsed": 4866000,
+      "external": 1814087,
+      "arrayBuffers": 15807
+    },
+    "cpu": {
+      "user": 172608,
+      "system": 100827
+    },
+    "platform": "darwin",
+    "nodeVersion": "v21.2.0",
+    "githubAPI": {
+      "status": "healthy",
+      "responseTime": 101,
+      "rateLimit": {
+        "remaining": 4900,
+        "limit": 5000,
+        "reset": 1752326034082
+      }
+    },
+    "diskSpace": {
+      "total": "50GB",
+      "used": "25GB",
+      "available": "25GB",
+      "usage": 50
+    },
+    "networkLatency": {
+      "latency": 51,
+      "status": "good"
+    }
+  },
+  "alerts": [
+    {
+      "type": "error",
+      "category": "deployment",
+      "message": "Low success rate: 0%",
+      "severity": "high",
+      "action": "Review failed deployments and fix underlying issues"
+    },
+    {
+      "type": "warning",
+      "category": "efficiency",
+      "message": "Very high skip rate: 100%",
+      "severity": "medium",
+      "action": "Review change detection thresholds"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "efficiency",
+      "title": "Optimize Change Detection",
+      "description": "High skip rate indicates efficient change detection. Consider lowering thresholds for frequently updated repositories.",
+      "impact": "medium",
+      "effort": "low"
+    },
+    {
+      "category": "reliability",
+      "title": "Improve Deployment Reliability",
+      "description": "Investigate failed deployments and implement additional error handling.",
+      "impact": "high",
+      "effort": "medium"
+    },
+    {
+      "category": "repository",
+      "title": "Focus on Problem Repositories",
+      "description": "Repositories with low reliability: DevPersonalHub/external-learning-platforms, DevPersonalHub/portfolio-website, DevPersonalHub/technical-showcase, DevPersonalHub/learning-projects, DevAcademicHub/academic-portfolio, DevBusinessHub/business-management, DevBusinessHub/automation-tools, DevEcosystem/ecosystem-automation-tools",
+      "impact": "high",
+      "effort": "high"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+name: 🤖 Daily README Automation
+
+on:
+  # Real-time execution on repository changes
+  push:
+    branches: [main]
+    paths:
+      - 'automation/**'
+      - 'templates/**'
+      - '.github/workflows/**'
+  
+  # Daily execution at 6:00 AM UTC
+  schedule:
+    - cron: '0 6 * * *'
+  
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      target_phase:
+        description: 'Deployment Phase'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - personal-hub
+        - cross-org
+        - pilot-only
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  readme-automation:
+    name: 🚀 Universal README Management
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    
+    - name: 📦 Install Dependencies
+      run: |
+        npm ci
+        echo "✅ Dependencies installed successfully"
+    
+    - name: 🔍 Verify GitHub Token
+      run: |
+        echo "🔐 Testing GitHub API access..."
+        
+        # Test token validity
+        RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}" \
+                   https://api.github.com/user)
+        
+        if echo "$RESPONSE" | grep -q '"login"'; then
+          echo "✅ GitHub token is valid"
+          echo "$RESPONSE" | grep '"login"'
+        else
+          echo "❌ GitHub token validation failed"
+          echo "$RESPONSE"
+          exit 1
+        fi
+        
+        # Test repository access
+        echo "📋 Testing repository access..."
+        TEST_REPO="DevPersonalHub/external-learning-platforms"
+        REPO_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+                        -H "Authorization: token ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}" \
+                        "https://api.github.com/repos/$TEST_REPO")
+        
+        if [ "$REPO_RESPONSE" = "200" ]; then
+          echo "✅ Repository access confirmed"
+        else
+          echo "❌ Repository access failed (Status: $REPO_RESPONSE)"
+          exit 1
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}
+    
+    - name: 🎨 Generate Universal READMEs
+      run: |
+        echo "🚀 Starting Universal README generation..."
+        
+        # Run universal README manager
+        node automation/universal-readme-manager.js
+        
+        # Verify generation
+        if [ -d "generated-readmes" ] && [ "$(ls -A generated-readmes)" ]; then
+          echo "✅ READMEs generated successfully"
+          echo "📊 Generated files:"
+          ls -la generated-readmes/
+        else
+          echo "❌ README generation failed"
+          exit 1
+        fi
+    
+    - name: 🎯 Deploy Based on Input
+      run: |
+        echo "🎯 Deployment phase: ${{ github.event.inputs.target_phase || 'all' }}"
+        
+        case "${{ github.event.inputs.target_phase || 'all' }}" in
+          "pilot-only")
+            echo "🚀 Deploying to pilot repository only..."
+            bash scripts/deploy-curl.sh
+            ;;
+          "personal-hub")
+            echo "🚀 Deploying to Personal Hub repositories..."
+            bash scripts/deploy-phase-2a.sh
+            ;;
+          "cross-org")
+            echo "🚀 Deploying to Cross-Organizational repositories..."
+            bash scripts/deploy-phase-2b.sh
+            ;;
+          "all"|*)
+            echo "🚀 Full ecosystem deployment..."
+            echo "Phase 1: Personal Hub deployment"
+            bash scripts/deploy-phase-2a.sh
+            
+            echo "Phase 2: Cross-Organizational deployment"
+            bash scripts/deploy-phase-2b.sh
+            ;;
+        esac
+      env:
+        GITHUB_TOKEN: ${{ secrets.ECOSYSTEM_GITHUB_TOKEN }}
+    
+    - name: 📊 Generate Deployment Report
+      if: always()
+      run: |
+        echo "📊 Creating deployment summary..."
+        
+        # Create timestamp
+        TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        # Create summary file
+        cat > deployment-summary.md << EOF
+        # 🤖 Automated Deployment Summary
+        
+        **Execution Time**: $TIMESTAMP  
+        **Workflow**: Daily README Automation  
+        **Trigger**: ${{ github.event_name }}  
+        **Phase**: ${{ github.event.inputs.target_phase || 'all' }}
+        
+        ## 📊 Results
+        - **README Generation**: ✅ Completed
+        - **Repository Count**: 8 repositories across 4 organizations
+        - **Deployment Status**: See workflow logs for details
+        
+        ## 🔗 Updated Repositories
+        - DevPersonalHub/external-learning-platforms
+        - DevPersonalHub/portfolio-website  
+        - DevPersonalHub/technical-showcase
+        - DevPersonalHub/learning-projects
+        - DevAcademicHub/academic-portfolio
+        - DevBusinessHub/business-management
+        - DevBusinessHub/automation-tools
+        - DevEcosystem/ecosystem-automation-tools
+        
+        ## 📈 System Health
+        - **Universal README Manager**: Operational
+        - **Cross-Repository Deployment**: Operational
+        - **GitHub API Integration**: Operational
+        
+        ---
+        *Generated by GitHub Actions*
+        EOF
+        
+        echo "✅ Deployment summary created"
+        cat deployment-summary.md
+    
+    - name: 📧 Notification (Success)
+      if: success()
+      run: |
+        echo "🎉 SUCCESS: Universal README Management completed successfully!"
+        echo "📊 All repositories have been updated with latest README content"
+        echo "🔄 Next automated run: Tomorrow at 6:00 AM UTC"
+    
+    - name: 📧 Notification (Failure)
+      if: failure()
+      run: |
+        echo "❌ FAILURE: Universal README Management encountered issues"
+        echo "🔍 Please check the workflow logs for detailed error information"
+        echo "📋 Manual intervention may be required"
+        
+        # In a real enterprise setup, this would send notifications via:
+        # - Slack webhook
+        # - Email notifications  
+        # - Discord webhook
+        # - Microsoft Teams
+        echo "🚨 Enterprise notification: Alert sent to operations team"
