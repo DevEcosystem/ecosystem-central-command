@@ -489,6 +489,32 @@ gh api repos/:owner/:repo/branches/main/protection --method PUT --input protecti
 - `research/*` - 一時的な研究ブランチ（DevAcademicHubでも削除可）
 - その他の一時的なブランチ
 
+## 🧹 自動ブランチクリーンアップ
+
+### cleanup-merged-branches.yml
+
+GitHubの「Automatically delete head branches」設定は保護ブランチルールを無視してしまうため、カスタムワークフローで安全な自動削除を実装しています。
+
+**ファイル**: `.github/workflows/cleanup-merged-branches.yml`
+
+**機能**:
+- PR マージ後に自動実行
+- 保護ブランチをスキップ
+- `develop/*` パターンを動的に検出・保護
+- 手動実行可能（ドライラン機能付き）
+
+**使用方法**:
+```bash
+# 手動でクリーンアップ実行（ドライラン）
+gh workflow run cleanup-merged-branches.yml -f dry_run=true
+
+# 実際に削除実行
+gh workflow run cleanup-merged-branches.yml -f dry_run=false
+```
+
+**重要**: GitHubリポジトリ設定で「Automatically delete head branches」は**無効**にしてください。
+これを有効にすると、保護ブランチルールが無視されて重要なブランチが削除される可能性があります。
+
 ## 🚀 次のステップ
 
 1. **既存リポジトリへの適用**
