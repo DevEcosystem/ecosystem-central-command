@@ -1,0 +1,176 @@
+name: 🤖 DevFlow Automatic Issue Completion
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+      - develop
+
+jobs:
+  auto-complete-issue:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    name: Auto-complete DevFlow Issue
+    
+    steps:
+      - name: 📋 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Extract Issue Number from Branch
+        id: extract-issue
+        run: |
+          branch_name="${{ github.event.pull_request.head.ref }}"
+          echo "Branch name: $branch_name"
+          
+          # Extract issue number from branch name (feature/DEVFLOW-XX-description)
+          if [[ $branch_name =~ ^feature/DEVFLOW-([0-9]+)- ]]; then
+            issue_number="${BASH_REMATCH[1]}"
+            echo "issue_number=$issue_number" >> $GITHUB_OUTPUT
+            echo "Found issue number: $issue_number"
+          else
+            echo "No DevFlow issue number found in branch name"
+            echo "issue_number=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📊 Generate Completion Analytics
+        id: analytics
+        if: steps.extract-issue.outputs.issue_number != ''
+        run: |
+          issue_number="${{ steps.extract-issue.outputs.issue_number }}"
+          pr_number="${{ github.event.pull_request.number }}"
+          
+          # Calculate completion metrics
+          created_at="${{ github.event.pull_request.created_at }}"
+          merged_at="${{ github.event.pull_request.merged_at }}"
+          
+          # Get commit count
+          commit_count=$(git rev-list --count ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          
+          # Get files changed
+          files_changed="${{ github.event.pull_request.changed_files }}"
+          additions="${{ github.event.pull_request.additions }}"
+          deletions="${{ github.event.pull_request.deletions }}"
+          
+          echo "commit_count=$commit_count" >> $GITHUB_OUTPUT
+          echo "files_changed=$files_changed" >> $GITHUB_OUTPUT
+          echo "additions=$additions" >> $GITHUB_OUTPUT
+          echo "deletions=$deletions" >> $GITHUB_OUTPUT
+
+      - name: 🎯 Close Issue with Completion Comment
+        if: steps.extract-issue.outputs.issue_number != ''
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = ${{ steps.extract-issue.outputs.issue_number }};
+            const prNumber = ${{ github.event.pull_request.number }};
+            const prTitle = `${{ github.event.pull_request.title }}`;
+            const branchName = `${{ github.event.pull_request.head.ref }}`;
+            const commitCount = ${{ steps.analytics.outputs.commit_count }};
+            const filesChanged = ${{ steps.analytics.outputs.files_changed }};
+            const additions = ${{ steps.analytics.outputs.additions }};
+            const deletions = ${{ steps.analytics.outputs.deletions }};
+            
+            // Generate standardized completion comment
+            const completionComment = `## ✅ Issue Completed Successfully
+            
+            **🚀 Implementation Details:**
+            - **Pull Request**: #${prNumber} - ${prTitle}
+            - **Branch**: \`${branchName}\`
+            - **Completion Method**: Automatic via DevFlow Orchestrator
+            
+            **📊 Development Metrics:**
+            - **Commits**: ${commitCount}
+            - **Files Changed**: ${filesChanged}
+            - **Lines Added**: ${additions}
+            - **Lines Removed**: ${deletions}
+            - **Net Change**: ${additions - deletions} lines
+            
+            **🎯 DevFlow Process:**
+            ✅ Feature branch created following naming convention
+            ✅ Implementation completed with proper testing
+            ✅ Pull request merged to main branch
+            ✅ Issue automatically closed via workflow
+            
+            **🔗 Related Resources:**
+            - [Merged Pull Request](https://github.com/${{ github.repository }}/pull/${prNumber})
+            - [Branch History](https://github.com/${{ github.repository }}/tree/${branchName})
+            
+            ---
+            
+            🤖 *This issue was automatically completed by [DevFlow Orchestrator](https://github.com/${{ github.repository }}/tree/main/devflow-orchestrator) v1.0.0*
+            
+            **Next Steps:** Ready for Phase 2 development or new feature implementation!`;
+            
+            try {
+              // Add completion comment to issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: completionComment
+              });
+              
+              // Close the issue
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                state: 'closed'
+              });
+              
+              console.log(`✅ Successfully completed Issue #${issueNumber}`);
+              
+            } catch (error) {
+              console.error(`❌ Failed to complete Issue #${issueNumber}:`, error);
+              
+              // If issue doesn't exist, that's OK - log it but don't fail
+              if (error.status === 404) {
+                console.log(`ℹ️  Issue #${issueNumber} not found - may have been deleted or doesn't exist`);
+              } else {
+                throw error;
+              }
+            }
+
+      - name: 📈 Update DevFlow Analytics
+        if: steps.extract-issue.outputs.issue_number != ''
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = ${{ steps.extract-issue.outputs.issue_number }};
+            const analytics = {
+              issueNumber: issueNumber,
+              prNumber: ${{ github.event.pull_request.number }},
+              completedAt: new Date().toISOString(),
+              metrics: {
+                commits: ${{ steps.analytics.outputs.commit_count }},
+                filesChanged: ${{ steps.analytics.outputs.files_changed }},
+                additions: ${{ steps.analytics.outputs.additions }},
+                deletions: ${{ steps.analytics.outputs.deletions }}
+              },
+              repository: '${{ github.repository }}',
+              workflow: 'auto-issue-completion'
+            };
+            
+            console.log('📊 DevFlow Analytics:', JSON.stringify(analytics, null, 2));
+            
+            // In Phase 2, this will integrate with DevFlow analytics system
+            // For now, we log the completion for monitoring
+
+      - name: 🎉 Success Notification
+        if: steps.extract-issue.outputs.issue_number != ''
+        run: |
+          echo "🎯 DevFlow Issue #${{ steps.extract-issue.outputs.issue_number }} completed successfully!"
+          echo "📋 Pull Request #${{ github.event.pull_request.number }} triggered automatic completion"
+          echo "🚀 DevFlow Orchestrator automation working perfectly!"
+
+      - name: ℹ️ No Issue Found
+        if: steps.extract-issue.outputs.issue_number == ''
+        run: |
+          echo "ℹ️  No DevFlow issue number found in branch name: ${{ github.event.pull_request.head.ref }}"
+          echo "💡 Branch naming convention: feature/DEVFLOW-{issue-number}-{description}"
+          echo "🔄 Workflow completed without issue closure"

@@ -13,6 +13,7 @@ import cors from 'cors';
 import { ConfigManager } from '../config/config-manager.js';
 import { ProjectAutomationService } from '../core/project-automation.js';
 import { GitHubProjectsAPI } from '../api/github-projects.js';
+import { IssueCompletionTracker } from '../core/issue-completion-tracker.js';
 import { Logger } from '../utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +37,7 @@ class DashboardServer {
     this.config = null;
     this.projectAutomation = null;
     this.githubAPI = null;
+    this.completionTracker = null;
     this.isInitialized = false;
   }
 
@@ -133,6 +135,12 @@ class DashboardServer {
 
     // Initialize Project Automation Service
     this.projectAutomation = new ProjectAutomationService(this.config);
+
+    // Initialize Issue Completion Tracker
+    this.completionTracker = new IssueCompletionTracker({
+      enableAnalytics: true,
+      retentionDays: 90
+    });
     
     this.logger.info('Dashboard services initialized');
   }
@@ -192,6 +200,7 @@ class DashboardServer {
     this.app.get('/api/projects/overview', this._getProjectsOverview.bind(this));
     this.app.post('/api/projects/create', this._createProject.bind(this));
     this.app.get('/api/analytics/summary', this._getAnalyticsSummary.bind(this));
+    this.app.get('/api/analytics/issue-completions', this._getIssueCompletions.bind(this));
 
     // Catch all for SPA
     this.app.get('*', this._serveDashboard.bind(this));
@@ -411,6 +420,67 @@ class DashboardServer {
     } catch (error) {
       this.logger.error('Failed to get analytics summary', { error: error.message });
       res.status(500).json({ error: 'Failed to get analytics summary' });
+    }
+  }
+
+  /**
+   * Get issue completion analytics
+   * @private
+   */
+  async _getIssueCompletions(req, res) {
+    try {
+      const { repository, timeRange, limit, format } = req.query;
+      
+      // Get completion statistics
+      const stats = this.completionTracker.getCompletionStats({
+        repository: repository || undefined,
+        timeRange: timeRange ? parseInt(timeRange) : 30,
+        includeMetrics: true
+      });
+
+      // Get recent completions
+      const recentCompletions = this.completionTracker.getRecentCompletions(
+        limit ? parseInt(limit) : 10
+      );
+
+      // Get dashboard metrics
+      const dashboardMetrics = this.completionTracker.getDashboardMetrics();
+
+      const response = {
+        statistics: stats,
+        recent: recentCompletions,
+        dashboard: dashboardMetrics,
+        filters: {
+          repository: repository || 'all',
+          timeRange: timeRange ? parseInt(timeRange) : 30,
+          limit: limit ? parseInt(limit) : 10
+        },
+        timestamp: new Date().toISOString()
+      };
+
+      // Handle export format
+      if (format === 'export') {
+        const exportData = this.completionTracker.exportCompletions({
+          format: 'object',
+          repository: repository,
+          timeRange: timeRange ? parseInt(timeRange) : 30
+        });
+        
+        res.json(exportData);
+        return;
+      }
+
+      res.json(response);
+
+    } catch (error) {
+      this.logger.error('Failed to get issue completions', { 
+        error: error.message,
+        query: req.query 
+      });
+      res.status(500).json({ 
+        error: 'Failed to get issue completion analytics',
+        message: error.message 
+      });
     }
   }
 }
