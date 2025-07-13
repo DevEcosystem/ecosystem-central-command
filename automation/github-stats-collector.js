@@ -76,8 +76,11 @@ class GitHubStatsCollector {
       // Check GitHub token
       if (!process.env.GITHUB_TOKEN) {
         console.log('⚠️ GITHUB_TOKEN not set - using mock data for development');
+        console.log('💡 Mock data provides realistic development experience without API limits');
+        console.log('🚀 Real data collection happens automatically via GitHub Actions');
         await this.generateMockStats();
       } else {
+        console.log('🔑 Using GitHub API with provided token');
         await this.collectRealStats();
       }
       
@@ -568,6 +571,7 @@ ${Object.entries(this.stats.trends.languages).slice(0, 5).map(([lang, trend]) =>
     
     console.log(`📋 Report generated: ${reportPath}`);
   }
+
 
   /**
    * Utility: Add delay for rate limiting
