@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevFlow Orchestrator Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .organizations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .org-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .org-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .org-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .org-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .org-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .org-badge.production { background: #e3f2fd; color: #1976d2; }
+        .org-badge.experimental { background: #f3e5f5; color: #7b1fa2; }
+        .org-badge.research { background: #e8f5e8; color: #388e3c; }
+        .org-badge.infrastructure { background: #fff3e0; color: #f57c00; }
+
+        .org-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .org-projects {
+            padding: 1rem 1.5rem 1.5rem;
+        }
+
+        .projects-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .projects-count {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .project-name {
+            font-weight: 500;
+        }
+
+        .project-status {
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+
+        .create-project-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-input, .form-select {
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #e8f5e8;
+            color: #388e3c;
+            border: 1px solid #c8e6c9;
+        }
+
+        .alert-error {
+            background: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <h1>🚀 DevFlow Orchestrator Dashboard</h1>
+            <p>Intelligent project management across your GitHub ecosystem</p>
+        </header>
+
+        <main class="main">
+            <!-- Statistics Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-organizations">-</div>
+                    <div class="stat-label">Organizations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-projects">-</div>
+                    <div class="stat-label">Total Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="active-templates">-</div>
+                    <div class="stat-label">Active Templates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="created-today">-</div>
+                    <div class="stat-label">Created Today</div>
+                </div>
+            </div>
+
+            <!-- Create Project Section -->
+            <div class="create-project-section">
+                <h2 class="section-title">Create New Project</h2>
+                <div id="create-alert"></div>
+                <form id="create-project-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="project-name">Project Name</label>
+                            <input type="text" id="project-name" class="form-input" placeholder="my-awesome-project" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="project-owner">Organization</label>
+                            <select id="project-owner" class="form-select" required>
+                                <option value="">Select Organization</option>
+                                <option value="DevBusinessHub">DevBusinessHub</option>
+                                <option value="DevPersonalHub">DevPersonalHub</option>
+                                <option value="DevAcademicHub">DevAcademicHub</option>
+                                <option value="DevEcosystem">DevEcosystem</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="project-description">Description</label>
+                            <input type="text" id="project-description" class="form-input" placeholder="Brief project description">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="create-btn">
+                        Create Project
+                    </button>
+                </form>
+            </div>
+
+            <!-- Organizations Overview -->
+            <h2 class="section-title">Organizations Overview</h2>
+            <div class="organizations-grid" id="organizations-grid">
+                <!-- Organizations will be loaded here -->
+            </div>
+        </main>
+
+        <button class="refresh-btn" onclick="loadDashboard()" title="Refresh Dashboard">
+            ↻
+        </button>
+    </div>
+
+    <script>
+        // Dashboard state
+        let organizations = [];
+        let analytics = {};
+
+        // Load dashboard data
+        async function loadDashboard() {
+            try {
+                await Promise.all([
+                    loadAnalytics(),
+                    loadOrganizations(),
+                    loadProjectsOverview()
+                ]);
+            } catch (error) {
+                console.error('Failed to load dashboard:', error);
+            }
+        }
+
+        // Load analytics summary
+        async function loadAnalytics() {
+            try {
+                const response = await fetch('/api/analytics/summary');
+                analytics = await response.json();
+                
+                document.getElementById('total-organizations').textContent = analytics.organizations || 0;
+                document.getElementById('total-projects').textContent = analytics.totalProjects || 0;
+                document.getElementById('active-templates').textContent = Object.keys(analytics.templates || {}).length;
+                document.getElementById('created-today').textContent = analytics.createdToday || 0;
+            } catch (error) {
+                console.error('Failed to load analytics:', error);
+            }
+        }
+
+        // Load organizations
+        async function loadOrganizations() {
+            try {
+                const response = await fetch('/api/organizations');
+                const data = await response.json();
+                organizations = data.organizations || [];
+            } catch (error) {
+                console.error('Failed to load organizations:', error);
+            }
+        }
+
+        // Load projects overview
+        async function loadProjectsOverview() {
+            try {
+                const response = await fetch('/api/projects/overview');
+                const data = await response.json();
+                renderOrganizations(data.overview || []);
+            } catch (error) {
+                console.error('Failed to load projects overview:', error);
+                renderOrganizations([]);
+            }
+        }
+
+        // Render organizations
+        function renderOrganizations(overview) {
+            const container = document.getElementById('organizations-grid');
+            
+            if (overview.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No organizations found</h3>
+                        <p>Check your configuration and try again</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = overview.map(org => {
+                const orgConfig = organizations.find(o => o.id === org.organization) || {};
+                const projects = org.projects || [];
+                
+                return `
+                    <div class="org-card">
+                        <div class="org-header">
+                            <div class="org-name">
+                                ${orgConfig.name || org.organization}
+                                <span class="org-badge ${orgConfig.type || 'unknown'}">${orgConfig.type || 'unknown'}</span>
+                            </div>
+                            <div class="org-description">${orgConfig.description || 'No description available'}</div>
+                        </div>
+                        <div class="org-projects">
+                            <div class="projects-header">
+                                <span class="projects-count">${projects.length} Projects</span>
+                            </div>
+                            ${projects.length > 0 ? projects.slice(0, 3).map(project => `
+                                <div class="project-item">
+                                    <span class="project-name">${project.title || project.name}</span>
+                                    <span class="project-status">Active</span>
+                                </div>
+                            `).join('') : '<div class="empty-state"><p>No projects yet</p></div>'}
+                            ${projects.length > 3 ? `<div style="text-align: center; margin-top: 1rem; color: #666; font-size: 0.9rem;">+${projects.length - 3} more projects</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Handle create project form
+        document.getElementById('create-project-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const createBtn = document.getElementById('create-btn');
+            const alertContainer = document.getElementById('create-alert');
+            
+            // Get form data
+            const name = document.getElementById('project-name').value;
+            const owner = document.getElementById('project-owner').value;
+            const description = document.getElementById('project-description').value;
+            
+            // Validate
+            if (!name || !owner) {
+                showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Show loading
+            createBtn.disabled = true;
+            createBtn.innerHTML = '<span class="loading"></span> Creating...';
+            
+            try {
+                const response = await fetch('/api/projects/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        repository: { name, owner, description }
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert(`Project "${result.project.project.title}" created successfully! 🎉`, 'success');
+                    document.getElementById('create-project-form').reset();
+                    // Reload dashboard after short delay
+                    setTimeout(loadDashboard, 2000);
+                } else {
+                    showAlert(result.message || 'Failed to create project', 'error');
+                }
+            } catch (error) {
+                showAlert('Failed to create project: ' + error.message, 'error');
+            } finally {
+                createBtn.disabled = false;
+                createBtn.innerHTML = 'Create Project';
+            }
+        });
+
+        // Show alert
+        function showAlert(message, type) {
+            const container = document.getElementById('create-alert');
+            container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadDashboard, 30000);
+    </script>
+</body>
+</html>

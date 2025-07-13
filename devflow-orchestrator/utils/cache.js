@@ -191,6 +191,15 @@ export class Cache {
   }
 
   /**
+   * Create cache key for organization projects
+   * @param {string} organizationLogin - Organization login
+   * @returns {string} - Cache key
+   */
+  static createOrgProjectsKey(organizationLogin) {
+    return `org:${organizationLogin}:projects`;
+  }
+
+  /**
    * Create cache key for issue classification
    * @param {number} issueId - Issue identifier
    * @param {string} repository - Repository name

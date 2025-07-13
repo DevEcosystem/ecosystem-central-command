@@ -141,6 +141,40 @@ npm run demo:projects -- --create-real-projects
 
 ---
 
+## 📊 Dashboard Interface
+
+DevFlow Orchestrator includes a comprehensive web-based dashboard for managing projects across all organizations:
+
+### **Starting the Dashboard**
+
+```bash
+# Start the dashboard server
+npm run dashboard
+
+# Access at: http://localhost:3000
+```
+
+### **Dashboard Features**
+
+- **🏢 Organization Overview** - All 4 organizations at a glance
+- **📊 Real-time Analytics** - Live project counts and metrics
+- **🚀 Project Creation** - Create projects through web interface
+- **📈 Cross-Org Insights** - Unified analytics across ecosystem
+- **⚡ Auto-refresh** - Live updates every 30 seconds
+
+### **Organization Management**
+
+The dashboard provides intelligent management for:
+
+- **DevBusinessHub**: Production projects with security gates
+- **DevPersonalHub**: Experimental projects with lightweight templates  
+- **DevAcademicHub**: Research projects with academic workflows
+- **DevEcosystem**: Infrastructure projects with impact analysis
+
+**[📖 Detailed Dashboard Documentation →](./docs/DASHBOARD_INTEGRATION.md)**
+
+---
+
 ## 🏢 Organization Profiles
 
 DevFlow Orchestrator adapts to your organization's workflow:
@@ -178,7 +212,7 @@ DevFlow Orchestrator adapts to your organization's workflow:
 - [x] **GitHub Projects V2 API Integration** (Issue #12)
 - [x] **DevFlow Configuration System** (Issue #13)  
 - [x] **Automatic Project Creation** (Issue #14)
-- [ ] **Basic Dashboard Integration** (Issue #15)
+- [x] **Basic Dashboard Integration** (Issue #15)
 
 ### 🔄 Phase 2: Core Features (Planned)
 - [ ] Advanced Workflow Automation

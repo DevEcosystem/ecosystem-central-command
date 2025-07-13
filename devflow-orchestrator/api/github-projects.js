@@ -105,6 +105,68 @@ export class GitHubProjectsAPI {
   }
 
   /**
+   * Get organization projects
+   * @param {string} organizationLogin - Organization login
+   * @returns {Promise<Array>} - List of projects
+   */
+  async getOrganizationProjects(organizationLogin) {
+    const cacheKey = Cache.createOrgProjectsKey(organizationLogin);
+    
+    // Check cache first
+    const cached = this.cache.get(cacheKey);
+    if (cached) {
+      this.logger.debug('Organization projects cache hit', { organizationLogin });
+      return cached;
+    }
+
+    try {
+      this.logger.info('Getting organization projects', { organizationLogin });
+      
+      const query = `
+        query GetOrganizationProjects($login: String!) {
+          organization(login: $login) {
+            projectsV2(first: 100) {
+              nodes {
+                id
+                number
+                title
+                url
+                createdAt
+                updatedAt
+              }
+            }
+          }
+        }
+      `;
+
+      const variables = { login: organizationLogin };
+
+      const response = await this.rateLimiter.execute(
+        () => this.graphql(query, variables),
+        { operation: 'getOrganizationProjects', organizationLogin }
+      );
+
+      const projects = response.organization?.projectsV2?.nodes || [];
+      
+      // Cache the results
+      this.cache.set(cacheKey, projects, 300); // 5 minutes
+      
+      this.logger.info('Organization projects retrieved', { 
+        organizationLogin,
+        projectCount: projects.length 
+      });
+      
+      return projects;
+    } catch (error) {
+      this.logger.error('Failed to get organization projects', { 
+        organizationLogin,
+        error: error.message 
+      });
+      return []; // Return empty array on error
+    }
+  }
+
+  /**
    * Get project by ID
    * @param {string} projectId - Project ID
    * @returns {Promise<Object>} - Project data
