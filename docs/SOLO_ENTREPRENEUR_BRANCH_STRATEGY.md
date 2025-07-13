@@ -96,13 +96,14 @@ main (stable) ← 安定版
 ### 🛡️ Production Repository Template
 
 **用途**: 顧客向けSaaS、重要なアプリケーション  
-**ファイル**: `templates/branch-strategy/production-workflow.yml`
+**ファイル**: `templates/branch-strategy/production-workflow.yml` ✅
 
 **特徴**:
-- 3段階デプロイ (dev → staging → production)
-- 必須コードレビュー
-- 自動セキュリティスキャン
+- 3段階品質チェック (quality-check → security-scan → build-test)
+- 必須セキュリティスキャン (Trivy)
 - 包括的テストスイート
+- ステージング自動デプロイ
+- 本番デプロイ準備状態の確認
 
 **セットアップコマンド**:
 ```bash
@@ -112,13 +113,14 @@ main (stable) ← 安定版
 ### ⚡ Rapid Development Template
 
 **用途**: 実験、MVP、個人プロジェクト  
-**ファイル**: `templates/branch-strategy/rapid-development-workflow.yml`
+**ファイル**: `templates/branch-strategy/rapid-development-workflow.yml` ✅
 
 **特徴**:
-- 軽量な品質チェック
+- 軽量な品質チェック（全て非ブロッキング）
 - 自動フォーマット・修正
-- 即座デプロイ
-- 警告許容（エラーは阻止）
+- プレビューデプロイ対応
+- 警告許容（実験的開発を妨げない）
+- ビルドチェック（オプション）
 
 **セットアップコマンド**:
 ```bash
@@ -129,14 +131,40 @@ main (stable) ← 安定版
 
 **用途**: 研究、論文、ドキュメント  
 **特徴**:
-- 自動プレビュー
-- GitHub Pages統合
-- バージョン管理
-- 査読ワークフロー
+- Rapid Development ワークフローをベースに使用
+- 自動プレビュー生成
+- GitHub Pages統合準備
+- 査読用の draft ブランチ
 
 **セットアップコマンド**:
 ```bash
 ./templates/branch-strategy/repository-setup-script.sh documentation research-paper DevAcademicHub
+```
+
+### 🔧 Repository Setup Script
+
+**ファイル**: `templates/branch-strategy/repository-setup-script.sh` ✅
+
+**機能**:
+- 組織に応じた適切なブランチ作成
+- ワークフローファイルの自動配置
+- 基本的な設定ファイル生成（.gitignore, README.md）
+- ブランチ保護設定ガイドの生成
+- 自動コミット＆プッシュ
+
+**使用例**:
+```bash
+# Production repository (DevBusinessHub)
+./repository-setup-script.sh production my-saas DevBusinessHub
+
+# Experimental project (DevPersonalHub)
+./repository-setup-script.sh rapid ml-experiment DevPersonalHub
+
+# Academic research (DevAcademicHub)
+./repository-setup-script.sh documentation thesis-2024 DevAcademicHub
+
+# Infrastructure tool (DevEcosystem)
+./repository-setup-script.sh production deploy-tool DevEcosystem
 ```
 
 ## 🔧 ワンクリックセットアップ
@@ -517,7 +545,19 @@ gh workflow run cleanup-merged-branches.yml -f dry_run=false
 
 ### 他リポジトリへの適用
 
-**方法1: 直接参照（推奨）**
+**方法1: 自動セットアップスクリプト（推奨）** 🆕
+```bash
+# 1. ecosystem-central-command をクローン（未実施の場合）
+git clone https://github.com/DevEcosystem/ecosystem-central-command.git
+
+# 2. 対象リポジトリに移動
+cd /path/to/your-repository
+
+# 3. セットアップスクリプト実行
+../ecosystem-central-command/templates/branch-strategy/repository-setup-script.sh production my-app DevBusinessHub
+```
+
+**方法2: 手動でワークフロー取得**
 ```bash
 # 1. 対象リポジトリに移動
 cd /path/to/your-repository
@@ -533,12 +573,6 @@ curl -o .github/workflows/cleanup-merged-branches.yml \
 git add .github/workflows/cleanup-merged-branches.yml
 git commit -m "feat: add automated branch cleanup workflow from ecosystem-central-command"
 git push
-```
-
-**方法2: ローカルコピー（ecosystem-central-commandをクローン済みの場合）**
-```bash
-# ecosystem-central-command の場所から直接コピー
-cp ~/code/github-ecosystem/ecosystem-central-command/.github/workflows/cleanup-merged-branches.yml .github/workflows/
 ```
 
 **Organization別カスタマイズ**:
