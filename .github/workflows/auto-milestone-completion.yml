@@ -1,0 +1,85 @@
+name: 🎯 Automatic Milestone Completion
+
+on:
+  issues:
+    types: [closed, reopened]
+  
+  # Manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      milestone_number:
+        description: 'Milestone number to check (optional)'
+        required: false
+        type: string
+
+jobs:
+  check-milestone-completion:
+    runs-on: ubuntu-latest
+    name: Check and Close Completed Milestones
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'devflow-orchestrator/package*.json'
+          
+      - name: Install dependencies
+        run: |
+          cd devflow-orchestrator
+          npm ci
+          
+      - name: Check milestone completion
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { MilestoneCompletionTracker } = require('./devflow-orchestrator/core/milestone-completion-tracker.js');
+            
+            const tracker = new MilestoneCompletionTracker({
+              github: github,
+              context: context,
+              enableAnalytics: true,
+              enableAutoClose: true
+            });
+            
+            try {
+              let milestoneNumber = null;
+              
+              // Check specific milestone if provided via workflow_dispatch
+              if (context.payload.inputs?.milestone_number) {
+                milestoneNumber = parseInt(context.payload.inputs.milestone_number);
+                console.log(`Manual trigger: checking milestone #${milestoneNumber}`);
+              }
+              
+              // If triggered by issue event, get milestone from the issue
+              if (context.payload.issue?.milestone?.number) {
+                milestoneNumber = context.payload.issue.milestone.number;
+                console.log(`Issue event: checking milestone #${milestoneNumber} for issue #${context.payload.issue.number}`);
+              }
+              
+              // Check all milestones if no specific milestone identified
+              if (!milestoneNumber) {
+                console.log('No specific milestone identified, checking all open milestones');
+                await tracker.checkAllMilestones();
+              } else {
+                console.log(`Checking milestone #${milestoneNumber} for completion`);
+                await tracker.checkMilestoneCompletion(milestoneNumber);
+              }
+              
+            } catch (error) {
+              console.error('Error in milestone completion check:', error);
+              core.setFailed(`Milestone completion check failed: ${error.message}`);
+            }
+            
+      - name: Upload completion analytics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: milestone-completion-analytics
+          path: devflow-orchestrator/analytics/milestone-completion-*.json
+          retention-days: 30

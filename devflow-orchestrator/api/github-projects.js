@@ -850,6 +850,56 @@ export class GitHubProjectsAPI {
       throw error;
     }
   }
+
+  /**
+   * Get milestones for a repository
+   * @param {string} owner - Repository owner
+   * @param {string} repo - Repository name
+   * @param {Object} options - Query options
+   * @returns {Promise<Array>} - Array of milestones
+   */
+  async getMilestones(owner, repo, options = {}) {
+    try {
+      this.logger.info('Getting milestones', { owner, repo, options });
+
+      const params = {
+        owner,
+        repo,
+        state: options.state || 'open',
+        per_page: options.per_page || 100,
+        sort: options.sort || 'created',
+        direction: options.direction || 'desc'
+      };
+
+      const response = await this.github.rest.issues.listMilestones(params);
+      
+      this.logger.info('Milestones retrieved successfully', {
+        owner,
+        repo,
+        count: response.data.length,
+        state: params.state
+      });
+
+      return response.data;
+
+    } catch (error) {
+      this.logger.error('Failed to get milestones', { 
+        owner,
+        repo,
+        options,
+        error: error.message 
+      });
+      throw new Error(`Getting milestones failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get GitHub client instance (for use with other modules)
+   * @returns {Object} - GitHub Octokit instance
+   */
+  getGitHubClient() {
+    return this.github;
+  }
 }
 
 export default GitHubProjectsAPI;
