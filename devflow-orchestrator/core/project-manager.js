@@ -6,6 +6,8 @@
 
 import { EventEmitter } from 'events';
 import { Logger } from '../utils/logger.js';
+import { GitHubProjectsAPI } from '../api/github-projects.js';
+import { ProjectTemplateManager } from '../config/project-templates.js';
 
 /**
  * GitHub Projects V2 management system
@@ -18,6 +20,7 @@ export class ProjectManager extends EventEmitter {
     this.config = githubConfig;
     this.logger = new Logger('ProjectManager');
     this.githubApi = null;
+    this.templateManager = new ProjectTemplateManager();
     this.isInitialized = false;
     
     this.logger.info('Project Manager created');
@@ -31,11 +34,19 @@ export class ProjectManager extends EventEmitter {
     try {
       this.logger.info('Initializing Project Manager...');
       
-      // TODO: Initialize GitHub API clients in next issue (#12)
-      // this.githubApi = new GitHubProjectsAPI(this.config);
+      // Initialize GitHub Projects V2 API client
+      this.githubApi = new GitHubProjectsAPI(this.config);
+      
+      // Test API connectivity
+      const healthCheck = await this.githubApi.healthCheck();
+      if (healthCheck.status !== 'healthy') {
+        throw new Error(`GitHub API health check failed: ${healthCheck.error}`);
+      }
       
       this.isInitialized = true;
-      this.logger.info('Project Manager initialized');
+      this.logger.info('Project Manager initialized', { 
+        apiUser: healthCheck.user 
+      });
     } catch (error) {
       this.logger.error('Failed to initialize Project Manager', { error: error.message });
       throw error;
@@ -57,25 +68,53 @@ export class ProjectManager extends EventEmitter {
         organization: orgConfig.id 
       });
 
-      // TODO: Implement actual GitHub Projects V2 creation in issue #12
-      const mockProject = {
-        id: `PJ_${Date.now()}`,
-        name: `${repository.name} - ${orgConfig.name}`,
-        url: `https://github.com/orgs/${orgConfig.id}/projects/1`,
+      // Get organization ID for project creation
+      const ownerId = await this.githubApi.getOrganizationId(orgConfig.id);
+      
+      // Apply project template
+      const templateConfig = this.templateManager.applyTemplate(
+        orgConfig.settings.projectTemplate,
+        { repository: repository.name, organization: orgConfig.id }
+      );
+      
+      // Create the project with template configuration
+      const project = await this.githubApi.createProject({
+        ownerId,
+        title: templateConfig.title,
+        shortDescription: templateConfig.description,
+        readme: templateConfig.readme,
+        public: templateConfig.settings.public
+      });
+
+      // Configure project fields from template
+      await this._configureProjectFields(project.id, templateConfig.fields);
+      
+      // Link repository to project if provided
+      if (repository.id) {
+        await this.githubApi.linkRepositoryToProject(project.id, repository.id);
+      }
+
+      // Enhanced project object with DevFlow metadata
+      const devFlowProject = {
+        ...project,
         repository: repository.name,
         organization: orgConfig.id,
         template: orgConfig.settings.projectTemplate,
-        createdAt: new Date().toISOString()
+        templateConfig,
+        devFlowManaged: true,
+        automationLevel: templateConfig.automationRules || {},
+        configuredAt: new Date().toISOString()
       };
 
-      this.emit('projectCreated', { project: mockProject, repository, orgConfig });
+      this.emit('projectCreated', { project: devFlowProject, repository, orgConfig });
       
-      this.logger.info('Project created successfully', { 
-        projectId: mockProject.id,
-        repository: repository.name 
+      this.logger.info('Project created and configured successfully', { 
+        projectId: project.id,
+        repository: repository.name,
+        template: orgConfig.settings.projectTemplate
       });
 
-      return mockProject;
+      return devFlowProject;
     } catch (error) {
       this.logger.error('Failed to create project', { 
         repository: repository.name,
@@ -102,21 +141,45 @@ export class ProjectManager extends EventEmitter {
         priority: classification.priority 
       });
 
-      // TODO: Implement actual issue routing in issue #12
-      const mockRouting = {
-        projectId: `PJ_${context.repository}_main`,
-        columnId: this._getColumnForClassification(classification),
-        assigneeId: null,
-        labels: classification.labels || [],
-        routedAt: new Date().toISOString()
-      };
+      // Find or create appropriate project for the repository
+      const projectId = await this._findProjectForRepository(context.repository, context.organization);
+      
+      if (projectId) {
+        // Add issue to project
+        const projectItem = await this.githubApi.addIssueToProject(projectId, issue.id);
+        
+        // Update project item fields based on classification
+        await this._updateProjectItemFields(projectId, projectItem.id, classification);
+        
+        const routing = {
+          projectId,
+          itemId: projectItem.id,
+          classification: classification.type,
+          priority: classification.priority,
+          labels: classification.labels || [],
+          routedAt: new Date().toISOString()
+        };
 
-      this.logger.info('Issue routed successfully', { 
-        issueId: issue.id,
-        projectId: mockRouting.projectId 
-      });
+        this.logger.info('Issue routed successfully', { 
+          issueId: issue.id,
+          projectId,
+          itemId: projectItem.id
+        });
 
-      return mockRouting;
+        return routing;
+      } else {
+        this.logger.warn('No project found for repository', { 
+          repository: context.repository,
+          organization: context.organization 
+        });
+        
+        return {
+          projectId: null,
+          itemId: null,
+          error: 'No project found for repository',
+          routedAt: new Date().toISOString()
+        };
+      }
     } catch (error) {
       this.logger.error('Failed to route issue', { 
         issueId: issue.id,
@@ -169,21 +232,205 @@ export class ProjectManager extends EventEmitter {
   }
 
   /**
-   * Get appropriate column for issue classification
-   * @param {Object} classification - Issue classification
-   * @returns {string} - Column identifier
+   * Configure project fields based on template configuration
+   * @param {string} projectId - Project ID
+   * @param {Array} fieldConfigs - Field configurations from template
+   * @returns {Promise<void>}
    * @private
    */
-  _getColumnForClassification(classification) {
+  async _configureProjectFields(projectId, fieldConfigs) {
+    try {
+      this.logger.info('Configuring project fields', { projectId, fieldCount: fieldConfigs.length });
+      
+      const fields = fieldConfigs || [];
+      const createdFields = [];
+      
+      for (const fieldConfig of fields) {
+        try {
+          const field = await this.githubApi.createProjectField(projectId, {
+            name: fieldConfig.name,
+            dataType: fieldConfig.type,
+            options: fieldConfig.options
+          });
+          createdFields.push(field);
+          this.logger.debug('Project field created', { 
+            fieldId: field.id, 
+            name: field.name,
+            type: fieldConfig.type
+          });
+        } catch (error) {
+          this.logger.warn('Failed to create project field', { 
+            fieldName: fieldConfig.name,
+            type: fieldConfig.type,
+            error: error.message 
+          });
+        }
+      }
+      
+      this.logger.info('Project fields configured', { 
+        projectId,
+        fieldsCreated: createdFields.length,
+        totalFields: fields.length
+      });
+      
+      return createdFields;
+    } catch (error) {
+      this.logger.error('Failed to configure project fields', { 
+        projectId,
+        error: error.message 
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Generate project README content
+   * @param {Object} repository - Repository information
+   * @param {Object} orgConfig - Organization configuration
+   * @returns {string} - README content
+   * @private
+   */
+  _generateProjectReadme(repository, orgConfig) {
+    return `# ${repository.name} - DevFlow Project
+
+**Organization**: ${orgConfig.name}  
+**Template**: ${orgConfig.settings.projectTemplate}  
+**Managed by**: DevFlow Orchestrator  
+
+## 🎯 Project Overview
+
+This project is automatically managed by DevFlow Orchestrator with organization-specific workflows and automation.
+
+### 🏢 Organization Settings
+- **Type**: ${orgConfig.type}
+- **Quality Level**: ${orgConfig.settings.securityLevel}
+- **Automation**: ${orgConfig.automation?.issueLabeling ? 'Enabled' : 'Disabled'}
+
+### 📋 Workflow Features
+${orgConfig.workflows?.map(workflow => `- ${workflow}`).join('\n') || '- Basic workflow management'}
+
+### 🔧 Project Fields
+${orgConfig.projectFields?.map(field => `- **${field.name}**: ${field.type}`).join('\n') || '- Standard project fields'}
+
+---
+*This project was automatically generated by DevFlow Orchestrator*  
+*Last updated: ${new Date().toISOString()}*
+`;
+  }
+
+  /**
+   * Find project for repository
+   * @param {string} repository - Repository name
+   * @param {string} organization - Organization name
+   * @returns {Promise<string|null>} - Project ID or null
+   * @private
+   */
+  async _findProjectForRepository(repository, organization) {
+    try {
+      // For now, return null to indicate no existing project
+      // TODO: Implement project discovery logic
+      this.logger.debug('Project discovery not implemented yet', { repository, organization });
+      return null;
+    } catch (error) {
+      this.logger.error('Failed to find project for repository', { 
+        repository,
+        organization,
+        error: error.message 
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Update project item fields based on classification
+   * @param {string} projectId - Project ID
+   * @param {string} itemId - Project item ID
+   * @param {Object} classification - Issue classification
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _updateProjectItemFields(projectId, itemId, classification) {
+    try {
+      this.logger.info('Updating project item fields', { 
+        projectId, 
+        itemId, 
+        classification: classification.type 
+      });
+      
+      // Get project data to find field IDs
+      const project = await this.githubApi.getProject(projectId);
+      const fields = project.fields?.nodes || [];
+      
+      // Map classification to field updates
+      const updates = [];
+      
+      // Update Status field
+      const statusField = fields.find(f => f.name.toLowerCase() === 'status');
+      if (statusField) {
+        const statusValue = this._getStatusForClassification(classification);
+        updates.push({
+          fieldId: statusField.id,
+          value: statusValue
+        });
+      }
+      
+      // Update Priority field
+      const priorityField = fields.find(f => f.name.toLowerCase() === 'priority');
+      if (priorityField && classification.priority) {
+        updates.push({
+          fieldId: priorityField.id,
+          value: classification.priority
+        });
+      }
+      
+      // Execute updates
+      for (const update of updates) {
+        try {
+          await this.githubApi.updateProjectItemField(
+            projectId, 
+            itemId, 
+            update.fieldId, 
+            update.value
+          );
+        } catch (error) {
+          this.logger.warn('Failed to update project item field', { 
+            fieldId: update.fieldId,
+            error: error.message 
+          });
+        }
+      }
+      
+      this.logger.info('Project item fields updated', { 
+        projectId,
+        itemId,
+        updatesApplied: updates.length
+      });
+    } catch (error) {
+      this.logger.error('Failed to update project item fields', { 
+        projectId,
+        itemId,
+        error: error.message 
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Get status value for issue classification
+   * @param {Object} classification - Issue classification
+   * @returns {string} - Status value
+   * @private
+   */
+  _getStatusForClassification(classification) {
     const { type, priority } = classification;
     
-    // Map classification to project columns
-    if (priority === 'critical') return 'COLUMN_URGENT';
-    if (type === 'bug') return 'COLUMN_BUGS';
-    if (type === 'feature') return 'COLUMN_FEATURES';
-    if (type === 'documentation') return 'COLUMN_DOCS';
+    // Map classification to status
+    if (priority === 'critical') return 'In Progress';
+    if (type === 'bug') return 'In Progress';
+    if (type === 'feature') return 'Backlog';
+    if (type === 'documentation') return 'Backlog';
     
-    return 'COLUMN_BACKLOG';
+    return 'Backlog';
   }
 
   /**

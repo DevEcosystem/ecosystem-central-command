@@ -1,0 +1,32 @@
+# DevFlow MVP Team Branch Setup Example
+# This file demonstrates typical team branch creation scenarios
+
+# === Sprint 1: Core Foundation ===
+feature/DEVFLOW-11-architecture-design
+feature/DEVFLOW-12-github-projects-v2-api  
+feature/DEVFLOW-13-issue-classification
+feature/DEVFLOW-14-workflow-engine
+
+# === Sprint 2: User Interface ===
+feature/DEVFLOW-15-dashboard-ui
+feature/DEVFLOW-16-project-management-ui
+feature/DEVFLOW-17-settings-interface
+feature/DEVFLOW-18-reporting-dashboard
+
+# === Sprint 3: Integration & Testing ===
+feature/DEVFLOW-19-api-integration-tests
+feature/DEVFLOW-20-ui-component-tests
+feature/DEVFLOW-21-end-to-end-tests
+feature/DEVFLOW-22-performance-optimization
+
+# === Documentation & DevOps ===
+feature/DEVFLOW-23-api-documentation
+feature/DEVFLOW-24-user-guide
+feature/DEVFLOW-25-deployment-automation
+feature/DEVFLOW-26-monitoring-setup
+
+# === Usage Example ===
+# 1. Save desired branches to a file (e.g., sprint1-branches.txt)
+# 2. Run: ./scripts/branch-utils.sh create_team_branches sprint1-branches.txt
+# 3. Each team member: git fetch origin && git checkout their-assigned-branch
+# 4. Team lead: ./scripts/branch-utils.sh team_status (daily monitoring)
