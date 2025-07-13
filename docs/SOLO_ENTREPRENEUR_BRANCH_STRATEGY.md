@@ -454,6 +454,41 @@ gh api repos/:owner/:repo/branches/main/protection --method PUT --input protecti
 - デプロイ環境の権限確認
 - ワークフローファイルの構文確認
 
+## 🛡️ 保護すべきブランチリスト
+
+### 全Organization共通
+- `main` - メインブランチ（必須保護）
+- `master` - レガシー互換性のため（必須保護）
+
+### Organization別保護ブランチ
+
+#### DevBusinessHub
+- `main` (production)
+- `staging`
+- `develop`
+- `production`
+
+#### DevEcosystem
+- `main` (stable)
+- `staging`
+- `develop`
+
+#### DevPersonalHub
+- `main` (stable)
+- `develop/*` パターン（例: develop/ai-integration, develop/ui-experiment）
+
+#### DevAcademicHub
+- `main` (published)
+- `develop/*` パターン（例: develop/machine-learning, develop/thesis-research）
+- `draft` - 査読前準備用
+
+### 自動削除対象（保護外）
+- `feature/*` - 機能開発ブランチ
+- `hotfix/*` - 緊急修正ブランチ
+- `test/*` - テスト用ブランチ
+- `research/*` - 一時的な研究ブランチ（DevAcademicHubでも削除可）
+- その他の一時的なブランチ
+
 ## 🚀 次のステップ
 
 1. **既存リポジトリへの適用**
