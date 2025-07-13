@@ -216,18 +216,21 @@ export class ConfigManager extends EventEmitter {
    * @private
    */
   async _loadEnvironmentVariables() {
-    // Load .env files based on environment
+    // Load .env files based on environment - check parent directory first for centralized config
     const envFiles = [
-      '.env',
-      `.env.${this.options.environment}`,
-      '.env.local'
+      '../.env',                                    // Parent directory (ecosystem-central-command)
+      '.env',                                       // Local directory override
+      `../.env.${this.options.environment}`,       // Parent environment-specific
+      `.env.${this.options.environment}`,          // Local environment-specific  
+      '../.env.local',                              // Parent local override
+      '.env.local'                                  // Local override
     ];
 
     for (const envFile of envFiles) {
       const envPath = resolve(process.cwd(), envFile);
       if (existsSync(envPath)) {
         dotenv.config({ path: envPath });
-        this.logger.debug('Loaded environment file', { envFile });
+        this.logger.debug('Loaded environment file', { envFile: envPath });
       }
     }
 

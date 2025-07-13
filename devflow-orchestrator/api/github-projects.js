@@ -56,16 +56,11 @@ export class GitHubProjectsAPI {
               id
               number
               title
-              shortDescription
-              readme
-              public
-              closed
               url
               createdAt
               updatedAt
               owner {
                 id
-                login
               }
             }
           }
@@ -75,10 +70,7 @@ export class GitHubProjectsAPI {
       const variables = {
         input: {
           ownerId,
-          title,
-          shortDescription,
-          readme,
-          public: isPublic
+          title
         }
       };
 
@@ -135,16 +127,11 @@ export class GitHubProjectsAPI {
               id
               number
               title
-              shortDescription
-              readme
-              public
-              closed
               url
               createdAt
               updatedAt
               owner {
                 id
-                login
               }
               fields(first: 20) {
                 nodes {
