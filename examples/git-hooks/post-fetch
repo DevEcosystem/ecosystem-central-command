@@ -1,0 +1,19 @@
+#!/bin/bash
+# Git hook to warn about orphaned local branches after fetch/pull
+# 
+# Installation:
+# 1. Copy this file to .git/hooks/post-fetch
+# 2. Make it executable: chmod +x .git/hooks/post-fetch
+# 3. Test: git fetch
+
+# Check for orphaned branches
+orphaned=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+
+if [ -n "$orphaned" ]; then
+    echo ""
+    echo "⚠️  The following local branches have been deleted on remote:"
+    echo "$orphaned" | sed 's/^/    /'
+    echo ""
+    echo "To review: ./scripts/branch-cleanup.sh check"
+    echo "To cleanup: ./scripts/branch-cleanup.sh interactive"
+fi
