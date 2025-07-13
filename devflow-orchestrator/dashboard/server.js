@@ -14,6 +14,7 @@ import { ConfigManager } from '../config/config-manager.js';
 import { ProjectAutomationService } from '../core/project-automation.js';
 import { GitHubProjectsAPI } from '../api/github-projects.js';
 import { IssueCompletionTracker } from '../core/issue-completion-tracker.js';
+import { MilestoneCompletionTracker } from '../core/milestone-completion-tracker.js';
 import { Logger } from '../utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -201,6 +202,9 @@ class DashboardServer {
     this.app.post('/api/projects/create', this._createProject.bind(this));
     this.app.get('/api/analytics/summary', this._getAnalyticsSummary.bind(this));
     this.app.get('/api/analytics/issue-completions', this._getIssueCompletions.bind(this));
+    this.app.get('/api/analytics/milestone-completions', this._getMilestoneCompletions.bind(this));
+    this.app.get('/api/milestones/:orgId/:repoId', this._getMilestones.bind(this));
+    this.app.post('/api/milestones/:orgId/:repoId/:milestoneNumber/check', this._checkMilestoneCompletion.bind(this));
 
     // Catch all for SPA
     this.app.get('*', this._serveDashboard.bind(this));
@@ -479,6 +483,194 @@ class DashboardServer {
       });
       res.status(500).json({ 
         error: 'Failed to get issue completion analytics',
+        message: error.message 
+      });
+    }
+  }
+
+  /**
+   * Get milestone completion analytics
+   * @private
+   */
+  async _getMilestoneCompletions(req, res) {
+    try {
+      const { timeRange, organization, format } = req.query;
+      
+      this.logger.info('Getting milestone completion analytics', {
+        timeRange,
+        organization,
+        format
+      });
+
+      // Load milestone completion data from analytics files
+      const analyticsPath = 'devflow-orchestrator/analytics';
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      
+      let completionData = [];
+      
+      try {
+        const files = await fs.readdir(analyticsPath);
+        const milestoneFiles = files.filter(f => f.startsWith('milestone-completion-'));
+        
+        for (const file of milestoneFiles) {
+          const filePath = path.join(analyticsPath, file);
+          const data = JSON.parse(await fs.readFile(filePath, 'utf8'));
+          completionData.push(...data);
+        }
+      } catch (error) {
+        this.logger.warn('No milestone analytics data found', { error: error.message });
+      }
+
+      // Filter by time range
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - (parseInt(timeRange) || 30));
+      
+      const filteredData = completionData.filter(item => 
+        new Date(item.timestamp) >= cutoffDate
+      );
+
+      // Calculate metrics
+      const metrics = {
+        totalMilestonesChecked: filteredData.length,
+        completedMilestones: filteredData.filter(m => m.actions.autoClosed).length,
+        averageCompletionPercentage: filteredData.length > 0 
+          ? filteredData.reduce((sum, m) => sum + m.metrics.completionPercentage, 0) / filteredData.length 
+          : 0,
+        milestonesInProgress: filteredData.filter(m => 
+          m.metrics.completionPercentage > 0 && m.metrics.completionPercentage < 100
+        ).length
+      };
+
+      const response = {
+        metrics,
+        milestones: filteredData.map(m => ({
+          number: m.milestone.number,
+          title: m.milestone.title,
+          state: m.milestone.state,
+          url: m.milestone.url,
+          completion: m.metrics.completionPercentage,
+          totalIssues: m.metrics.totalIssues,
+          closedIssues: m.metrics.closedIssues,
+          openIssues: m.metrics.openIssues,
+          autoClosed: m.actions.autoClosed,
+          timestamp: m.timestamp
+        })),
+        timeRange: {
+          days: parseInt(timeRange) || 30,
+          from: cutoffDate.toISOString(),
+          to: new Date().toISOString()
+        }
+      };
+
+      res.json(response);
+
+    } catch (error) {
+      this.logger.error('Failed to get milestone completions', { 
+        error: error.message,
+        query: req.query 
+      });
+      res.status(500).json({ 
+        error: 'Failed to get milestone completion analytics',
+        message: error.message 
+      });
+    }
+  }
+
+  /**
+   * Get milestones for organization/repository
+   * @private
+   */
+  async _getMilestones(req, res) {
+    try {
+      const { orgId, repoId } = req.params;
+      const { state = 'open' } = req.query;
+
+      this.logger.info('Getting milestones', { orgId, repoId, state });
+
+      const apiClient = new GitHubProjectsAPI(this.config);
+      const milestones = await apiClient.getMilestones(orgId, repoId, { state });
+
+      res.json({
+        organization: orgId,
+        repository: repoId,
+        milestones: milestones.map(m => ({
+          number: m.number,
+          title: m.title,
+          state: m.state,
+          openIssues: m.open_issues,
+          closedIssues: m.closed_issues,
+          totalIssues: m.open_issues + m.closed_issues,
+          completionPercentage: m.open_issues + m.closed_issues > 0 
+            ? (m.closed_issues / (m.open_issues + m.closed_issues)) * 100 
+            : 0,
+          createdAt: m.created_at,
+          updatedAt: m.updated_at,
+          dueOn: m.due_on,
+          url: m.html_url
+        }))
+      });
+
+    } catch (error) {
+      this.logger.error('Failed to get milestones', { 
+        error: error.message,
+        params: req.params 
+      });
+      res.status(500).json({ 
+        error: 'Failed to get milestones',
+        message: error.message 
+      });
+    }
+  }
+
+  /**
+   * Check milestone completion status
+   * @private
+   */
+  async _checkMilestoneCompletion(req, res) {
+    try {
+      const { orgId, repoId, milestoneNumber } = req.params;
+
+      this.logger.info('Checking milestone completion', { 
+        orgId, 
+        repoId, 
+        milestoneNumber 
+      });
+
+      // Create GitHub context for milestone tracker
+      const context = {
+        repo: {
+          owner: orgId,
+          repo: repoId
+        }
+      };
+
+      const apiClient = new GitHubProjectsAPI(this.config);
+      const github = apiClient.getGitHubClient();
+
+      const tracker = new MilestoneCompletionTracker({
+        github,
+        context,
+        enableAnalytics: true,
+        enableAutoClose: false // Manual check, don't auto-close
+      });
+
+      const result = await tracker.checkMilestoneCompletion(parseInt(milestoneNumber));
+
+      res.json({
+        milestone: result.milestone,
+        metrics: result.metrics,
+        actions: result.actions,
+        timestamp: result.timestamp
+      });
+
+    } catch (error) {
+      this.logger.error('Failed to check milestone completion', { 
+        error: error.message,
+        params: req.params 
+      });
+      res.status(500).json({ 
+        error: 'Failed to check milestone completion',
         message: error.message 
       });
     }
