@@ -1,5 +1,5 @@
 {
-  "collected_at": "2025-07-13T00:24:02.886Z",
+  "collected_at": "2025-07-12T23:58:46.987Z",
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
@@ -15,9 +15,9 @@
           "metadata": {
             "total_lines": 3161,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 98,
-            "forks": 19,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 16,
+            "forks": 3,
             "accessible": true,
             "data_source": "mock"
           }
@@ -33,9 +33,9 @@
           "metadata": {
             "total_lines": 3520,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 88,
-            "forks": 20,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 100,
+            "forks": 1,
             "accessible": true,
             "data_source": "mock"
           }
@@ -50,9 +50,9 @@
           "metadata": {
             "total_lines": 1244,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 99,
-            "forks": 11,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 69,
+            "forks": 2,
             "accessible": true,
             "data_source": "mock"
           }
@@ -68,9 +68,9 @@
           "metadata": {
             "total_lines": 3500,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 47,
-            "forks": 10,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 78,
+            "forks": 8,
             "accessible": true,
             "data_source": "mock"
           }
@@ -87,9 +87,9 @@
           "metadata": {
             "total_lines": 6015,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 77,
-            "forks": 19,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 84,
+            "forks": 20,
             "accessible": true,
             "data_source": "mock"
           }
@@ -160,7 +160,7 @@
       },
       "metadata": {
         "total_repositories": 5,
-        "last_updated": "2025-07-13T00:24:02.889Z",
+        "last_updated": "2025-07-12T23:58:46.989Z",
         "data_source": "mock"
       }
     },
@@ -178,9 +178,9 @@
           "metadata": {
             "total_lines": 4231,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 48,
-            "forks": 19,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 93,
+            "forks": 12,
             "accessible": true,
             "data_source": "mock"
           }
@@ -196,9 +196,9 @@
           "metadata": {
             "total_lines": 3249,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 102,
-            "forks": 16,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 53,
+            "forks": 14,
             "accessible": true,
             "data_source": "mock"
           }
@@ -214,9 +214,9 @@
           "metadata": {
             "total_lines": 2814,
             "primary_language": "TypeScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 99,
-            "forks": 1,
+            "last_updated": "2025-07-12T23:58:46.989Z",
+            "stars": 77,
+            "forks": 19,
             "accessible": true,
             "data_source": "mock"
           }
@@ -232,9 +232,9 @@
           "metadata": {
             "total_lines": 2380,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 84,
-            "forks": 9,
+            "last_updated": "2025-07-12T23:58:46.990Z",
+            "stars": 79,
+            "forks": 3,
             "accessible": true,
             "data_source": "mock"
           }
@@ -293,7 +293,7 @@
       },
       "metadata": {
         "total_repositories": 4,
-        "last_updated": "2025-07-13T00:24:02.889Z",
+        "last_updated": "2025-07-12T23:58:46.989Z",
         "data_source": "mock"
       }
     },
@@ -311,9 +311,9 @@
           "metadata": {
             "total_lines": 2814,
             "primary_language": "Python",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 13,
-            "forks": 1,
+            "last_updated": "2025-07-12T23:58:46.990Z",
+            "stars": 59,
+            "forks": 11,
             "accessible": true,
             "data_source": "mock"
           }
@@ -329,71 +329,53 @@
           "metadata": {
             "total_lines": 3920,
             "primary_language": "Python",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 85,
-            "forks": 14,
-            "accessible": true,
-            "data_source": "mock"
-          }
-        },
-        "Test2": {
-          "name": "Test2",
-          "languages": {
-            "Python": 1200,
-            "JavaScript": 340,
-            "HTML": 120,
-            "CSS": 80
-          },
-          "metadata": {
-            "total_lines": 1740,
-            "primary_language": "Python",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 16,
-            "forks": 3,
+            "last_updated": "2025-07-12T23:58:46.990Z",
+            "stars": 104,
+            "forks": 7,
             "accessible": true,
             "data_source": "mock"
           }
         }
       },
       "totals": {
-        "total_lines": 8474,
-        "total_repositories": 3,
-        "accessible_repositories": 3,
+        "total_lines": 6734,
+        "total_repositories": 2,
+        "accessible_repositories": 2,
         "languages": [
           {
             "language": "Python",
-            "lines": 5430,
-            "percentage": "64.1",
+            "lines": 4230,
+            "percentage": "62.8",
             "rank": 1
           },
           {
             "language": "JavaScript",
-            "lines": 1363,
-            "percentage": "16.1",
+            "lines": 1023,
+            "percentage": "15.2",
             "rank": 2
           },
           {
             "language": "Java",
             "lines": 890,
-            "percentage": "10.5",
+            "percentage": "13.2",
             "rank": 3
           },
           {
             "language": "HTML",
-            "lines": 354,
-            "percentage": "4.2",
+            "lines": 234,
+            "percentage": "3.5",
             "rank": 4
           },
           {
             "language": "C++",
             "lines": 234,
-            "percentage": "2.8",
+            "percentage": "3.5",
             "rank": 5
           },
           {
             "language": "CSS",
-            "lines": 203,
-            "percentage": "2.4",
+            "lines": 123,
+            "percentage": "1.8",
             "rank": 6
           }
         ],
@@ -401,8 +383,8 @@
         "language_diversity": 6
       },
       "metadata": {
-        "total_repositories": 3,
-        "last_updated": "2025-07-13T00:24:02.889Z",
+        "total_repositories": 2,
+        "last_updated": "2025-07-12T23:58:46.990Z",
         "data_source": "mock"
       }
     },
@@ -420,9 +402,9 @@
           "metadata": {
             "total_lines": 5925,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 38,
-            "forks": 6,
+            "last_updated": "2025-07-12T23:58:46.990Z",
+            "stars": 84,
+            "forks": 16,
             "accessible": true,
             "data_source": "mock"
           }
@@ -438,9 +420,9 @@
           "metadata": {
             "total_lines": 4780,
             "primary_language": "JavaScript",
-            "last_updated": "2025-07-13T00:24:02.889Z",
-            "stars": 79,
-            "forks": 13,
+            "last_updated": "2025-07-12T23:58:46.990Z",
+            "stars": 106,
+            "forks": 5,
             "accessible": true,
             "data_source": "mock"
           }
@@ -487,20 +469,20 @@
       },
       "metadata": {
         "total_repositories": 2,
-        "last_updated": "2025-07-13T00:24:02.889Z",
+        "last_updated": "2025-07-12T23:58:46.990Z",
         "data_source": "mock"
       }
     }
   },
   "ecosystem_totals": {
-    "total_lines": 49293,
-    "total_repositories": 14,
+    "total_lines": 47553,
+    "total_repositories": 13,
     "total_organizations": 4,
     "languages": [
       {
         "language": "JavaScript",
-        "lines": 22078,
-        "percentage": "44.8",
+        "lines": 21738,
+        "percentage": "45.7",
         "organizations": [
           {
             "name": "DevEcosystem",
@@ -519,39 +501,16 @@
           },
           {
             "name": "DevAcademicHub",
-            "lines": 1363,
-            "percentage": "16.1"
+            "lines": 1023,
+            "percentage": "15.2"
           }
         ],
         "rank": 1
       },
       {
-        "language": "Python",
-        "lines": 8007,
-        "percentage": "16.2",
-        "organizations": [
-          {
-            "name": "DevAcademicHub",
-            "lines": 5430,
-            "percentage": "64.1"
-          },
-          {
-            "name": "DevPersonalHub",
-            "lines": 2237,
-            "percentage": "17.7"
-          },
-          {
-            "name": "DevBusinessHub",
-            "lines": 340,
-            "percentage": "1.9"
-          }
-        ],
-        "rank": 2
-      },
-      {
         "language": "TypeScript",
         "lines": 7960,
-        "percentage": "16.1",
+        "percentage": "16.7",
         "organizations": [
           {
             "name": "DevBusinessHub",
@@ -564,11 +523,34 @@
             "percentage": "14.9"
           }
         ],
+        "rank": 2
+      },
+      {
+        "language": "Python",
+        "lines": 6807,
+        "percentage": "14.3",
+        "organizations": [
+          {
+            "name": "DevAcademicHub",
+            "lines": 4230,
+            "percentage": "62.8"
+          },
+          {
+            "name": "DevPersonalHub",
+            "lines": 2237,
+            "percentage": "17.7"
+          },
+          {
+            "name": "DevBusinessHub",
+            "lines": 340,
+            "percentage": "1.9"
+          }
+        ],
         "rank": 3
       },
       {
         "language": "CSS",
-        "lines": 2766,
+        "lines": 2686,
         "percentage": "5.6",
         "organizations": [
           {
@@ -583,8 +565,8 @@
           },
           {
             "name": "DevAcademicHub",
-            "lines": 203,
-            "percentage": "2.4"
+            "lines": 123,
+            "percentage": "1.8"
           }
         ],
         "rank": 4
@@ -592,7 +574,7 @@
       {
         "language": "Node.js",
         "lines": 2400,
-        "percentage": "4.9",
+        "percentage": "5.0",
         "organizations": [
           {
             "name": "DevBusinessHub",
@@ -609,8 +591,8 @@
       },
       {
         "language": "HTML",
-        "lines": 1855,
-        "percentage": "3.8",
+        "lines": 1735,
+        "percentage": "3.6",
         "organizations": [
           {
             "name": "DevBusinessHub",
@@ -624,8 +606,8 @@
           },
           {
             "name": "DevAcademicHub",
-            "lines": 354,
-            "percentage": "4.2"
+            "lines": 234,
+            "percentage": "3.5"
           }
         ],
         "rank": 6
@@ -633,7 +615,7 @@
       {
         "language": "JSON",
         "lines": 1686,
-        "percentage": "3.4",
+        "percentage": "3.5",
         "organizations": [
           {
             "name": "DevEcosystem",
@@ -651,12 +633,12 @@
       {
         "language": "Java",
         "lines": 890,
-        "percentage": "1.8",
+        "percentage": "1.9",
         "organizations": [
           {
             "name": "DevAcademicHub",
             "lines": 890,
-            "percentage": "10.5"
+            "percentage": "13.2"
           }
         ],
         "rank": 8
@@ -664,7 +646,7 @@
       {
         "language": "Markdown",
         "lines": 690,
-        "percentage": "1.4",
+        "percentage": "1.5",
         "organizations": [
           {
             "name": "DevPersonalHub",
@@ -705,7 +687,7 @@
           {
             "name": "DevAcademicHub",
             "lines": 234,
-            "percentage": "2.8"
+            "percentage": "3.5"
           }
         ],
         "rank": 11

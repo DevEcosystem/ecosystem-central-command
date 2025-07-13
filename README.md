@@ -17,7 +17,7 @@
 | **Technology Stack** | 10+ frameworks | 🔧 Advanced |
 | **Delivery Rate** | 95%+ on-time | ✅ Reliable |
 
-**[View Detailed Business Activities →](docs/organizations/business-hub-overview.md)**
+**[View Detailed Business Activities →](organizations/business-hub-overview.md)**
 
 ---
 
@@ -31,7 +31,7 @@
 | **Learning Velocity** | 2-3 new tech/quarter | 🚀 Accelerating |
 | **Creative Projects** | Monthly innovations | 🎨 Consistent |
 
-**[Explore Technical Showcase →](docs/organizations/personal-lab-showcase.md)**
+**[Explore Technical Showcase →](organizations/personal-lab-showcase.md)**
 
 ---
 
@@ -45,9 +45,71 @@
 | **Specialization** | CS + Design Integration | 🎯 Interdisciplinary |
 | **Graduate Plans** | MS/PhD Computer Science | 🚀 Top-Tier Universities |
 
-**[View Academic Portfolio →](docs/organizations/academic-hub-achievements.md)**
+**[View Academic Portfolio →](organizations/academic-hub-achievements.md)**
 
 ---
+
+## 🌍 Ecosystem Technology Overview
+
+**Total Code**: 49,293 lines across 14 repositories in 4 organizations
+
+### 📊 Cross-Organization Language Distribution
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟦🟦🟦🟦🟪⬜🟫
+
+🟨 **JavaScript** 44.8% (22,078 lines) • *Ecosystem, BusinessHub*  
+🟩 **Python** 16.2% (8,007 lines) • *AcademicHub, PersonalHub*  
+🟦 **TypeScript** 16.1% (7,960 lines) • *BusinessHub, PersonalHub*  
+🟪 **CSS** 5.6% (2,766 lines) • *BusinessHub, PersonalHub*  
+⬜ **Node.js** 4.9% (2,400 lines) • *BusinessHub, Ecosystem*  
+🟫 **HTML** 3.8% (1,855 lines) • *BusinessHub, PersonalHub*  
+
+### 🏢 Organization Breakdown
+
+#### DevBusinessHub
+**17,440 lines** • **5 repositories** • **Primary**: JavaScript
+
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟦🟦🟪🟪⬜⬜🟫
+
+▪ **JavaScript** 41.0% (7,150 lines)  
+▪ **TypeScript** 34.8% (6,070 lines)  
+▪ **CSS** 7.4% (1,294 lines)  
+▪ **Node.js** 6.9% (1,200 lines)  
+▪ **HTML** 4.6% (799 lines)  
+
+#### DevPersonalHub
+**12,674 lines** • **4 repositories** • **Primary**: JavaScript
+
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟦🟦🟦🟦🟪🟪🟪🟫
+
+▪ **JavaScript** 48.2% (6,108 lines)  
+▪ **Python** 17.7% (2,237 lines)  
+▪ **TypeScript** 14.9% (1,890 lines)  
+▪ **CSS** 10.0% (1,269 lines)  
+▪ **HTML** 5.5% (702 lines)  
+
+#### DevAcademicHub
+**8,474 lines** • **3 repositories** • **Primary**: Python
+
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟧🟧🟧🟫⬜
+
+▪ **Python** 64.1% (5,430 lines)  
+▪ **JavaScript** 16.1% (1,363 lines)  
+▪ **Java** 10.5% (890 lines)  
+▪ **HTML** 4.2% (354 lines)  
+▪ **C++** 2.8% (234 lines)  
+
+#### DevEcosystem
+**10,705 lines** • **2 repositories** • **Primary**: JavaScript
+
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜
+
+▪ **JavaScript** 69.7% (7,457 lines)  
+▪ **JSON** 12.6% (1,346 lines)  
+▪ **Node.js** 11.2% (1,200 lines)  
+▪ **Shell** 3.3% (357 lines)  
+▪ **Markdown** 3.2% (345 lines)  
+
+
 
 ## 🛠️ Technical Expertise Matrix
 
@@ -68,69 +130,6 @@
 - **Design Systems**: ██████████░░ 85% (Scalable + Consistent)
 - **User Research**: ███████░░░░░ 70% (Data-Driven + Empathetic)
 - **Accessibility**: ████████░░░░ 75% (Inclusive + Standards)
-
----
-
-## 🌍 Ecosystem Technology Overview
-
-**Total Code**: 0 lines across 13 repositories in 4 organizations
-
-### 📊 Cross-Organization Language Distribution
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟧🟫⚪
-
-🟨 **JavaScript** 45.2% (Cross-platform development)  
-🟦 **TypeScript** 28.1% (Enterprise applications)  
-🟩 **Python** 12.8% (Data analysis & automation)  
-🟪 **CSS** 8.4% (User interface styling)  
-🟧 **HTML** 4.2% (Web structure)  
-🟫 **SCSS** 1.3% (Advanced styling)
-
-### 🏢 Organization Breakdown
-
-#### Business Hub
-**0 lines** • **5 repositories** • **Primary**: Unknown
-
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟪🟪🟪🟫🟩
-
-▪ **JavaScript** 51.4% (7,020 lines)  
-▪ **TypeScript** 27.4% (3,740 lines)  
-▪ **CSS** 11.8% (1,604 lines)  
-▪ **HTML** 6.4% (875 lines)  
-▪ **Python** 2.5% (340 lines)  
-▪ **SCSS** 0.5% (67 lines)  
-
-#### Personal Hub
-**14,264 lines** • **4 repositories** • **Primary**: TypeScript
-
-🟦🟦🟦🟦🟦🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟪🟪🟫🟫
-
-▪ **TypeScript** 38.1% (5,440 lines)  
-▪ **JavaScript** 32.7% (4,663 lines)  
-▪ **Python** 15.0% (2,145 lines)  
-▪ **CSS** 8.3% (1,191 lines)  
-▪ **HTML** 4.9% (702 lines)  
-
-#### Academic Hub
-**13,983 lines** • **3 repositories** • **Primary**: Python
-
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟧🟧🟧🟧🟨🟨🟨🟨🟨🟫
-
-▪ **Python** 59.0% (8,256 lines)  
-▪ **Java** 16.8% (2,346 lines)  
-▪ **JavaScript** 16.7% (2,334 lines)  
-▪ **C++** 3.3% (456 lines)  
-▪ **C** 1.7% (234 lines)  
-
-#### Ecosystem Hub
-**12,336 lines** • **3 repositories** • **Primary**: JavaScript
-
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦⚪⚪🟪🟪🟫
-
-▪ **JavaScript** 56.0% (6,913 lines)  
-▪ **TypeScript** 23.6% (2,907 lines)  
-▪ **JSON** 7.2% (890 lines)  
-▪ **CSS** 6.5% (801 lines)  
-▪ **HTML** 2.9% (357 lines)  
 
 ---
 
@@ -189,7 +188,7 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 
 ---
 
-*Last updated: 2025-07-12 | Auto-generated from ecosystem data*  
+*Last updated: 2025-07-13 | Auto-generated from ecosystem data*  
 *Ecosystem Health: 🟢 Excellent | Growth Trajectory: 📈 Accelerating | Innovation Index: 🚀 High*
 
 ---
@@ -203,4 +202,4 @@ This portfolio is automatically generated from the following sources:
 - Growth metrics: `docs/analytics/skill-growth-metrics.json`
 
 **Generation Script**: `automation/portfolio-generator.js`  
-**Last Run**: 2025-07-12T12:46:31.924Z
+**Last Run**: 2025-07-13T00:24:07.222Z

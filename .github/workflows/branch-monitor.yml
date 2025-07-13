@@ -1,0 +1,26 @@
+name: 🔍 Branch Protection Monitor
+
+on:
+  delete:
+  create:
+  workflow_dispatch:
+
+jobs:
+  monitor-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monitor Branch Changes
+        run: |
+          echo "🔍 Branch event detected"
+          echo "Event: ${{ github.event_name }}"
+          echo "Ref: ${{ github.event.ref }}"
+          echo "Ref type: ${{ github.event.ref_type }}"
+          
+          # Alert if protected branch is deleted
+          if [[ "${{ github.event_name }}" == "delete" && "${{ github.event.ref_type }}" == "branch" ]]; then
+            if [[ "${{ github.event.ref }}" == "develop" || "${{ github.event.ref }}" == "staging" ]]; then
+              echo "🚨 ALERT: Protected branch '${{ github.event.ref }}' was deleted!"
+              echo "Time: $(date -u)"
+              echo "Actor: ${{ github.actor }}"
+            fi
+          fi

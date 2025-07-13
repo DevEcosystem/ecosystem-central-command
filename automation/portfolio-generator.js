@@ -43,6 +43,30 @@ class PortfolioGenerator {
   async loadEcosystemData() {
     console.log('📊 Loading ecosystem data...');
     
+    // Load ecosystem statistics
+    const statsPath = path.join(__dirname, '../docs/analytics/github-language-stats.json');
+    const configPath = path.join(__dirname, '../docs/ecosystem-config.json');
+    
+    try {
+      if (fs.existsSync(statsPath)) {
+        const statsContent = fs.readFileSync(statsPath, 'utf8');
+        this.ecosystemData.stats = JSON.parse(statsContent);
+        console.log('  ✓ Loaded ecosystem statistics');
+      } else {
+        console.log('  ⚠ Warning: ecosystem statistics not found');
+      }
+      
+      if (fs.existsSync(configPath)) {
+        const configContent = fs.readFileSync(configPath, 'utf8');
+        this.ecosystemData.config = JSON.parse(configContent);
+        console.log('  ✓ Loaded ecosystem configuration');
+      } else {
+        console.log('  ⚠ Warning: ecosystem configuration not found');
+      }
+    } catch (error) {
+      console.log('  ⚠ Warning: Error loading ecosystem data:', error.message);
+    }
+    
     const dataFiles = {
       business: '../organizations/business-hub-overview.md',
       personal: '../organizations/personal-lab-showcase.md',
@@ -178,6 +202,8 @@ class PortfolioGenerator {
 
 ---
 
+${this.generateEcosystemStatsSection()}
+
 ## 🛠️ Technical Expertise Matrix
 
 ### Frontend Excellence
@@ -236,9 +262,9 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 🔗 Quick Navigation
 
 ### 📋 Ecosystem Components
-- [🏢 Business Hub](https://github.com/BusinessHub) - Professional client work + strategy
-- [👤 Personal Lab](https://github.com/PersonalLab) - Innovation + personal development  
-- [🎓 Academic Hub](https://github.com/AcademicHub) - Education + research activities
+- [🏢 Business Hub](https://github.com/DevBusinessHub) - Professional client work + strategy
+- [👤 Personal Lab](https://github.com/DevPersonalHub) - Innovation + personal development  
+- [🎓 Academic Hub](https://github.com/DevAcademicHub) - Education + research activities
 
 ### 📈 Analytics & Insights  
 - [Skill Growth Tracker](docs/analytics/skill-growth-metrics.json)
@@ -250,7 +276,7 @@ Personal ←→ Academic: Creative problem-solving + research methodology
 ## 📧 Professional Contact
 
 **For Business Inquiries**: taiu.engineer@gmail.com  
-**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@PersonalLab](https://github.com/PersonalLab) | [@AcademicHub](https://github.com/AcademicHub)  
+**GitHub Organizations**: [@DevEcosystem](https://github.com/DevEcosystem) | [@DevPersonalHub](https://github.com/DevPersonalHub) | [@DevAcademicHub](https://github.com/DevAcademicHub) | [@DevBusinessHub](https://github.com/DevBusinessHub)  
 **Portfolio Website**: [Auto-generated from ecosystem data]
 
 ---
@@ -271,6 +297,129 @@ This portfolio is automatically generated from the following sources:
 **Generation Script**: \`automation/portfolio-generator.js\`  
 **Last Run**: ${new Date().toISOString()}
 `;
+  }
+
+  /**
+   * Generate ecosystem statistics section
+   */
+  generateEcosystemStatsSection() {
+    if (!this.ecosystemData.stats || !this.ecosystemData.stats.ecosystem_totals) {
+      return `## 🌍 Ecosystem Technology Overview
+
+**Dynamic language statistics integration in progress.**
+
+Current ecosystem spans multiple repositories across 4 organizations, with automated statistics collection and centralized management.
+
+**[View Detailed Statistics →](docs/GITHUB_STATS_REPORT.md)**`;
+    }
+
+    const stats = this.ecosystemData.stats;
+    const totals = stats.ecosystem_totals;
+    
+    // Generate language distribution bar
+    const languages = totals.languages.slice(0, 6); // Top 6 languages
+    let coloredBar = '';
+    languages.forEach(lang => {
+      const segmentLength = Math.max(1, Math.round((parseFloat(lang.percentage) / 100) * 25));
+      const colors = {
+        'JavaScript': '🟨',
+        'TypeScript': '🟦', 
+        'Python': '🟩',
+        'CSS': '🟪',
+        'HTML': '🟫',
+        'Java': '🟧',
+        'JSON': '⚪',
+        'C++': '🟥',
+        'C': '⬛',
+        'Shell': '🟢'
+      };
+      const segment = colors[lang.language] || '⬜';
+      coloredBar += segment.repeat(segmentLength);
+    });
+
+    let statsSection = `## 🌍 Ecosystem Technology Overview
+
+**Total Code**: ${totals.total_lines.toLocaleString()} lines across ${totals.total_repositories} repositories in ${totals.total_organizations} organizations
+
+### 📊 Cross-Organization Language Distribution
+${coloredBar}
+
+`;
+
+    // Add language list
+    languages.forEach(lang => {
+      const icon = this.getLanguageIcon(lang.language);
+      const orgList = lang.organizations ? 
+        lang.organizations.slice(0, 2).map(org => org.name.replace('Dev', '')).join(', ') : 
+        'Multiple';
+      
+      statsSection += `${icon} **${lang.language}** ${lang.percentage}% (${lang.lines.toLocaleString()} lines) • *${orgList}*  \n`;
+    });
+
+    // Add organization breakdown
+    statsSection += `\n### 🏢 Organization Breakdown\n\n`;
+    
+    Object.entries(stats.organizations).forEach(([orgName, orgData]) => {
+      const primaryLang = orgData.totals.primary_language;
+      const repoCount = orgData.totals.accessible_repositories;
+      const totalLines = orgData.totals.total_lines;
+      const percentage = orgData.totals.languages?.[0]?.percentage || '0';
+      
+      // Generate mini bar for organization
+      const orgLanguages = orgData.totals.languages.slice(0, 5);
+      let orgBar = '';
+      orgLanguages.forEach(lang => {
+        const segmentLength = Math.max(1, Math.round((parseFloat(lang.percentage) / 100) * 25));
+        const colors = {
+          'JavaScript': '🟨',
+          'TypeScript': '🟦', 
+          'Python': '🟩',
+          'CSS': '🟪',
+          'HTML': '🟫',
+          'Java': '🟧'
+        };
+        const segment = colors[lang.language] || '⬜';
+        orgBar += segment.repeat(segmentLength);
+      });
+
+      statsSection += `#### ${orgName.replace('Dev', '')} Hub
+**${totalLines.toLocaleString()} lines** • **${repoCount} repositories** • **Primary**: ${primaryLang}
+
+${orgBar}
+
+`;
+
+      // Add top languages for this org
+      orgLanguages.slice(0, 5).forEach(lang => {
+        const icon = this.getLanguageIcon(lang.language);
+        statsSection += `▪ **${lang.language}** ${lang.percentage}% (${lang.lines.toLocaleString()} lines)  \n`;
+      });
+      
+      statsSection += '\n';
+    });
+
+    return statsSection;
+  }
+
+  /**
+   * Get emoji icon for programming language
+   */
+  getLanguageIcon(language) {
+    const icons = {
+      'JavaScript': '🟨',
+      'TypeScript': '🟦', 
+      'Python': '🟩',
+      'CSS': '🟪',
+      'HTML': '🟫',
+      'Java': '🟧',
+      'JSON': '⚪',
+      'C++': '🟥',
+      'C': '⬛',
+      'Shell': '🟢',
+      'Markdown': '⬛',
+      'SCSS': '🟪'
+    };
+    return icons[language] || '⬜';
   }
 
   /**

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# ===========================================
-# 🚀 Repository Setup Script for Solo Entrepreneur
-# ===========================================
+# 🚀 Solo Entrepreneur Repository Setup Script
+# Usage: ./repository-setup-script.sh <type> <repo-name> <organization>
+# Example: ./repository-setup-script.sh production my-saas-app DevBusinessHub
 
 set -e
 
-# Colors for output
+# Color codes for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -14,404 +14,365 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Function to print colored output
-print_status() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+print_info() {
+    echo -e "${BLUE}ℹ️  $1${NC}"
 }
 
 print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    echo -e "${GREEN}✅ $1${NC}"
 }
 
 print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    echo -e "${YELLOW}⚠️  $1${NC}"
 }
 
 print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    echo -e "${RED}❌ $1${NC}"
 }
 
-# ===========================================
-# Configuration
-# ===========================================
-
-REPO_TYPE="$1"
-REPO_NAME="$2"
-ORG_NAME="$3"
-
-if [ -z "$REPO_TYPE" ] || [ -z "$REPO_NAME" ] || [ -z "$ORG_NAME" ]; then
-    print_error "Usage: $0 <repo_type> <repo_name> <org_name>"
-    print_status "Repo types: production, rapid, documentation, infrastructure"
-    print_status "Example: $0 production my-saas-app DevBusinessHub"
+# Check arguments
+if [ $# -ne 3 ]; then
+    print_error "Usage: $0 <type> <repo-name> <organization>"
+    echo "Types: production, rapid, documentation"
+    echo "Organizations: DevBusinessHub, DevPersonalHub, DevAcademicHub, DevEcosystem"
     exit 1
 fi
 
-print_status "Setting up $REPO_TYPE repository: $ORG_NAME/$REPO_NAME"
+REPO_TYPE=$1
+REPO_NAME=$2
+ORGANIZATION=$3
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# ===========================================
-# Repository Initialization
-# ===========================================
+# Validate repository type
+case $REPO_TYPE in
+    production|rapid|documentation)
+        ;;
+    *)
+        print_error "Invalid type: $REPO_TYPE"
+        echo "Valid types: production, rapid, documentation"
+        exit 1
+        ;;
+esac
 
-setup_git_config() {
-    print_status "Configuring Git settings..."
-    
-    git config user.name "Solo Entrepreneur"
-    git config user.email "entrepreneur@${ORG_NAME,,}.com"
-    git config init.defaultBranch main
-    git config core.autocrlf input
-    git config pull.rebase false
-    
-    print_success "Git configuration completed"
-}
+# Validate organization
+case $ORGANIZATION in
+    DevBusinessHub|DevPersonalHub|DevAcademicHub|DevEcosystem)
+        ;;
+    *)
+        print_error "Invalid organization: $ORGANIZATION"
+        echo "Valid organizations: DevBusinessHub, DevPersonalHub, DevAcademicHub, DevEcosystem"
+        exit 1
+        ;;
+esac
 
-# ===========================================
-# Branch Strategy Setup
-# ===========================================
+print_info "Setting up $REPO_TYPE repository: $REPO_NAME for $ORGANIZATION"
 
-setup_production_branches() {
-    print_status "Setting up production-grade branch structure..."
-    
-    # Create branches
-    git checkout -b develop
-    git checkout -b staging
-    git checkout main
-    
-    # Push all branches
-    git push -u origin main
-    git push -u origin develop  
-    git push -u origin staging
-    
-    print_success "Production branches created: main, staging, develop"
-}
+# Check if we're in a git repository
+if [ ! -d .git ]; then
+    print_error "Not in a git repository. Please run this script from your repository root."
+    exit 1
+fi
 
-setup_rapid_branches() {
-    print_status "Setting up safe experimentation structure..."
-    
-    # Only main branch initially - develop/* branches created as needed
-    git checkout main
-    git push -u origin main
-    
-    print_success "Safe experimentation setup: main (develop/* branches created on-demand)"
-}
+# Create necessary directories
+print_info "Creating directory structure..."
+mkdir -p .github/workflows
+mkdir -p docs
+mkdir -p tests
 
-setup_documentation_branches() {
-    print_status "Setting up academic research structure..."
+# Function to create branches based on repository type
+create_branches() {
+    local current_branch=$(git branch --show-current)
     
-    git checkout -b draft
-    git checkout main
-    
-    git push -u origin main
-    git push -u origin draft
-    
-    print_success "Academic research setup: main, draft (develop/* branches created per topic)"
-}
-
-# ===========================================
-# Workflow Templates
-# ===========================================
-
-copy_workflow_template() {
-    local workflow_type="$1"
-    
-    print_status "Copying $workflow_type workflow template..."
-    
-    mkdir -p .github/workflows
-    
-    case $workflow_type in
-        "production")
-            cp "templates/branch-strategy/production-workflow.yml" ".github/workflows/ci-cd.yml"
+    case $ORGANIZATION in
+        DevBusinessHub|DevEcosystem)
+            print_info "Creating production-grade branches..."
+            
+            # Create develop branch
+            if ! git show-ref --verify --quiet refs/heads/develop; then
+                git checkout -b develop
+                git push -u origin develop
+                print_success "Created 'develop' branch"
+            else
+                print_warning "'develop' branch already exists"
+            fi
+            
+            # Create staging branch
+            if ! git show-ref --verify --quiet refs/heads/staging; then
+                git checkout -b staging
+                git push -u origin staging
+                print_success "Created 'staging' branch"
+            else
+                print_warning "'staging' branch already exists"
+            fi
+            
+            # For DevBusinessHub, create production branch
+            if [ "$ORGANIZATION" = "DevBusinessHub" ]; then
+                if ! git show-ref --verify --quiet refs/heads/production; then
+                    git checkout -b production
+                    git push -u origin production
+                    print_success "Created 'production' branch"
+                else
+                    print_warning "'production' branch already exists"
+                fi
+            fi
             ;;
-        "rapid")
-            cp "templates/branch-strategy/rapid-development-workflow.yml" ".github/workflows/rapid-dev.yml"
-            ;;
-        "documentation")
-            # Create a simple documentation workflow
-            cat > .github/workflows/docs.yml << 'EOF'
-name: 📚 Documentation Workflow
-
-on:
-  push:
-    branches: [main, draft]
-  pull_request:
-    branches: [main]
-
-jobs:
-  build-docs:
-    name: 📖 Build Documentation
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-        
-      - name: 📚 Build & Deploy Docs
-        run: |
-          echo "Building documentation..."
-          # Add your documentation build commands
-EOF
+            
+        DevAcademicHub)
+            print_info "Creating academic branches..."
+            
+            # Create draft branch
+            if ! git show-ref --verify --quiet refs/heads/draft; then
+                git checkout -b draft
+                git push -u origin draft
+                print_success "Created 'draft' branch"
+            else
+                print_warning "'draft' branch already exists"
+            fi
             ;;
     esac
     
-    print_success "Workflow template copied"
+    # Return to original branch
+    git checkout $current_branch
 }
 
-# ===========================================
-# Branch Protection Setup
-# ===========================================
-
-setup_branch_protection() {
-    local repo_type="$1"
+# Copy appropriate workflow files
+copy_workflows() {
+    print_info "Setting up GitHub Actions workflows..."
     
-    print_status "Setting up branch protection rules..."
+    # Always copy the cleanup workflow
+    cp "$SCRIPT_DIR/cleanup-merged-branches.yml" .github/workflows/
+    print_success "Added branch cleanup workflow"
     
-    case $repo_type in
-        "production")
-            print_status "Configuring production-grade protection..."
-            # These would typically be set via GitHub API or manually
-            cat > .github/branch-protection-config.json << 'EOF'
-{
-  "main": {
-    "protection": {
-      "required_status_checks": {
-        "strict": true,
-        "contexts": ["quality-check"]
-      },
-      "enforce_admins": false,
-      "required_pull_request_reviews": {
-        "required_approving_review_count": 1,
-        "dismiss_stale_reviews": true
-      },
-      "restrictions": null
-    }
-  },
-  "staging": {
-    "protection": {
-      "required_status_checks": {
-        "strict": true,
-        "contexts": ["quality-check"]
-      }
-    }
-  }
-}
-EOF
+    # Copy type-specific workflow
+    case $REPO_TYPE in
+        production)
+            cp "$SCRIPT_DIR/production-workflow.yml" .github/workflows/quality-check.yml
+            print_success "Added production-grade quality check workflow"
             ;;
-        "rapid")
-            print_status "Configuring lightweight protection..."
-            cat > .github/branch-protection-config.json << 'EOF'
-{
-  "main": {
-    "protection": {
-      "required_status_checks": {
-        "strict": false,
-        "contexts": ["quick-check"]
-      },
-      "enforce_admins": false
-    }
-  }
-}
-EOF
+        rapid)
+            cp "$SCRIPT_DIR/rapid-development-workflow.yml" .github/workflows/quick-check.yml
+            print_success "Added rapid development workflow"
+            ;;
+        documentation)
+            # For documentation repos, use rapid workflow as base
+            cp "$SCRIPT_DIR/rapid-development-workflow.yml" .github/workflows/docs-check.yml
+            print_success "Added documentation check workflow"
             ;;
     esac
-    
-    print_success "Branch protection configuration created"
 }
 
-# ===========================================
-# Additional Files
-# ===========================================
-
-create_additional_files() {
-    print_status "Creating additional configuration files..."
+# Create basic configuration files if they don't exist
+create_basic_files() {
+    print_info "Creating basic configuration files..."
     
-    # .gitignore
-    cat > .gitignore << 'EOF'
+    # Create .gitignore if it doesn't exist
+    if [ ! -f .gitignore ]; then
+        cat > .gitignore << 'EOF'
 # Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment variables
+venv/
+env/
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # Build outputs
 dist/
 build/
-.next/
 out/
+*.pyc
+__pycache__/
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS files
 .DS_Store
-Thumbs.db
 
 # Logs
-logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Cache
-.cache/
-.npm/
-.yarn/
-
-# Coverage
+# Testing
 coverage/
-.nyc_output/
+.coverage
+.pytest_cache/
 EOF
-
-    # Basic package.json structure
-    cat > package.json << EOF
-{
-  "name": "$REPO_NAME",
-  "version": "1.0.0",
-  "description": "$REPO_TYPE repository for $ORG_NAME",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "echo \"Add your linting command here\"",
-    "format": "echo \"Add your formatting command here\"",
-    "dev": "echo \"Add your development server command here\"",
-    "build": "echo \"Add your build command here\"",
-    "start": "echo \"Add your start command here\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/$ORG_NAME/$REPO_NAME.git"
-  },
-  "author": "Solo Entrepreneur",
-  "license": "MIT"
-}
-EOF
-
-    # README template
-    cat > README.md << EOF
+        print_success "Created .gitignore"
+    fi
+    
+    # Create README.md if it doesn't exist
+    if [ ! -f README.md ]; then
+        cat > README.md << EOF
 # $REPO_NAME
 
-**Repository Type**: $REPO_TYPE  
-**Organization**: $ORG_NAME  
-**Created**: $(date +"%Y-%m-%d")
+A $REPO_TYPE repository for $ORGANIZATION.
 
-## 🚀 Quick Start
+## 🚀 Branch Strategy
 
-\`\`\`bash
-# Install dependencies
-npm install
+This repository follows the Solo Entrepreneur Branch Strategy.
 
-# Start development
-npm run dev
-
-# Build for production
-npm run build
-\`\`\`
-
-## 🏗️ Branch Strategy
-
+### Protected Branches
 EOF
+        
+        case $ORGANIZATION in
+            DevBusinessHub)
+                cat >> README.md << 'EOF'
+- `main` - Production deployment
+- `staging` - Staging environment
+- `develop` - Development integration
+- `production` - Production release
 
-    case $REPO_TYPE in
-        "production")
-            cat >> README.md << 'EOF'
-- **main**: Production-ready code
-- **staging**: Pre-production testing
-- **develop**: Development integration
-- **feature/***: Feature development
-
-## 🔄 Workflow
-
-1. Create feature branch from `develop`
-2. Develop and test locally
-3. Create PR to `develop`
-4. After approval, merge to `develop`
-5. Deploy `develop` → `staging` for testing
-6. Deploy `staging` → `main` for production
+### Workflow
+1. Create feature branches from `develop`
+2. PR to `develop` for integration
+3. `develop` → `staging` for testing
+4. `staging` → `main` for production
 EOF
-            ;;
-        "rapid")
-            cat >> README.md << 'EOF'
-- **main**: Stable code with auto-deployment
-- **experiment/***: Experimental features
+                ;;
+            DevPersonalHub)
+                cat >> README.md << 'EOF'
+- `main` - Stable version
+- `develop/*` - Development branches
 
-## 🔄 Workflow
-
-1. Develop directly on feature branches
-2. Quick testing and iteration
-3. Merge to `main` for immediate deployment
+### Workflow
+1. Create `develop/feature-name` branches
+2. Experiment and iterate
+3. PR to `main` when ready
 EOF
-            ;;
-    esac
+                ;;
+            DevAcademicHub)
+                cat >> README.md << 'EOF'
+- `main` - Published version
+- `draft` - Pre-review draft
+- `develop/*` - Development branches
 
-    print_success "Additional files created"
+### Workflow
+1. Create `develop/topic` branches
+2. PR to `draft` for review
+3. `draft` → `main` for publication
+EOF
+                ;;
+            DevEcosystem)
+                cat >> README.md << 'EOF'
+- `main` - Stable version
+- `staging` - Testing environment
+- `develop` - Development integration
+
+### Workflow
+1. Create feature branches from `develop`
+2. PR to `develop` for integration
+3. `develop` → `staging` for testing
+4. `staging` → `main` for stable release
+EOF
+                ;;
+        esac
+        
+        print_success "Created README.md"
+    fi
 }
 
-# ===========================================
-# Main Execution
-# ===========================================
+# Setup branch protection rules reminder
+setup_protection_reminder() {
+    print_info "Branch protection setup reminder..."
+    
+    cat > docs/BRANCH_PROTECTION_SETUP.md << 'EOF'
+# Branch Protection Setup Guide
 
-main() {
-    print_status "🚀 Starting repository setup for $REPO_TYPE type"
+## ⚠️ Important: Manual Setup Required
+
+GitHub branch protection rules need to be configured manually through the GitHub UI.
+
+### Steps:
+
+1. Go to Settings → Branches → Add rule
+2. Set up protection for the following branches:
+EOF
     
-    # Setup Git configuration
-    setup_git_config
-    
-    # Setup branches based on repository type
-    case $REPO_TYPE in
-        "production")
-            setup_production_branches
-            copy_workflow_template "production"
-            setup_branch_protection "production"
+    case $ORGANIZATION in
+        DevBusinessHub|DevEcosystem)
+            cat >> docs/BRANCH_PROTECTION_SETUP.md << 'EOF'
+   - `main`
+   - `staging`
+   - `develop`
+   - `production` (DevBusinessHub only)
+EOF
             ;;
-        "rapid")
-            setup_rapid_branches
-            copy_workflow_template "rapid"  
-            setup_branch_protection "rapid"
+        DevPersonalHub)
+            cat >> docs/BRANCH_PROTECTION_SETUP.md << 'EOF'
+   - `main`
+   - `develop/*` (use pattern)
+EOF
             ;;
-        "documentation")
-            setup_documentation_branches
-            copy_workflow_template "documentation"
-            ;;
-        "infrastructure")
-            setup_production_branches
-            copy_workflow_template "production"
-            setup_branch_protection "production"
-            ;;
-        *)
-            print_error "Unknown repository type: $REPO_TYPE"
-            exit 1
+        DevAcademicHub)
+            cat >> docs/BRANCH_PROTECTION_SETUP.md << 'EOF'
+   - `main`
+   - `draft`
+   - `develop/*` (use pattern)
+EOF
             ;;
     esac
     
-    # Create additional files
-    create_additional_files
+    cat >> docs/BRANCH_PROTECTION_SETUP.md << 'EOF'
+
+### Recommended Settings:
+
+1. ✅ Require a pull request before merging
+2. ✅ Dismiss stale pull request approvals when new commits are pushed
+3. ✅ Require status checks to pass before merging
+   - Add `quality-check` for production repos
+   - Add `quick-check` for rapid development repos
+4. ✅ Require branches to be up to date before merging
+5. ✅ Include administrators
+6. ✅ Restrict who can push to matching branches
+
+### ⚠️ Disable Auto-delete
+
+**IMPORTANT**: In Settings → General → Pull Requests:
+- [ ] Automatically delete head branches (MUST BE UNCHECKED)
+
+The cleanup-merged-branches.yml workflow handles safe branch deletion.
+EOF
     
-    # Final commit
+    print_success "Created branch protection setup guide"
+}
+
+# Main execution
+main() {
+    print_info "Starting repository setup..."
+    
+    # Create branches
+    create_branches
+    
+    # Copy workflows
+    copy_workflows
+    
+    # Create basic files
+    create_basic_files
+    
+    # Create protection reminder
+    setup_protection_reminder
+    
+    # Git add and commit
+    print_info "Committing changes..."
     git add .
-    git commit -m "🎉 Initial repository setup with $REPO_TYPE workflow
+    git commit -m "🚀 Initialize $REPO_TYPE repository with Solo Entrepreneur Branch Strategy
 
-- Branch strategy configured
-- GitHub Actions workflows added
-- Basic project structure created
-- Branch protection rules defined
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
+- Add GitHub Actions workflows
+- Set up branch structure for $ORGANIZATION
+- Add basic configuration files
+- Add branch protection setup guide" || print_warning "Nothing to commit"
     
-    git push origin main
+    print_success "Repository setup complete! 🎉"
     
-    print_success "🎉 Repository setup completed!"
-    print_status "Next steps:"
-    print_status "1. Configure branch protection rules in GitHub UI"
-    print_status "2. Set up deployment environments"
-    print_status "3. Configure any additional integrations"
-    print_status "4. Start developing!"
+    echo ""
+    print_warning "Next steps:"
+    echo "1. Review and push changes: git push"
+    echo "2. Set up branch protection rules (see docs/BRANCH_PROTECTION_SETUP.md)"
+    echo "3. Disable 'Automatically delete head branches' in repository settings"
+    echo "4. Configure any repository-specific settings"
 }
 
 # Run main function

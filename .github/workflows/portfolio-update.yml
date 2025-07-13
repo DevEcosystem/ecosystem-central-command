@@ -46,6 +46,13 @@ jobs:
           npm install --save-dev fs path
         fi
 
+    - name: Collect GitHub stats
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+      run: |
+        echo "📊 Collecting GitHub language statistics..."
+        node automation/github-stats-collector.js
+
     - name: Collect metrics
       run: |
         echo "📊 Collecting ecosystem metrics..."

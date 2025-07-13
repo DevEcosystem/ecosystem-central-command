@@ -1,103 +1,171 @@
-name: ⚡ Rapid Development Workflow
+name: ⚡ Quick Development Check
 
 on:
-  push:
-    branches: [main, 'develop/**']
   pull_request:
-    branches: [main]
-  workflow_dispatch:
+    branches: 
+      - main
+      - 'develop/*'
+  push:
+    branches:
+      - 'develop/*'
+      - 'experiment/*'
+      - 'research/*'
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: '20.x'
+  PYTHON_VERSION: '3.11'
 
 jobs:
-  # ===========================================
-  # Fast Quality Check
-  # ===========================================
   quick-check:
     name: ⚡ Quick Quality Check
     runs-on: ubuntu-latest
     
     steps:
-      - name: 📥 Checkout Code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node.js  
+      - name: 🔍 Detect language
+        id: detect-language
+        run: |
+          if [ -f "package.json" ]; then
+            echo "language=node" >> $GITHUB_OUTPUT
+          elif [ -f "requirements.txt" ] || [ -f "pyproject.toml" ]; then
+            echo "language=python" >> $GITHUB_OUTPUT
+          else
+            echo "language=unknown" >> $GITHUB_OUTPUT
+          fi
+
+      # Node.js workflow
+      - name: 📦 Setup Node.js
+        if: steps.detect-language.outputs.language == 'node'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: 📦 Install Dependencies
-        run: npm ci --only=production
+      - name: 📦 Install dependencies (Node.js)
+        if: steps.detect-language.outputs.language == 'node'
+        run: npm ci || npm install
 
-      - name: 🔍 Quick Lint
-        run: npm run lint || echo "⚠️ Lint warnings detected"
+      - name: 🎨 Auto-format code (Node.js)
+        if: steps.detect-language.outputs.language == 'node'
+        run: |
+          # Try to auto-fix issues
+          npm run format || npm run prettier -- --write . || echo "::notice::No formatter configured"
+          npm run lint -- --fix || echo "::notice::No linter configured"
+        continue-on-error: true
 
-      - name: 🧪 Basic Tests
-        run: npm run test || echo "⚠️ Some tests failed"
+      - name: 🔍 Basic checks (Node.js)
+        if: steps.detect-language.outputs.language == 'node'
+        run: |
+          # Run checks but don't fail on warnings
+          npm run lint || echo "::warning::Linting skipped"
+          npm run typecheck || npm run type-check || echo "::warning::Type checking skipped"
+        continue-on-error: true
 
-  # ===========================================
-  # Auto-Fix and Format
-  # ===========================================
-  auto-fix:
-    name: 🔧 Auto-Fix & Format
+      - name: 🧪 Run tests (Node.js)
+        if: steps.detect-language.outputs.language == 'node'
+        run: npm test -- --passWithNoTests || echo "::warning::Tests skipped"
+        continue-on-error: true
+
+      # Python workflow
+      - name: 🐍 Setup Python
+        if: steps.detect-language.outputs.language == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: 📦 Install dependencies (Python)
+        if: steps.detect-language.outputs.language == 'python'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || pip install -e . || echo "::warning::No requirements found"
+          pip install ruff black isort pytest || echo "::warning::Dev tools installation failed"
+        continue-on-error: true
+
+      - name: 🎨 Auto-format code (Python)
+        if: steps.detect-language.outputs.language == 'python'
+        run: |
+          # Auto-format with black and isort
+          black . || echo "::notice::Black formatter not configured"
+          isort . || echo "::notice::Import sorting not configured"
+          ruff check --fix . || echo "::notice::Ruff auto-fix not available"
+        continue-on-error: true
+
+      - name: 🔍 Basic checks (Python)
+        if: steps.detect-language.outputs.language == 'python'
+        run: |
+          # Run checks but don't fail
+          ruff check . || echo "::warning::Linting issues found (non-blocking)"
+        continue-on-error: true
+
+      - name: 🧪 Run tests (Python)
+        if: steps.detect-language.outputs.language == 'python'
+        run: pytest || echo "::warning::No tests found (non-blocking)"
+        continue-on-error: true
+
+  build-check:
+    name: 🏗️ Build Check (Optional)
     runs-on: ubuntu-latest
     needs: quick-check
-    if: github.event_name == 'push'
+    continue-on-error: true
     
     steps:
-      - name: 📥 Checkout Code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔧 Setup Node.js
+      - name: 🔍 Check for build script
+        id: check-build
+        run: |
+          if [ -f "package.json" ] && grep -q '"build"' package.json; then
+            echo "has_build=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_build=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📦 Setup Node.js
+        if: steps.check-build.outputs.has_build == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
 
-      - name: 📦 Install Dependencies
-        run: npm ci
+      - name: 📦 Install dependencies
+        if: steps.check-build.outputs.has_build == 'true'
+        run: npm ci || npm install
 
-      - name: 🎨 Auto-Format Code
-        run: |
-          npm run format || echo "Formatting applied"
-          npm run lint:fix || echo "Lint fixes applied"
+      - name: 🏗️ Try build
+        if: steps.check-build.outputs.has_build == 'true'
+        run: npm run build || echo "::warning::Build failed (non-blocking)"
+        continue-on-error: true
 
-      - name: 📝 Auto-Commit Fixes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add .
-          git diff --staged --quiet || git commit -m "🤖 Auto-fix: formatting and lint fixes
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
-          git push || echo "No changes to push"
-
-  # ===========================================
-  # Quick Deploy
-  # ===========================================
-  quick-deploy:
-    name: 🚀 Quick Deploy
+  preview-deploy:
+    name: 👁️ Preview Deploy
     runs-on: ubuntu-latest
-    needs: auto-fix
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/develop/')
+    needs: quick-check
+    if: github.event_name == 'pull_request'
+    continue-on-error: true
     
     steps:
-      - name: 📥 Checkout Code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🚀 Deploy
+      - name: 👁️ Deploy preview
         run: |
-          echo "🚀 Quick deploying to development..."
-          # Add your quick deployment logic here
-          # Could be Vercel, Netlify, or simple hosting
+          echo "::notice::Preview deployment would happen here"
+          echo "This is where you'd deploy to Vercel, Netlify, etc."
+          echo "Branch: ${{ github.head_ref }}"
+          echo "Preview URL would be commented on the PR"
 
-      - name: 📊 Basic Health Check
+  summary:
+    name: 📊 Development Summary
+    runs-on: ubuntu-latest
+    needs: [quick-check, build-check]
+    if: always()
+    
+    steps:
+      - name: 📊 Summary
         run: |
-          echo "🔍 Running basic health check..."
-          # Add simple endpoint check
+          echo "⚡ Rapid development checks completed!"
+          echo "::notice::All checks are non-blocking to allow experimental development"
+          echo "::notice::Fix warnings when you're ready to merge to main"

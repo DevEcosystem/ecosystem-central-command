@@ -1,0 +1,100 @@
+name: "🐛 Bug Report"
+description: "バグの報告"
+title: "🐛 fix: [バグの簡潔な説明]"
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 Issue命名規則
+        
+        **タイトル形式**: `[絵文字] [type]: [簡潔な説明]`
+        
+        バグ報告の場合は `🐛 fix:` から始めてください。
+        
+        例: `🐛 fix: ログイン時に認証エラーが発生する`
+
+  - type: input
+    id: bug_title
+    attributes:
+      label: "バグの概要"
+      description: "発生しているバグを一言で説明してください"
+      placeholder: "例: ログイン時に認証エラーが発生する"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "期待される動作"
+      description: "本来どのような動作をするべきかを説明してください"
+      placeholder: "期待される動作を記述..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: "実際の動作"
+      description: "実際に何が起こっているかを説明してください"
+      placeholder: "実際の動作を記述..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "再現手順"
+      description: "バグを再現するための手順を詳しく記述してください"
+      placeholder: |
+        1. ...に移動
+        2. ...をクリック
+        3. ...を入力
+        4. エラーが表示される
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "環境情報"
+      description: "OS、ブラウザ、バージョン等の環境情報を記述してください"
+      placeholder: |
+        - OS: macOS 14.0
+        - ブラウザ: Chrome 119
+        - Node.js: v18.17.0
+    validations:
+      required: false
+
+  - type: textarea
+    id: error_logs
+    attributes:
+      label: "エラーログ"
+      description: "関連するエラーメッセージやログがあれば貼り付けてください"
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "重要度"
+      description: "このバグの重要度を選択してください"
+      options:
+        - "🔥 Critical (緊急修正が必要)"
+        - "高 (High)"
+        - "中 (Medium)"
+        - "低 (Low)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: organization
+    attributes:
+      label: "発生Organization"
+      description: "バグが発生している対象を選択してください"
+      options:
+        - label: "DevBusinessHub (顧客向けプロダクト)"
+        - label: "DevPersonalHub (実験・学習)"
+        - label: "DevAcademicHub (研究・論文)"
+        - label: "DevEcosystem (インフラ・ツール)"

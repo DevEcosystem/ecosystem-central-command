@@ -34,13 +34,23 @@ jobs:
           echo "🧹 Starting branch cleanup..."
           
           # Protected branches that should NEVER be deleted
+          # Based on SOLO_ENTREPRENEUR_BRANCH_STRATEGY.md
           PROTECTED_BRANCHES=(
             "main"
             "master" 
             "develop"
             "staging"
             "production"
+            "draft"
           )
+          
+          # Check for develop/* pattern branches (DevPersonalHub/DevAcademicHub)
+          DEVELOP_PATTERN_BRANCHES=$(git branch -r | grep -E "origin/develop/" | sed 's/origin\///' | tr '\n' ' ')
+          if [ ! -z "$DEVELOP_PATTERN_BRANCHES" ]; then
+            for dev_branch in $DEVELOP_PATTERN_BRANCHES; do
+              PROTECTED_BRANCHES+=("$dev_branch")
+            done
+          fi
           
           # Get the merged branch name
           if [ "${{ github.event_name }}" = "pull_request" ]; then

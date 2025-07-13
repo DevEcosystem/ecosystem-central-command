@@ -16,28 +16,28 @@ class GitHubStatsCollector {
     this.cacheDir = path.join(this.baseDir, '.github-stats-cache');
     
     // Organization and repository configuration (auto-updated by ecosystem-auto-discovery)
-        this.organizations =     {
+            this.organizations =     {
           "DevBusinessHub": [
-                "business-portfolio",
                 "business-management",
-                "client-language-platform",
-                "client-investigation"
+                "automation-tools",
+                "Test",
+                "client-investigation", 
+                "client-language-platform"
           ],
           "DevPersonalHub": [
                 "external-learning-platforms",
-                "personal-innovation-lab",
+                "learning-projects",
                 "portfolio-website",
                 "technical-showcase"
           ],
           "DevAcademicHub": [
-                "computer-science-degree",
-                "university-coursework",
-                "academic-portfolio"
+                "academic-portfolio",
+                "collaborative-projects",
+                "Test2"
           ],
           "DevEcosystem": [
                 "ecosystem-central-command",
-                "development-portfolio",
-                "unified-development-hub"
+                "ecosystem-automation-tools"
           ]
     };
     
@@ -76,8 +76,11 @@ class GitHubStatsCollector {
       // Check GitHub token
       if (!process.env.GITHUB_TOKEN) {
         console.log('⚠️ GITHUB_TOKEN not set - using mock data for development');
+        console.log('💡 Mock data provides realistic development experience without API limits');
+        console.log('🚀 Real data collection happens automatically via GitHub Actions');
         await this.generateMockStats();
       } else {
+        console.log('🔑 Using GitHub API with provided token');
         await this.collectRealStats();
       }
       
@@ -148,25 +151,28 @@ class GitHubStatsCollector {
     
     const mockLanguages = {
       'DevBusinessHub': {
-        'business-portfolio': {
-          'JavaScript': 3240, 'CSS': 680, 'HTML': 430, 'TypeScript': 120
-        },
         'business-management': {
           'TypeScript': 2060, 'JavaScript': 890, 'CSS': 144, 'SCSS': 67
         },
-        'client-language-platform': {
-          'JavaScript': 2890, 'TypeScript': 1560, 'CSS': 780, 'HTML': 445, 'Python': 340
+        'automation-tools': {
+          'JavaScript': 1800, 'Node.js': 1200, 'JSON': 340, 'Shell': 180
+        },
+        'Test': {
+          'JavaScript': 890, 'HTML': 234, 'CSS': 120
         },
         'client-investigation': {
           'TypeScript': 2450, 'JavaScript': 680, 'CSS': 250, 'HTML': 120
+        },
+        'client-language-platform': {
+          'JavaScript': 2890, 'TypeScript': 1560, 'CSS': 780, 'HTML': 445, 'Python': 340
         }
       },
       'DevPersonalHub': {
         'external-learning-platforms': {
           'JavaScript': 2762, 'Python': 890, 'HTML': 345, 'CSS': 234
         },
-        'personal-innovation-lab': {
-          'TypeScript': 3550, 'Python': 688, 'JavaScript': 445, 'CSS': 156
+        'learning-projects': {
+          'JavaScript': 1890, 'Python': 780, 'Markdown': 345, 'CSS': 234
         },
         'portfolio-website': {
           'TypeScript': 1890, 'CSS': 567, 'HTML': 234, 'SCSS': 123
@@ -176,25 +182,22 @@ class GitHubStatsCollector {
         }
       },
       'DevAcademicHub': {
-        'computer-science-degree': {
-          'Python': 4026, 'JavaScript': 1200, 'Java': 890, 'C++': 456
-        },
-        'university-coursework': {
-          'Python': 2340, 'Java': 1456, 'JavaScript': 567, 'C': 234
-        },
         'academic-portfolio': {
           'Python': 1890, 'JavaScript': 567, 'HTML': 234, 'CSS': 123
+        },
+        'collaborative-projects': {
+          'Python': 2340, 'Java': 890, 'JavaScript': 456, 'C++': 234
+        },
+        'Test2': {
+          'Python': 1200, 'JavaScript': 340, 'HTML': 120, 'CSS': 80
         }
       },
       'DevEcosystem': {
         'ecosystem-central-command': {
           'JavaScript': 4567, 'JSON': 890, 'Markdown': 345, 'Shell': 123
         },
-        'development-portfolio': {
-          'TypeScript': 2340, 'CSS': 567, 'HTML': 234, 'JavaScript': 456
-        },
-        'unified-development-hub': {
-          'JavaScript': 1890, 'TypeScript': 567, 'CSS': 234, 'HTML': 123
+        'ecosystem-automation-tools': {
+          'JavaScript': 2890, 'Node.js': 1200, 'JSON': 456, 'Shell': 234
         }
       }
     };
@@ -568,6 +571,7 @@ ${Object.entries(this.stats.trends.languages).slice(0, 5).map(([lang, trend]) =>
     
     console.log(`📋 Report generated: ${reportPath}`);
   }
+
 
   /**
    * Utility: Add delay for rate limiting

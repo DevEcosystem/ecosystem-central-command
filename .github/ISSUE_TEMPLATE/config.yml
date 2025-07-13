@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📖 Issue命名規則ガイド"
+    url: "https://github.com/DevEcosystem/ecosystem-central-command/blob/main/docs/ISSUE_NAMING_CONVENTION.md"
+    about: "統一されたIssue命名規則の詳細ガイド"
+  - name: "🚀 ブランチ戦略ガイド"
+    url: "https://github.com/DevEcosystem/ecosystem-central-command/blob/main/docs/SOLO_ENTREPRENEUR_BRANCH_STRATEGY.md"
+    about: "組織別ブランチ戦略とワークフローガイド"
+  - name: "❓ 技術的な質問"
+    url: "https://github.com/DevEcosystem/ecosystem-central-command/discussions"
+    about: "技術的な質問や議論はDiscussionsをご利用ください"
