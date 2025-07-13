@@ -4,8 +4,8 @@ This file is created to test the automatic issue completion workflow.
 
 ## Test Details
 
-- **Test Branch**: `feature/DEVFLOW-999-test-automatic-completion`
-- **Expected Behavior**: Issue #999 should be automatically closed when this PR is merged
+- **Test Branch**: `feature/DEVFLOW-17-test-completion`
+- **Expected Behavior**: Issue #17 should be automatically closed when this PR is merged
 - **Workflow File**: `.github/workflows/auto-issue-completion.yml`
 
 ## Test Checklist
@@ -14,7 +14,7 @@ This file is created to test the automatic issue completion workflow.
 - [x] File changes made
 - [ ] PR created
 - [ ] PR merged to main
-- [ ] Issue #999 automatically closed
+- [ ] Issue #17 automatically closed
 - [ ] Completion comment generated
 
 ## Expected Completion Comment
@@ -24,6 +24,10 @@ The workflow should generate a standardized completion comment with:
 - Development metrics (commits, files changed, lines)
 - Branch information
 - DevFlow Orchestrator attribution
+
+## Test Update
+
+Updated to test with Issue #17 (the actual automatic issue completion feature) to validate the workflow works correctly.
 
 ---
 
