@@ -1,0 +1,94 @@
+name: "🚀 Feature Request"
+description: "新機能の提案"
+title: "🚀 feat: [簡潔な機能名]"
+labels: ["enhancement", "feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 Issue命名規則
+        
+        **タイトル形式**: `[絵文字] [type]: [簡潔な説明]`
+        
+        ### 🎯 絵文字とタイプの対応表
+        
+        | 絵文字 | Type | 説明 | 例 |
+        |--------|------|------|-----|
+        | 🚀 | feat | 新機能追加 | `🚀 feat: ユーザー認証機能` |
+        | 🐛 | fix | バグ修正 | `🐛 fix: ログイン時のエラー` |
+        | 📚 | docs | ドキュメント更新 | `📚 docs: APIドキュメント追加` |
+        | ⚡ | perf | パフォーマンス改善 | `⚡ perf: データベースクエリ最適化` |
+        | 🔧 | refactor | リファクタリング | `🔧 refactor: 認証モジュール` |
+        | 🧪 | test | テスト追加・修正 | `🧪 test: ユーザー登録テスト` |
+        | 🔒 | security | セキュリティ修正 | `🔒 security: XSS脆弱性修正` |
+        | 🎨 | ui | UI/UX改善 | `🎨 ui: ダッシュボードデザイン` |
+        | 📱 | mobile | モバイル対応 | `📱 mobile: レスポンシブ対応` |
+        | 🌐 | i18n | 国際化対応 | `🌐 i18n: 日本語ローカライゼーション` |
+        | 🔥 | hotfix | 緊急修正 | `🔥 hotfix: 本番環境クリティカルバグ` |
+        | 💡 | idea | アイデア・提案 | `💡 idea: 新しいワークフロー提案` |
+        | 🗑️ | cleanup | コードクリーンアップ | `🗑️ cleanup: 未使用コード削除` |
+        | 📦 | deps | 依存関係更新 | `📦 deps: React v18アップグレード` |
+        | 🚧 | wip | 作業中 | `🚧 wip: ユーザー管理画面開発中` |
+        | ❓ | question | 質問・相談 | `❓ question: アーキテクチャ相談` |
+
+  - type: input
+    id: feature_title
+    attributes:
+      label: "機能名"
+      description: "追加したい機能の名前を入力してください"
+      placeholder: "例: ユーザー認証機能"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: "機能の詳細"
+      description: "どのような機能を追加したいか詳しく説明してください"
+      placeholder: "機能の詳細を記述..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "なぜこの機能が必要か"
+      description: "この機能を追加する理由や背景を説明してください"
+      placeholder: "動機や理由を記述..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "受け入れ基準"
+      description: "この機能が完成したと判断する基準を箇条書きで記述してください"
+      placeholder: |
+        - [ ] 基準1
+        - [ ] 基準2
+        - [ ] 基準3
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "優先度"
+      description: "この機能の優先度を選択してください"
+      options:
+        - "高 (High)"
+        - "中 (Medium)"
+        - "低 (Low)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: organization
+    attributes:
+      label: "対象Organization"
+      description: "この機能を実装する対象を選択してください"
+      options:
+        - label: "DevBusinessHub (顧客向けプロダクト)"
+        - label: "DevPersonalHub (実験・学習)"
+        - label: "DevAcademicHub (研究・論文)"
+        - label: "DevEcosystem (インフラ・ツール)"

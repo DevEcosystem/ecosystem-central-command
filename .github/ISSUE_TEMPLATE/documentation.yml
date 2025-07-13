@@ -1,0 +1,94 @@
+name: "📚 Documentation"
+description: "ドキュメントの追加・更新"
+title: "📚 docs: [ドキュメント名]"
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 Issue命名規則
+        
+        **タイトル形式**: `[絵文字] [type]: [簡潔な説明]`
+        
+        ドキュメント関連の場合は `📚 docs:` から始めてください。
+        
+        例: `📚 docs: APIエンドポイント仕様書を追加`
+
+  - type: input
+    id: doc_title
+    attributes:
+      label: "ドキュメント名"
+      description: "作成・更新するドキュメントの名前を入力してください"
+      placeholder: "例: APIエンドポイント仕様書"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: doc_type
+    attributes:
+      label: "ドキュメントの種類"
+      description: "作成するドキュメントの種類を選択してください"
+      options:
+        - "新規作成 (New)"
+        - "更新 (Update)"
+        - "修正 (Fix)"
+        - "翻訳 (Translation)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: doc_description
+    attributes:
+      label: "ドキュメントの内容"
+      description: "どのような内容のドキュメントかを説明してください"
+      placeholder: "ドキュメントの内容や目的を記述..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: target_audience
+    attributes:
+      label: "対象読者"
+      description: "このドキュメントの対象読者を記述してください"
+      placeholder: "例: 開発者、エンドユーザー、研究者など"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: doc_sections
+    attributes:
+      label: "含める予定のセクション"
+      description: "ドキュメントに含める予定のセクションにチェックしてください"
+      options:
+        - label: "概要・導入"
+        - label: "インストール・セットアップ"
+        - label: "使用方法・チュートリアル"
+        - label: "API仕様"
+        - label: "設定方法"
+        - label: "トラブルシューティング"
+        - label: "FAQ"
+        - label: "用語集"
+        - label: "変更履歴"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "優先度"
+      description: "このドキュメント作成の優先度を選択してください"
+      options:
+        - "高 (High)"
+        - "中 (Medium)"
+        - "低 (Low)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: organization
+    attributes:
+      label: "対象Organization"
+      description: "このドキュメントを作成する対象を選択してください"
+      options:
+        - label: "DevBusinessHub (顧客向けプロダクト)"
+        - label: "DevPersonalHub (実験・学習)"
+        - label: "DevAcademicHub (研究・論文)"
+        - label: "DevEcosystem (インフラ・ツール)"

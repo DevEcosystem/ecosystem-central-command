@@ -1,0 +1,137 @@
+name: "💡 General Issue"
+description: "その他の問題・提案・質問"
+title: "[絵文字を選択] [type]: [簡潔な説明]"
+labels: ["needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📋 統一Issue命名規則ガイド
+        
+        **タイトル形式**: `[絵文字] [type]: [簡潔な説明]`
+        
+        ### 🎯 絵文字とタイプの完全対応表
+        
+        | 絵文字 | Type | 説明 | 使用場面 | 例 |
+        |--------|------|------|----------|-----|
+        | 🚀 | feat | 新機能追加 | 新しい機能の実装 | `🚀 feat: ユーザー認証機能` |
+        | 🐛 | fix | バグ修正 | 不具合の修正 | `🐛 fix: ログイン時のエラー` |
+        | 📚 | docs | ドキュメント更新 | README、API docs等 | `📚 docs: APIドキュメント追加` |
+        | ⚡ | perf | パフォーマンス改善 | 速度・効率の向上 | `⚡ perf: データベースクエリ最適化` |
+        | 🔧 | refactor | リファクタリング | コード構造の改善 | `🔧 refactor: 認証モジュール` |
+        | 🧪 | test | テスト追加・修正 | ユニット・統合テスト | `🧪 test: ユーザー登録テスト` |
+        | 🔒 | security | セキュリティ修正 | 脆弱性対応 | `🔒 security: XSS脆弱性修正` |
+        | 🎨 | ui | UI/UX改善 | デザイン・使いやすさ | `🎨 ui: ダッシュボードデザイン` |
+        | 📱 | mobile | モバイル対応 | レスポンシブ・PWA | `📱 mobile: レスポンシブ対応` |
+        | 🌐 | i18n | 国際化対応 | 多言語・ローカライゼーション | `🌐 i18n: 日本語ローカライゼーション` |
+        | 🔥 | hotfix | 緊急修正 | 本番環境の緊急対応 | `🔥 hotfix: 本番環境クリティカルバグ` |
+        | 💡 | idea | アイデア・提案 | 新しい提案・改善案 | `💡 idea: 新しいワークフロー提案` |
+        | 🗑️ | cleanup | コードクリーンアップ | 不要コード削除・整理 | `🗑️ cleanup: 未使用コード削除` |
+        | 📦 | deps | 依存関係更新 | ライブラリ・フレームワーク更新 | `📦 deps: React v18アップグレード` |
+        | 🚧 | wip | 作業中 | 進行中の作業 | `🚧 wip: ユーザー管理画面開発中` |
+        | ❓ | question | 質問・相談 | 技術的な質問・相談 | `❓ question: アーキテクチャ相談` |
+        | 🏗️ | infra | インフラ・CI/CD | 環境構築・デプロイ | `🏗️ infra: Docker環境構築` |
+        | 📊 | analytics | 分析・メトリクス | データ分析・監視 | `📊 analytics: ユーザー行動分析` |
+        | 🎯 | config | 設定変更 | 設定ファイル・環境変数 | `🎯 config: 本番環境設定更新` |
+        | 🔍 | research | 調査・研究 | 技術調査・実験 | `🔍 research: 新技術の調査` |
+        
+        ### 🏢 Organization別の推奨命名パターン
+        
+        #### DevBusinessHub (顧客向けプロダクト)
+        - 重要度とユーザー影響を明記: `🚀 feat: [USER-123] 顧客ダッシュボード機能`
+        - セキュリティは最優先: `🔒 security: [SEC-456] ユーザーデータ暗号化`
+        
+        #### DevPersonalHub (実験・学習)
+        - 実験的要素を明記: `💡 idea: AI統合の実験`
+        - 学習目的を含む: `🔍 research: React Server Components学習`
+        
+        #### DevAcademicHub (研究・論文)
+        - 研究テーマを明記: `🔍 research: 機械学習モデル性能評価`
+        - 論文関連: `📚 docs: 研究論文第3章執筆`
+        
+        #### DevEcosystem (インフラ・ツール)
+        - インフラ影響度を明記: `🏗️ infra: CI/CDパイプライン改善`
+        - 全プロジェクト影響: `🔧 refactor: 共通テンプレート統一`
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: "Issue種別"
+      description: "最も適切なIssue種別を選択してください"
+      options:
+        - "🚀 feat - 新機能追加"
+        - "🐛 fix - バグ修正"
+        - "📚 docs - ドキュメント"
+        - "⚡ perf - パフォーマンス改善"
+        - "🔧 refactor - リファクタリング"
+        - "🧪 test - テスト"
+        - "🔒 security - セキュリティ"
+        - "🎨 ui - UI/UX改善"
+        - "📱 mobile - モバイル対応"
+        - "🌐 i18n - 国際化"
+        - "🔥 hotfix - 緊急修正"
+        - "💡 idea - アイデア・提案"
+        - "🗑️ cleanup - クリーンアップ"
+        - "📦 deps - 依存関係"
+        - "🚧 wip - 作業中"
+        - "❓ question - 質問・相談"
+        - "🏗️ infra - インフラ・CI/CD"
+        - "📊 analytics - 分析・メトリクス"
+        - "🎯 config - 設定変更"
+        - "🔍 research - 調査・研究"
+    validations:
+      required: true
+
+  - type: input
+    id: issue_title
+    attributes:
+      label: "簡潔な説明"
+      description: "上記で選択した形式に従ってタイトルを入力してください"
+      placeholder: "例: ユーザー認証機能"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: "詳細説明"
+      description: "Issueの詳細を説明してください"
+      placeholder: "詳細な説明を記述..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "優先度"
+      description: "このIssueの優先度を選択してください"
+      options:
+        - "🔥 Critical (緊急)"
+        - "高 (High)"
+        - "中 (Medium)"
+        - "低 (Low)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: organization
+    attributes:
+      label: "対象Organization"
+      description: "このIssueが関連するOrganizationを選択してください（複数選択可）"
+      options:
+        - label: "DevBusinessHub (顧客向けプロダクト)"
+        - label: "DevPersonalHub (実験・学習)"
+        - label: "DevAcademicHub (研究・論文)"
+        - label: "DevEcosystem (インフラ・ツール)"
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Issue作成前チェックリスト"
+      description: "Issue作成前に以下を確認してください"
+      options:
+        - label: "適切な絵文字とtypeを選択した"
+        - label: "タイトルが簡潔で分かりやすい"
+        - label: "重複するIssueがないか確認した"
+        - label: "適切な優先度を設定した"
+        - label: "対象Organizationを選択した"
