@@ -515,6 +515,32 @@ gh workflow run cleanup-merged-branches.yml -f dry_run=false
 **重要**: GitHubリポジトリ設定で「Automatically delete head branches」は**無効**にしてください。
 これを有効にすると、保護ブランチルールが無視されて重要なブランチが削除される可能性があります。
 
+### 他リポジトリへの適用
+
+**テンプレートファイル**: `templates/branch-strategy/cleanup-merged-branches.yml`
+
+**適用手順**:
+```bash
+# 1. 対象リポジトリに移動
+cd /path/to/your-repository
+
+# 2. ワークフローディレクトリ作成
+mkdir -p .github/workflows
+
+# 3. cleanup-merged-branches.yml をコピー
+cp /path/to/ecosystem-central-command/templates/branch-strategy/cleanup-merged-branches.yml .github/workflows/
+
+# 4. コミット＆プッシュ
+git add .github/workflows/cleanup-merged-branches.yml
+git commit -m "feat: add automated branch cleanup workflow"
+git push
+```
+
+**Organization別カスタマイズ**:
+- **DevBusinessHub**: production ブランチも保護対象に含まれています
+- **DevPersonalHub/DevAcademicHub**: develop/* パターンが自動保護されます
+- **DevAcademicHub**: draft ブランチが追加で保護されます
+
 ## 🚀 次のステップ
 
 1. **既存リポジトリへの適用**
