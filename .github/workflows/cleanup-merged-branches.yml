@@ -1,0 +1,98 @@
+name: 🧹 Cleanup Merged Branches
+
+on:
+  # Run after PR merge
+  pull_request:
+    types: [closed]
+  
+  # Manual trigger for cleanup
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (show what would be deleted)'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  cleanup-branches:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🧹 Clean up merged branches
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          echo "🧹 Starting branch cleanup..."
+          
+          # Protected branches that should NEVER be deleted
+          PROTECTED_BRANCHES=(
+            "main"
+            "master" 
+            "develop"
+            "staging"
+            "production"
+          )
+          
+          # Get the merged branch name
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            MERGED_BRANCH="${{ github.event.pull_request.head.ref }}"
+            echo "📝 PR merged: $MERGED_BRANCH"
+            
+            # Check if branch is protected
+            IS_PROTECTED=false
+            for protected in "${PROTECTED_BRANCHES[@]}"; do
+              if [ "$MERGED_BRANCH" = "$protected" ]; then
+                IS_PROTECTED=true
+                break
+              fi
+            done
+            
+            if [ "$IS_PROTECTED" = "true" ]; then
+              echo "🔒 Branch '$MERGED_BRANCH' is protected - skipping deletion"
+            else
+              if [ "$DRY_RUN" = "true" ]; then
+                echo "🔍 DRY RUN: Would delete branch '$MERGED_BRANCH'"
+              else
+                echo "🗑️ Deleting merged branch: $MERGED_BRANCH"
+                git push origin --delete "$MERGED_BRANCH" || echo "⚠️ Branch may already be deleted"
+              fi
+            fi
+          else
+            echo "🔍 Manual cleanup - scanning for merged branches..."
+            
+            # Get all remote branches
+            git fetch --prune
+            
+            # Find merged branches (excluding protected ones)
+            for branch in $(git branch -r --merged origin/main | grep -v "origin/main" | sed 's/origin\///'); do
+              IS_PROTECTED=false
+              for protected in "${PROTECTED_BRANCHES[@]}"; do
+                if [ "$branch" = "$protected" ]; then
+                  IS_PROTECTED=true
+                  break
+                fi
+              done
+              
+              if [ "$IS_PROTECTED" = "false" ]; then
+                if [ "$DRY_RUN" = "true" ]; then
+                  echo "🔍 DRY RUN: Would delete merged branch '$branch'"
+                else
+                  echo "🗑️ Deleting merged branch: $branch"
+                  git push origin --delete "$branch" || echo "⚠️ Branch may already be deleted"
+                fi
+              else
+                echo "🔒 Skipping protected branch: $branch"
+              fi
+            done
+          fi
+          
+          echo "✅ Branch cleanup completed"
