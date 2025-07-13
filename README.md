@@ -51,63 +51,63 @@
 
 ## 🌍 Ecosystem Technology Overview
 
-**Total Code**: 57,729 lines across 14 repositories in 4 organizations
+**Total Code**: 47,553 lines across 13 repositories in 4 organizations
 
 ### 📊 Cross-Organization Language Distribution
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟩🟩🟩🟩🟩🟪🟪🟧🟫
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟩🟩🟩🟩🟪⬜🟫
 
-🟨 **JavaScript** 37.4% (21,610 lines) • *BusinessHub, Ecosystem*  
-🟦 **TypeScript** 25.2% (14,537 lines) • *BusinessHub, PersonalHub*  
-🟩 **Python** 18.6% (10,741 lines) • *AcademicHub, PersonalHub*  
-🟪 **CSS** 6.9% (3,969 lines) • *BusinessHub, PersonalHub*  
-🟧 **Java** 4.1% (2,346 lines) • *AcademicHub*  
-🟫 **HTML** 4.0% (2,288 lines) • *BusinessHub, PersonalHub*  
+🟨 **JavaScript** 45.7% (21,738 lines) • *Ecosystem, BusinessHub*  
+🟦 **TypeScript** 16.7% (7,960 lines) • *BusinessHub, PersonalHub*  
+🟩 **Python** 14.3% (6,807 lines) • *AcademicHub, PersonalHub*  
+🟪 **CSS** 5.6% (2,686 lines) • *BusinessHub, PersonalHub*  
+⬜ **Node.js** 5.0% (2,400 lines) • *BusinessHub, Ecosystem*  
+🟫 **HTML** 3.6% (1,735 lines) • *BusinessHub, PersonalHub*  
 
 ### 🏢 Organization Breakdown
 
-#### BusinessHub Hub
-**17,146 lines** • **4 repositories** • **Primary**: JavaScript
+#### DevBusinessHub
+**17,440 lines** • **5 repositories** • **Primary**: JavaScript
 
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟦🟦🟪🟪🟪🟫🟩
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦🟦🟦🟦🟪🟪⬜⬜🟫
 
-▪ **JavaScript** 44.9% (7,700 lines)  
-▪ **TypeScript** 36.1% (6,190 lines)  
-▪ **CSS** 10.8% (1,854 lines)  
-▪ **HTML** 5.8% (995 lines)  
-▪ **Python** 2.0% (340 lines)  
+▪ **JavaScript** 41.0% (7,150 lines)  
+▪ **TypeScript** 34.8% (6,070 lines)  
+▪ **CSS** 7.4% (1,294 lines)  
+▪ **Node.js** 6.9% (1,200 lines)  
+▪ **HTML** 4.6% (799 lines)  
 
-#### PersonalHub Hub
-**14,264 lines** • **4 repositories** • **Primary**: TypeScript
+#### DevPersonalHub
+**12,674 lines** • **4 repositories** • **Primary**: JavaScript
 
-🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟪🟪🟫
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟩🟩🟩🟩🟦🟦🟦🟦🟪🟪🟪🟫
 
-▪ **TypeScript** 38.1% (5,440 lines)  
-▪ **JavaScript** 32.7% (4,663 lines)  
-▪ **Python** 15.0% (2,145 lines)  
-▪ **CSS** 8.3% (1,191 lines)  
-▪ **HTML** 4.9% (702 lines)  
+▪ **JavaScript** 48.2% (6,108 lines)  
+▪ **Python** 17.7% (2,237 lines)  
+▪ **TypeScript** 14.9% (1,890 lines)  
+▪ **CSS** 10.0% (1,269 lines)  
+▪ **HTML** 5.5% (702 lines)  
 
-#### AcademicHub Hub
-**13,983 lines** • **3 repositories** • **Primary**: Python
+#### DevAcademicHub
+**6,734 lines** • **2 repositories** • **Primary**: Python
 
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟧🟧🟧🟧🟨🟨🟨🟨⬜⬜
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟧🟧🟧🟫⬜
 
-▪ **Python** 59.0% (8,256 lines)  
-▪ **Java** 16.8% (2,346 lines)  
-▪ **JavaScript** 16.7% (2,334 lines)  
-▪ **C++** 3.3% (456 lines)  
-▪ **C** 1.7% (234 lines)  
+▪ **Python** 62.8% (4,230 lines)  
+▪ **JavaScript** 15.2% (1,023 lines)  
+▪ **Java** 13.2% (890 lines)  
+▪ **HTML** 3.5% (234 lines)  
+▪ **C++** 3.5% (234 lines)  
 
-#### Ecosystem Hub
-**12,336 lines** • **3 repositories** • **Primary**: JavaScript
+#### DevEcosystem
+**10,705 lines** • **2 repositories** • **Primary**: JavaScript
 
-🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟦🟦🟦🟦🟦🟦⬜⬜🟪🟪🟫
+🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜
 
-▪ **JavaScript** 56.0% (6,913 lines)  
-▪ **TypeScript** 23.6% (2,907 lines)  
-▪ **JSON** 7.2% (890 lines)  
-▪ **CSS** 6.5% (801 lines)  
-▪ **HTML** 2.9% (357 lines)  
+▪ **JavaScript** 69.7% (7,457 lines)  
+▪ **JSON** 12.6% (1,346 lines)  
+▪ **Node.js** 11.2% (1,200 lines)  
+▪ **Shell** 3.3% (357 lines)  
+▪ **Markdown** 3.2% (345 lines)  
 
 
 
@@ -202,4 +202,4 @@ This portfolio is automatically generated from the following sources:
 - Growth metrics: `docs/analytics/skill-growth-metrics.json`
 
 **Generation Script**: `automation/portfolio-generator.js`  
-**Last Run**: 2025-07-12T23:53:12.708Z
+**Last Run**: 2025-07-12T23:58:55.079Z
