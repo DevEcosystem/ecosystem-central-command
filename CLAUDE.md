@@ -163,6 +163,32 @@ devflow-orchestrator/
 - Architecture documentation updates
 - Issue naming convention compliance
 
+## Branch Cleanup & Maintenance
+
+### Weekly Branch Cleanup
+- **Automated monitoring**: GitHub Actions checks daily for orphaned branches
+- **Issue notifications**: Auto-created weekly cleanup reminders
+- **Manual cleanup**: Use `./scripts/branch-cleanup.sh interactive` 
+- **Safety first**: Never auto-delete local branches (manual confirmation required)
+
+### Cleanup Commands
+```bash
+# Check orphaned branches
+./scripts/branch-cleanup.sh check
+
+# Interactive cleanup (recommended)
+./scripts/branch-cleanup.sh interactive
+
+# Auto-delete merged branches only
+./scripts/branch-cleanup.sh auto-safe
+```
+
+### VS Code Integration
+- **Cmd+Shift+P** → "Tasks: Run Task" → "DevFlow: Branch Cleanup Check"
+- **Cmd+Shift+P** → "Tasks: Run Task" → "DevFlow: Interactive Branch Cleanup"
+
+For detailed guidance, see: `docs/BRANCH_CLEANUP_GUIDE.md`
+
 ## GitHub Integration
 
 ### Issues

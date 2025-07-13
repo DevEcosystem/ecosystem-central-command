@@ -19,6 +19,12 @@ This documentation center provides comprehensive guidance for the world-class Gi
 - **[System Implementation Timeline](SYSTEM_IMPLEMENTATION_TIMELINE.md)** - Development history
 - **[GitHub Actions Setup](GITHUB_ACTIONS_SETUP.md)** - Automation configuration
 
+### **🌿 DevFlow Branch Management**
+- **[Issue Naming Convention](ISSUE_NAMING_CONVENTION.md)** - Standardized issue naming with emoji classification
+- **[Team Development Strategy](TEAM_DEVELOPMENT_STRATEGY.md)** - Coordinated parallel development workflows
+- **[Enterprise Conflict Management](ENTERPRISE_CONFLICT_MANAGEMENT.md)** - Realistic conflict resolution for team environments
+- **[Branch Cleanup Guide](BRANCH_CLEANUP_GUIDE.md)** - Weekly branch maintenance and automated monitoring
+
 ---
 
 ## 📋 Documentation Categories
