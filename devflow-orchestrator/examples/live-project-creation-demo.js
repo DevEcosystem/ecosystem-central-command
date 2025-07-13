@@ -275,6 +275,13 @@ class LiveProjectCreationDemo extends EventEmitter {
   async _validateEnvironment() {
     console.log('🔍 Validating environment...');
     
+    // Load environment variables first - check parent directory for centralized config
+    const dotenv = await import('dotenv');
+    dotenv.config({ path: '../.env' });        // Parent directory (ecosystem-central-command)
+    dotenv.config({ path: '.env' });           // Local override if exists
+    dotenv.config({ path: '../.env.local' });  // Parent local override
+    dotenv.config({ path: '.env.local' });     // Local override if exists
+    
     const { error } = validateEnv();
     if (error) {
       console.error('❌ Environment validation failed:');
