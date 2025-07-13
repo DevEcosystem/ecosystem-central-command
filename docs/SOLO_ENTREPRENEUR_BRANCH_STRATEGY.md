@@ -517,9 +517,7 @@ gh workflow run cleanup-merged-branches.yml -f dry_run=false
 
 ### 他リポジトリへの適用
 
-**テンプレートファイル**: `templates/branch-strategy/cleanup-merged-branches.yml`
-
-**適用手順**:
+**方法1: 直接参照（推奨）**
 ```bash
 # 1. 対象リポジトリに移動
 cd /path/to/your-repository
@@ -527,13 +525,20 @@ cd /path/to/your-repository
 # 2. ワークフローディレクトリ作成
 mkdir -p .github/workflows
 
-# 3. cleanup-merged-branches.yml をコピー
-cp /path/to/ecosystem-central-command/templates/branch-strategy/cleanup-merged-branches.yml .github/workflows/
+# 3. ecosystem-central-command から直接取得
+curl -o .github/workflows/cleanup-merged-branches.yml \
+  https://raw.githubusercontent.com/DevEcosystem/ecosystem-central-command/main/.github/workflows/cleanup-merged-branches.yml
 
 # 4. コミット＆プッシュ
 git add .github/workflows/cleanup-merged-branches.yml
-git commit -m "feat: add automated branch cleanup workflow"
+git commit -m "feat: add automated branch cleanup workflow from ecosystem-central-command"
 git push
+```
+
+**方法2: ローカルコピー（ecosystem-central-commandをクローン済みの場合）**
+```bash
+# ecosystem-central-command の場所から直接コピー
+cp ~/code/github-ecosystem/ecosystem-central-command/.github/workflows/cleanup-merged-branches.yml .github/workflows/
 ```
 
 **Organization別カスタマイズ**:
