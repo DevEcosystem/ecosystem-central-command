@@ -275,19 +275,21 @@ A: 短縮形を使用：DevBiz, DevPer, DevAca, DevEco
 IssueからBranchへの自動変換により、トレーサビリティを確保します。
 
 ```
-feature/[PROJECT-PREFIX]-[NUMBER]-[short-description]
-hotfix/[PROJECT-PREFIX]-[NUMBER]-[short-description]
+feature/[PROJECT-PREFIX]-[ISSUE-NUMBER]-[short-description]
+hotfix/[PROJECT-PREFIX]-[ISSUE-NUMBER]-[short-description]
 ```
+
+**重要**: `[ISSUE-NUMBER]` はGitHub Issue番号を使用（連番ではない）
 
 ### Project Prefix 対応表
 
 | Organization | Project | Prefix | 例 |
 |--------------|---------|--------|-----|
 | DevBusinessHub | 一般プロダクト | USER, BUG, SEC | `feature/USER-123-authentication` |
-| DevBusinessHub | DevFlow Orchestrator | DEVFLOW | `feature/DEVFLOW-001-architecture-design` |
-| DevPersonalHub | 実験プロジェクト | EXP, ML, AI | `feature/EXP-001-ai-integration` |
-| DevAcademicHub | 研究プロジェクト | RESEARCH, THESIS | `feature/RESEARCH-001-deep-learning` |
-| DevEcosystem | インフラ・ツール | INFRA, GLOBAL | `feature/GLOBAL-001-ci-cd-pipeline` |
+| DevBusinessHub | DevFlow Orchestrator | DEVFLOW | `feature/DEVFLOW-123-architecture-design` |
+| DevPersonalHub | 実験プロジェクト | EXP, ML, AI | `feature/EXP-456-ai-integration` |
+| DevAcademicHub | 研究プロジェクト | RESEARCH, THESIS | `feature/RESEARCH-789-deep-learning` |
+| DevEcosystem | インフラ・ツール | INFRA, GLOBAL | `feature/GLOBAL-321-ci-cd-pipeline` |
 
 ### 自動化対応JSON設定
 
@@ -326,46 +328,57 @@ hotfix/[PROJECT-PREFIX]-[NUMBER]-[short-description]
 
 ### DevFlow Orchestrator MVP 具体例
 
-Phase 1 MVP Issue例とBranch名の対応：
+実際のGitHub Issue番号とBranch名の対応：
 
 ```bash
-# 📐 DevFlow: Architecture Design & Foundation
-🚀 feat: [DEVFLOW-001] アーキテクチャ設計基盤
-→ feature/DEVFLOW-001-architecture-design
+# GitHub Issue #11: 📐 DevFlow Orchestrator: Architecture Design & Foundation
+📐 feat: [DEVFLOW-11] アーキテクチャ設計基盤
+→ feature/DEVFLOW-11-architecture-design
 
-# 🔌 DevFlow: Implement GitHub Projects V2 API Integration
-🔌 feat: [DEVFLOW-002] GitHub Projects V2 API統合
-→ feature/DEVFLOW-002-github-projects-v2-api
+# GitHub Issue #12: 🔌 Implement GitHub Projects V2 API Integration
+🔌 feat: [DEVFLOW-12] GitHub Projects V2 API統合
+→ feature/DEVFLOW-12-github-projects-v2-api
 
-# ⚙️ DevFlow: Create DevFlow Configuration System
-⚙️ feat: [DEVFLOW-003] DevFlow設定システム作成
-→ feature/DEVFLOW-003-configuration-system
+# GitHub Issue #13: ⚙️ DevFlow Configuration System Creation
+⚙️ feat: [DEVFLOW-13] DevFlow設定システム作成
+→ feature/DEVFLOW-13-configuration-system
 
-# 🚀 DevFlow: Add Automatic Project Creation
-🚀 feat: [DEVFLOW-004] 自動プロジェクト作成機能追加
-→ feature/DEVFLOW-004-auto-project-creation
+# GitHub Issue #14: 🚀 Automatic Project Creation for New Repositories
+🚀 feat: [DEVFLOW-14] 自動プロジェクト作成機能追加
+→ feature/DEVFLOW-14-auto-project-creation
 
-# 📊 DevFlow: Integrate Basic Dashboard
-📊 feat: [DEVFLOW-005] 基本ダッシュボード統合
-→ feature/DEVFLOW-005-basic-dashboard
+# GitHub Issue #15: 📊 Basic DevFlow Dashboard Integration
+📊 feat: [DEVFLOW-15] 基本ダッシュボード統合
+→ feature/DEVFLOW-15-basic-dashboard
 ```
+
+**実例**: 実際のDevEcosystem/ecosystem-central-command Issues #11-15に基づく命名
 
 ### 自動Branch作成コマンド
 
 ```bash
-# GitHub CLI使用（推奨）
+# GitHub CLI使用（推奨） - Issue番号自動取得
 gh issue view 123 --json title,number | jq -r '"feature/DEVFLOW-" + (.number|tostring) + "-" + (.title | ascii_downcase | gsub("[^a-z0-9]"; "-") | gsub("-+"; "-") | .[0:30])'
 
-# 手動作成パターン
+# 手動作成パターン（Issue #123の場合）
 git checkout develop
-git checkout -b feature/DEVFLOW-001-architecture-design
+git checkout -b feature/DEVFLOW-123-architecture-design
+
+# 実際の使用例（DevFlow Orchestrator MVP）
+git checkout -b feature/DEVFLOW-11-architecture-design   # GitHub Issue #11
+git checkout -b feature/DEVFLOW-12-github-projects-v2-api # GitHub Issue #12
+git checkout -b feature/DEVFLOW-13-configuration-system  # GitHub Issue #13
 ```
 
 ### Branch→PR自動リンク
 
 ```bash
-# PR作成時にIssueを自動リンク
-gh pr create --title "🚀 feat: [DEVFLOW-001] アーキテクチャ設計基盤" --body "Closes #123"
+# PR作成時にIssueを自動リンク（Issue #11の場合）
+gh pr create --title "📐 feat: [DEVFLOW-11] アーキテクチャ設計基盤" --body "Closes #11"
+
+# GitHub自動検出でも可能
+gh pr create --title "📐 feat: [DEVFLOW-11] アーキテクチャ設計基盤"
+# Branch名からIssue番号を自動検出してリンク
 ```
 
 ### ワークフロー統合例
