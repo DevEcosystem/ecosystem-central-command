@@ -268,6 +268,127 @@ A: 影響度の大きい順：security > hotfix > feat > fix > others
 A: 短縮形を使用：DevBiz, DevPer, DevAca, DevEco
 ```
 
+## 🌿 Branch命名規則
+
+### 基本形式
+
+IssueからBranchへの自動変換により、トレーサビリティを確保します。
+
+```
+feature/[PROJECT-PREFIX]-[NUMBER]-[short-description]
+hotfix/[PROJECT-PREFIX]-[NUMBER]-[short-description]
+```
+
+### Project Prefix 対応表
+
+| Organization | Project | Prefix | 例 |
+|--------------|---------|--------|-----|
+| DevBusinessHub | 一般プロダクト | USER, BUG, SEC | `feature/USER-123-authentication` |
+| DevBusinessHub | DevFlow Orchestrator | DEVFLOW | `feature/DEVFLOW-001-architecture-design` |
+| DevPersonalHub | 実験プロジェクト | EXP, ML, AI | `feature/EXP-001-ai-integration` |
+| DevAcademicHub | 研究プロジェクト | RESEARCH, THESIS | `feature/RESEARCH-001-deep-learning` |
+| DevEcosystem | インフラ・ツール | INFRA, GLOBAL | `feature/GLOBAL-001-ci-cd-pipeline` |
+
+### 自動化対応JSON設定
+
+```json
+{
+  "branchNaming": {
+    "patterns": {
+      "feature": "feature/{prefix}-{number:03d}-{description}",
+      "hotfix": "hotfix/{prefix}-{number:03d}-{description}",
+      "bugfix": "bugfix/{prefix}-{number:03d}-{description}"
+    },
+    "prefixes": {
+      "DevBusinessHub": {
+        "general": ["USER", "BUG", "SEC", "PERF"],
+        "devflow": ["DEVFLOW"]
+      },
+      "DevPersonalHub": {
+        "experiment": ["EXP", "ML", "AI", "UI"]
+      },
+      "DevAcademicHub": {
+        "research": ["RESEARCH", "THESIS", "CS", "DATA"]
+      },
+      "DevEcosystem": {
+        "infrastructure": ["INFRA", "GLOBAL", "TEMPLATE"]
+      }
+    },
+    "validation": {
+      "maxLength": 50,
+      "allowedChars": "a-z0-9-",
+      "requirePrefix": true,
+      "requireNumber": true
+    }
+  }
+}
+```
+
+### DevFlow Orchestrator MVP 具体例
+
+Phase 1 MVP Issue例とBranch名の対応：
+
+```bash
+# 📐 DevFlow: Architecture Design & Foundation
+🚀 feat: [DEVFLOW-001] アーキテクチャ設計基盤
+→ feature/DEVFLOW-001-architecture-design
+
+# 🔌 DevFlow: Implement GitHub Projects V2 API Integration
+🔌 feat: [DEVFLOW-002] GitHub Projects V2 API統合
+→ feature/DEVFLOW-002-github-projects-v2-api
+
+# ⚙️ DevFlow: Create DevFlow Configuration System
+⚙️ feat: [DEVFLOW-003] DevFlow設定システム作成
+→ feature/DEVFLOW-003-configuration-system
+
+# 🚀 DevFlow: Add Automatic Project Creation
+🚀 feat: [DEVFLOW-004] 自動プロジェクト作成機能追加
+→ feature/DEVFLOW-004-auto-project-creation
+
+# 📊 DevFlow: Integrate Basic Dashboard
+📊 feat: [DEVFLOW-005] 基本ダッシュボード統合
+→ feature/DEVFLOW-005-basic-dashboard
+```
+
+### 自動Branch作成コマンド
+
+```bash
+# GitHub CLI使用（推奨）
+gh issue view 123 --json title,number | jq -r '"feature/DEVFLOW-" + (.number|tostring) + "-" + (.title | ascii_downcase | gsub("[^a-z0-9]"; "-") | gsub("-+"; "-") | .[0:30])'
+
+# 手動作成パターン
+git checkout develop
+git checkout -b feature/DEVFLOW-001-architecture-design
+```
+
+### Branch→PR自動リンク
+
+```bash
+# PR作成時にIssueを自動リンク
+gh pr create --title "🚀 feat: [DEVFLOW-001] アーキテクチャ設計基盤" --body "Closes #123"
+```
+
+### ワークフロー統合例
+
+```yaml
+# .github/workflows/branch-validation.yml
+name: Branch Name Validation
+on:
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch naming
+        run: |
+          if [[ ! "${{ github.head_ref }}" =~ ^(feature|hotfix|bugfix)\/[A-Z]+-[0-9]{3,}-[a-z0-9-]+$ ]]; then
+            echo "Branch name does not follow naming convention"
+            exit 1
+          fi
+```
+
 ## 🔄 継続的改善
 
 この命名規則は運用データに基づいて継続的に改善されます：
