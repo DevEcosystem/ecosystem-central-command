@@ -1,0 +1,57 @@
+{
+  "name": "devflow-orchestrator",
+  "version": "1.0.0",
+  "description": "Intelligent project and workflow management system for GitHub ecosystem",
+  "main": "core/orchestrator.js",
+  "type": "module",
+  "scripts": {
+    "start": "node core/orchestrator.js",
+    "dev": "node --watch core/orchestrator.js",
+    "test": "node --test tests/**/*.test.js",
+    "test:watch": "node --test --watch tests/**/*.test.js",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write .",
+    "docs": "jsdoc -c jsdoc.config.json",
+    "build": "npm run lint && npm run test",
+    "health-check": "node utils/health-check.js"
+  },
+  "keywords": [
+    "github",
+    "projects",
+    "workflow",
+    "automation",
+    "devops",
+    "orchestration"
+  ],
+  "author": "DevEcosystem",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.2",
+    "@octokit/graphql": "^7.0.2",
+    "@octokit/webhooks": "^12.0.4",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "winston": "^3.11.0",
+    "node-cache": "^5.1.2",
+    "joi": "^17.11.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "jsdoc": "^4.0.2",
+    "supertest": "^6.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevEcosystem/ecosystem-central-command.git",
+    "directory": "devflow-orchestrator"
+  },
+  "bugs": {
+    "url": "https://github.com/DevEcosystem/ecosystem-central-command/issues"
+  },
+  "homepage": "https://github.com/DevEcosystem/ecosystem-central-command/tree/main/devflow-orchestrator#readme"
+}
