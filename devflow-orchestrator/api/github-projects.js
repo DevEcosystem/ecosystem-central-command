@@ -593,6 +593,214 @@ export class GitHubProjectsAPI {
       };
     }
   }
+
+  /**
+   * Get owner (organization or user) node ID
+   * @param {string} login - Owner login name
+   * @returns {Promise<Object>} - Owner data with node ID
+   */
+  async getOwnerNodeId(login) {
+    try {
+      this.logger.info('Getting owner node ID', { login });
+      
+      const query = `
+        query($login: String!) {
+          repositoryOwner(login: $login) {
+            id
+            login
+            ... on Organization {
+              name
+              description
+            }
+            ... on User {
+              name
+              email
+            }
+          }
+        }
+      `;
+      
+      const result = await this.graphql(query, { login });
+      
+      if (!result.repositoryOwner) {
+        throw new Error(`Owner not found: ${login}`);
+      }
+      
+      this.logger.info('Owner node ID retrieved', { 
+        login, 
+        nodeId: result.repositoryOwner.id 
+      });
+      
+      return {
+        nodeId: result.repositoryOwner.id,
+        login: result.repositoryOwner.login,
+        name: result.repositoryOwner.name
+      };
+      
+    } catch (error) {
+      this.logger.error('Failed to get owner node ID', { 
+        login, 
+        error: error.message 
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Get repository node ID
+   * @param {string} owner - Repository owner
+   * @param {string} name - Repository name
+   * @returns {Promise<Object>} - Repository data with node ID
+   */
+  async getRepositoryNodeId(owner, name) {
+    try {
+      this.logger.info('Getting repository node ID', { owner, name });
+      
+      const query = `
+        query($owner: String!, $name: String!) {
+          repository(owner: $owner, name: $name) {
+            id
+            name
+            nameWithOwner
+            description
+            url
+            isPrivate
+          }
+        }
+      `;
+      
+      const result = await this.graphql(query, { owner, name });
+      
+      if (!result.repository) {
+        throw new Error(`Repository not found: ${owner}/${name}`);
+      }
+      
+      this.logger.info('Repository node ID retrieved', { 
+        repository: result.repository.nameWithOwner,
+        nodeId: result.repository.id 
+      });
+      
+      return {
+        nodeId: result.repository.id,
+        name: result.repository.name,
+        nameWithOwner: result.repository.nameWithOwner,
+        description: result.repository.description,
+        url: result.repository.url,
+        isPrivate: result.repository.isPrivate
+      };
+      
+    } catch (error) {
+      this.logger.error('Failed to get repository node ID', { 
+        owner, 
+        name, 
+        error: error.message 
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Add repository to project
+   * @param {string} projectId - Project node ID
+   * @param {string} repositoryId - Repository node ID
+   * @returns {Promise<Object>} - Link result
+   */
+  async addRepositoryToProject(projectId, repositoryId) {
+    try {
+      this.logger.info('Linking repository to project', { projectId, repositoryId });
+      
+      const mutation = `
+        mutation($projectId: ID!, $repositoryId: ID!) {
+          linkRepositoryToProject(input: {
+            projectId: $projectId
+            repositoryId: $repositoryId
+          }) {
+            repository {
+              id
+              nameWithOwner
+            }
+            project {
+              id
+              title
+            }
+          }
+        }
+      `;
+      
+      const result = await this.graphql(mutation, { projectId, repositoryId });
+      
+      this.logger.info('Repository linked to project successfully', {
+        repository: result.linkRepositoryToProject.repository.nameWithOwner,
+        project: result.linkRepositoryToProject.project.title
+      });
+      
+      return result.linkRepositoryToProject;
+      
+    } catch (error) {
+      this.logger.error('Failed to link repository to project', { 
+        projectId, 
+        repositoryId, 
+        error: error.message 
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Create project view
+   * @param {string} projectId - Project node ID
+   * @param {Object} viewData - View configuration
+   * @returns {Promise<Object>} - Created view
+   */
+  async createProjectView(projectId, viewData) {
+    try {
+      this.logger.info('Creating project view', { 
+        projectId, 
+        viewName: viewData.name,
+        layout: viewData.layout 
+      });
+      
+      const mutation = `
+        mutation($projectId: ID!, $name: String!, $layout: ProjectV2ViewLayout!) {
+          createProjectV2View(input: {
+            projectId: $projectId
+            name: $name
+            layout: $layout
+          }) {
+            projectV2View {
+              id
+              name
+              layout
+              number
+              createdAt
+            }
+          }
+        }
+      `;
+      
+      const result = await this.graphql(mutation, { 
+        projectId, 
+        name: viewData.name,
+        layout: viewData.layout
+      });
+      
+      this.logger.info('Project view created successfully', {
+        viewId: result.createProjectV2View.projectV2View.id,
+        viewName: result.createProjectV2View.projectV2View.name,
+        layout: result.createProjectV2View.projectV2View.layout
+      });
+      
+      return result.createProjectV2View.projectV2View;
+      
+    } catch (error) {
+      this.logger.error('Failed to create project view', { 
+        projectId, 
+        viewData, 
+        error: error.message 
+      });
+      throw error;
+    }
+  }
 }
 
 export default GitHubProjectsAPI;

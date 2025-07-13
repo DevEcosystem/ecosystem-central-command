@@ -84,6 +84,59 @@ const result = await orchestrator.processIssue(
   { id: 123, title: '🚀 feat: Add user authentication' },
   { repository: 'my-app', organization: 'DevBusinessHub' }
 );
+
+// Automatically create GitHub Projects V2
+const projectResult = await orchestrator.createProjectForRepository({
+  name: 'my-new-app',
+  owner: 'DevBusinessHub',
+  description: 'Production-ready application'
+});
+
+console.log(`Project created: ${projectResult.project.url}`);
+```
+
+---
+
+## 🤖 Automatic Project Creation
+
+DevFlow Orchestrator can automatically create GitHub Projects V2 with organization-specific templates:
+
+```javascript
+import { ProjectAutomationService } from './core/project-automation.js';
+
+// Create project automation service
+const projectAutomation = new ProjectAutomationService(config);
+
+// Create a single project
+const result = await projectAutomation.createProjectForRepository({
+  name: 'awesome-app',
+  owner: 'DevBusinessHub',
+  description: 'Customer-facing web application'
+});
+
+// Create multiple projects
+const repositories = [
+  { name: 'web-app', owner: 'DevBusinessHub', description: 'Web application' },
+  { name: 'mobile-app', owner: 'DevBusinessHub', description: 'Mobile app' }
+];
+
+const bulkResult = await projectAutomation.createProjectsForRepositories(repositories);
+
+// Create demo projects for testing
+const demoResult = await projectAutomation.createDemoProject('DevBusinessHub', {
+  projectName: 'Demo Business Project',
+  description: 'Showcase of automation capabilities'
+});
+```
+
+### Live Demo
+
+```bash
+# Simulate project creation (safe)
+npm run demo:projects -- --dry-run
+
+# Create actual GitHub Projects V2
+npm run demo:projects -- --create-real-projects
 ```
 
 ---
@@ -122,9 +175,9 @@ DevFlow Orchestrator adapts to your organization's workflow:
 
 ### ✅ Phase 1: MVP Foundation
 - [x] **Architecture Design & Foundation** (Issue #11)
-- [ ] **GitHub Projects V2 API Integration** (Issue #12)
-- [ ] **DevFlow Configuration System** (Issue #13)  
-- [ ] **Automatic Project Creation** (Issue #14)
+- [x] **GitHub Projects V2 API Integration** (Issue #12)
+- [x] **DevFlow Configuration System** (Issue #13)  
+- [x] **Automatic Project Creation** (Issue #14)
 - [ ] **Basic Dashboard Integration** (Issue #15)
 
 ### 🔄 Phase 2: Core Features (Planned)
