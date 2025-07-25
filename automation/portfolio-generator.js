@@ -68,9 +68,9 @@ class PortfolioGenerator {
     }
     
     const dataFiles = {
-      business: '../organizations/business-hub-overview.md',
-      personal: '../organizations/personal-lab-showcase.md',
-      academic: '../organizations/academic-hub-achievements.md'
+      business: '../docs/organizations/business-hub-overview.md',
+      personal: '../docs/organizations/personal-lab-showcase.md',
+      academic: '../docs/organizations/academic-hub-achievements.md'
     };
 
     for (const [key, filePath] of Object.entries(dataFiles)) {
