@@ -2,7 +2,7 @@
 
 /**
  * GitHub API Integration for External Repository Tracking
- * Tracks contributions to external repositories like adscicle/unicopi_ui
+ * Tracks contributions to external client repositories
  */
 
 const fs = require('fs');
@@ -12,8 +12,8 @@ class GitHubAPIIntegration {
   constructor() {
     this.externalRepos = [
       {
-        owner: 'adscicle',
-        repo: 'unicopi_ui',
+        owner: 'external-client',
+        repo: 'client-project',
         myContributor: 'your-github-username', // Replace with actual username
         role: 'Frontend Developer',
         technologies: ['React', 'Next.js', 'S3', 'TypeScript'],
@@ -31,7 +31,7 @@ class GitHubAPIIntegration {
     
     // Simulated data - replace with actual GitHub API calls when token is available
     this.contributionData = {
-      'adscicle/unicopi_ui': {
+      'external-client/client-project': {
         totalCommits: 45,
         totalPRs: 12,
         totalIssues: 5,
@@ -90,30 +90,30 @@ class GitHubAPIIntegration {
 
 ## 📊 Live Contribution Metrics
 
-### Adscicle - Unicopi UI Platform
-**Repository**: [\`adscicle/unicopi_ui\`](https://github.com/adscicle/unicopi_ui) (External)  
+### Enterprise SaaS Platform
+**Repository**: External Client Repository  
 **Role**: Frontend Developer (Active Collaborator)  
 **Status**: 🔄 Active Development  
 
 #### Live Contribution Data
 \`\`\`
-Total Commits: ${collaborationData['adscicle/unicopi_ui'].totalCommits}+
-Pull Requests: ${collaborationData['adscicle/unicopi_ui'].totalPRs}+ merged
-Issues Resolved: ${collaborationData['adscicle/unicopi_ui'].totalIssues}+
-Code Impact: +${collaborationData['adscicle/unicopi_ui'].linesAdded}/-${collaborationData['adscicle/unicopi_ui'].linesRemoved} lines
-Last Activity: ${new Date(collaborationData['adscicle/unicopi_ui'].lastContribution).toLocaleDateString()}
+Total Commits: ${collaborationData['external-client/client-project'].totalCommits}+
+Pull Requests: ${collaborationData['external-client/client-project'].totalPRs}+ merged
+Issues Resolved: ${collaborationData['external-client/client-project'].totalIssues}+
+Code Impact: +${collaborationData['external-client/client-project'].linesAdded}/-${collaborationData['external-client/client-project'].linesRemoved} lines
+Last Activity: ${new Date(collaborationData['external-client/client-project'].lastContribution).toLocaleDateString()}
 \`\`\`
 
 #### Technical Contributions
-${collaborationData['adscicle/unicopi_ui'].majorFeatures.map(feature => `- ✅ **${feature}**`).join('\n')}
+${collaborationData['external-client/client-project'].majorFeatures.map(feature => `- ✅ **${feature}**`).join('\n')}
 
 #### Technology Stack Integration
-${collaborationData['adscicle/unicopi_ui'].techStack.map(tech => `- 🔧 **${tech}**`).join('\n')}
+${collaborationData['external-client/client-project'].techStack.map(tech => `- 🔧 **${tech}**`).join('\n')}
 
 ## 🎯 Business Integration Impact
 
 ### Revenue & Relationship Building
-- **Active Client Relationship**: Contributing to Adscicle partnership
+- **Active Client Relationship**: Contributing to enterprise client partnership
 - **Technical Credibility**: Demonstrable enterprise-level contributions
 - **Network Expansion**: Professional relationships in development community
 - **Portfolio Enhancement**: Real-world project experience documentation
@@ -125,7 +125,7 @@ ${summary.skillsGained.map(skill => `- 📈 **${skill}**`).join('\n')}
 
 | Repository | Commits | Status | Impact | Technologies |
 |------------|---------|---------|---------|-------------|
-| **adscicle/unicopi_ui** | ${collaborationData['adscicle/unicopi_ui'].totalCommits}+ | 🔄 Active | ${collaborationData['adscicle/unicopi_ui'].impact} | ${collaborationData['adscicle/unicopi_ui'].techStack.join(', ')} |
+| **External Client Project** | ${collaborationData['external-client/client-project'].totalCommits}+ | 🔄 Active | ${collaborationData['external-client/client-project'].impact} | ${collaborationData['external-client/client-project'].techStack.join(', ')} |
 
 ### Integration with Internal Ecosystem
 \`\`\`
@@ -149,40 +149,40 @@ This file is automatically updated by the ecosystem automation system:
 *Last Updated: ${new Date().toISOString()} | Status: Active Monitoring | Next Update: Automated*
 *Data Collection: ${summary.totalExternalRepos} external repositories tracked*`;
 
-    // Write to external collaborations file
-    const filePath = path.join(__dirname, '../organizations/external-collaborations.md');
-    fs.writeFileSync(filePath, updatedContent, 'utf8');
+    const filePath = path.join(__dirname, '../docs/organizations/external-collaborations.md');
+    fs.writeFileSync(filePath, updatedContent);
+    console.log(`✅ Updated external collaborations at ${filePath}`);
     
-    console.log('✅ External collaborations file updated');
-    return updatedContent;
+    return summary;
   }
 
   /**
-   * Integration with metrics collector
+   * Run the complete integration
    */
-  getExternalMetricsForIntegration() {
-    return {
-      externalContributions: {
-        totalRepositories: this.externalRepos.length,
-        totalCommits: 45,
-        activePeriodMonths: 6,
-        businessImpact: 'High',
-        technicalGrowth: 'Significant'
-      }
-    };
+  async run() {
+    console.log('🚀 Starting GitHub API integration...');
+    
+    try {
+      const summary = await this.updateExternalCollaborationsFile();
+      
+      console.log('📊 External Repository Summary:');
+      console.log(`  • Total external repos tracked: ${summary.totalExternalRepos}`);
+      console.log(`  • Active collaborations: ${summary.activeCollaborations}`);
+      console.log(`  • Total external commits: ${summary.totalCommitsExternal}+`);
+      console.log(`  • Technologies used: ${summary.technologiesUsed.join(', ')}`);
+      
+      console.log('✅ GitHub API integration completed successfully!');
+    } catch (error) {
+      console.error('❌ GitHub API integration failed:', error.message);
+      process.exit(1);
+    }
   }
 }
 
-// CLI execution
+// Execute if called directly
 if (require.main === module) {
   const integration = new GitHubAPIIntegration();
-  integration.updateExternalCollaborationsFile()
-    .then(() => {
-      console.log('🎉 External repository integration completed!');
-    })
-    .catch(error => {
-      console.error('❌ Integration failed:', error.message);
-    });
+  integration.run();
 }
 
 module.exports = GitHubAPIIntegration;

@@ -4,8 +4,8 @@
 
 ## 📊 Live Contribution Metrics
 
-### Adscicle - Unicopi UI Platform
-**Repository**: [`adscicle/unicopi_ui`](https://github.com/adscicle/unicopi_ui) (External)  
+### Enterprise SaaS Platform
+**Repository**: External Client Repository  
 **Role**: Frontend Developer (Active Collaborator)  
 **Status**: 🔄 Active Development  
 
@@ -33,7 +33,7 @@ Last Activity: 7/12/2025
 ## 🎯 Business Integration Impact
 
 ### Revenue & Relationship Building
-- **Active Client Relationship**: Contributing to Adscicle partnership
+- **Active Client Relationship**: Contributing to enterprise client partnership
 - **Technical Credibility**: Demonstrable enterprise-level contributions
 - **Network Expansion**: Professional relationships in development community
 - **Portfolio Enhancement**: Real-world project experience documentation
@@ -48,7 +48,7 @@ Last Activity: 7/12/2025
 
 | Repository | Commits | Status | Impact | Technologies |
 |------------|---------|---------|---------|-------------|
-| **adscicle/unicopi_ui** | 45+ | 🔄 Active | High | React, Next.js, S3, TypeScript |
+| **External Client Project** | 45+ | 🔄 Active | High | React, Next.js, S3, TypeScript |
 
 ### Integration with Internal Ecosystem
 ```

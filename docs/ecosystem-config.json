@@ -4,19 +4,25 @@
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
-      "total_repositories": 4,
-      "active_repositories": 4,
+      "total_repositories": 7,
+      "active_repositories": 7,
       "repositories": [
         "business-portfolio",
         "business-management",
         "client-language-platform",
-        "client-investigation"
+        "client-investigation",
+        "client-project-1",
+        "client-project-2",
+        "client-project-3"
       ],
       "active_repository_names": [
         "business-portfolio",
         "business-management",
         "client-language-platform",
-        "client-investigation"
+        "client-investigation",
+        "client-project-1",
+        "client-project-2",
+        "client-project-3"
       ],
       "primary_languages": [
         {
