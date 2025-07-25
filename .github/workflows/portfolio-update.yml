@@ -144,10 +144,10 @@ jobs:
           "README.md"
           "AUTOMATION_SUMMARY.md"
           "package.json"
-          "organizations/business-hub-overview.md"
-          "organizations/personal-lab-showcase.md"
-          "organizations/academic-hub-achievements.md"
-          "organizations/external-collaborations.md"
+          "docs/organizations/business-hub-overview.md"
+          "docs/organizations/personal-lab-showcase.md"
+          "docs/organizations/academic-hub-achievements.md"
+          "docs/organizations/external-collaborations.md"
         )
         
         for file in "${REQUIRED_FILES[@]}"; do
