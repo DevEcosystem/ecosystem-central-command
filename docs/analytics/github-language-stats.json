@@ -94,8 +94,8 @@
             "data_source": "mock"
           }
         },
-        "fpstation": {
-          "name": "fpstation",
+        "client-project-1": {
+          "name": "client-project-1",
           "languages": {
             "JavaScript": 3200,
             "TypeScript": 2800,
@@ -112,8 +112,8 @@
             "data_source": "mock"
           }
         },
-        "pochi-baito": {
-          "name": "pochi-baito",
+        "client-project-2": {
+          "name": "client-project-2",
           "languages": {
             "TypeScript": 4200,
             "JavaScript": 1800,
@@ -130,8 +130,8 @@
             "data_source": "mock"
           }
         },
-        "client-fpstation": {
-          "name": "client-fpstation",
+        "client-project-3": {
+          "name": "client-project-3",
           "languages": {
             "JavaScript": 2900,
             "TypeScript": 2100,

@@ -25,10 +25,10 @@ Technology Stack Diversity: 8+ modern frameworks
 
 ## 🚀 Featured Project Highlights
 
-### **Adscicle - Unicopi UI Platform**
+### **Enterprise SaaS Platform**
 **Role**: Frontend Developer (Collaborator)  
 **Duration**: Ongoing  
-**Repository**: `adscicle/unicopi_ui` (External collaboration)
+**Repository**: External client repository
 
 #### **Project Impact**
 - **Feature**: S3-integrated tooltip management system
