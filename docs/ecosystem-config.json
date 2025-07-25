@@ -4,19 +4,25 @@
   "organizations": {
     "DevBusinessHub": {
       "name": "DevBusinessHub",
-      "total_repositories": 4,
-      "active_repositories": 4,
+      "total_repositories": 7,
+      "active_repositories": 7,
       "repositories": [
         "business-portfolio",
         "business-management",
         "client-language-platform",
-        "client-investigation"
+        "client-investigation",
+        "fpstation",
+        "pochi-baito",
+        "client-fpstation"
       ],
       "active_repository_names": [
         "business-portfolio",
         "business-management",
         "client-language-platform",
-        "client-investigation"
+        "client-investigation",
+        "fpstation",
+        "pochi-baito",
+        "client-fpstation"
       ],
       "primary_languages": [
         {

@@ -93,65 +93,119 @@
             "accessible": true,
             "data_source": "mock"
           }
+        },
+        "fpstation": {
+          "name": "fpstation",
+          "languages": {
+            "JavaScript": 3200,
+            "TypeScript": 2800,
+            "CSS": 890,
+            "HTML": 560
+          },
+          "metadata": {
+            "total_lines": 7450,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-25T05:22:31.046Z",
+            "stars": 85,
+            "forks": 12,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "pochi-baito": {
+          "name": "pochi-baito",
+          "languages": {
+            "TypeScript": 4200,
+            "JavaScript": 1800,
+            "CSS": 1200,
+            "HTML": 800
+          },
+          "metadata": {
+            "total_lines": 8000,
+            "primary_language": "TypeScript",
+            "last_updated": "2025-07-25T05:22:31.046Z",
+            "stars": 92,
+            "forks": 18,
+            "accessible": true,
+            "data_source": "mock"
+          }
+        },
+        "client-fpstation": {
+          "name": "client-fpstation",
+          "languages": {
+            "JavaScript": 2900,
+            "TypeScript": 2100,
+            "CSS": 650,
+            "HTML": 450
+          },
+          "metadata": {
+            "total_lines": 6100,
+            "primary_language": "JavaScript",
+            "last_updated": "2025-07-25T05:22:31.046Z",
+            "stars": 76,
+            "forks": 14,
+            "accessible": true,
+            "data_source": "mock"
+          }
         }
       },
       "totals": {
-        "total_lines": 17440,
-        "total_repositories": 5,
-        "accessible_repositories": 5,
+        "total_lines": 38990,
+        "total_repositories": 8,
+        "accessible_repositories": 8,
         "languages": [
           {
             "language": "JavaScript",
-            "lines": 7150,
-            "percentage": "41.0",
+            "lines": 15850,
+            "percentage": "40.7",
             "rank": 1
           },
           {
             "language": "TypeScript",
-            "lines": 6070,
-            "percentage": "34.8",
+            "lines": 15170,
+            "percentage": "38.9",
             "rank": 2
           },
           {
             "language": "CSS",
-            "lines": 1294,
-            "percentage": "7.4",
+            "lines": 4034,
+            "percentage": "10.3",
             "rank": 3
+          },
+          {
+            "language": "HTML",
+            "lines": 2375,
+            "percentage": "6.1",
+            "rank": 4
           },
           {
             "language": "Node.js",
             "lines": 1200,
-            "percentage": "6.9",
-            "rank": 4
-          },
-          {
-            "language": "HTML",
-            "lines": 799,
-            "percentage": "4.6",
+            "percentage": "3.1",
             "rank": 5
           },
           {
             "language": "JSON",
             "lines": 340,
-            "percentage": "1.9",
+            "percentage": "0.9",
             "rank": 6
           },
           {
             "language": "Python",
             "lines": 340,
-            "percentage": "1.9",
+            "percentage": "0.9",
             "rank": 7
           },
           {
             "language": "Shell",
             "lines": 180,
-            "percentage": "1.0",
+            "percentage": "0.5",
             "rank": 8
           },
           {
             "language": "SCSS",
             "lines": 67,
-            "percentage": "0.4",
+            "percentage": "0.2",
             "rank": 9
           }
         ],
